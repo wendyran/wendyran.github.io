@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "My Blog History and Why I Blog"
-date:   2015-05-26 
+date:   date 
 categories: jekyll update
 ---
 I started my first personal blog using [MSN Space][MSN Space] (or Windows Live Spaces, shut down in 2011) starting summer 2006. It was after I graduated from my [high school][high school] and before I went to [Zhejiang University][Zhejiang University] for my undergraduate study. The MSN Space is where I kept a record of my thoughts after the stressful high school and before I entered my colorful college life. Since then, like many others, I've written in several different blogs: [ycool][ycool](previously 'yculblog'; Chinese name: 歪酷), [sina blog][sina blog], [baidu space][baidu space] (closed on May 7th, 2015) and [wordpress][wordpress]. 
