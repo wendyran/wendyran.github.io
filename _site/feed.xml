@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Versatile Spirit</title>
-    <subtitle></subtitle>
+    <subtitle>Ran Wei&#39;s Blog</subtitle>
     <description>Welcome to my website! 
 </description>
     <link>http://wendyran.github.io/</link>
     <atom:link href="http://wendyran.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 26 May 2015 02:21:00 -0400</pubDate>
-    <lastBuildDate>Tue, 26 May 2015 02:21:00 -0400</lastBuildDate>
+    <pubDate>Tue, 26 May 2015 16:42:32 -0400</pubDate>
+    <lastBuildDate>Tue, 26 May 2015 16:42:32 -0400</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
