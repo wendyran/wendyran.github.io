@@ -160,6 +160,15 @@ pre {
   .site-title, .site-title:visited {
     color: #424242; }
 
+.site-subtitle {
+  font-size: 20px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  margin-bottom: 0;
+  float: left; }
+  .site-subtitle, .site-subtitle:visited {
+    color: #424242; }
+
 .site-nav {
   float: right;
   line-height: 56px; }
