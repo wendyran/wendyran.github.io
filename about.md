@@ -1,11 +1,8 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+My name is Ran Wei and I'm currently a Ph.D. student at [the Ohio State University](http://www.stat.osu.edu), with Statistics major and Computer Science minor. Before I came to the U.S., I got my bechelor's degree in statistics from [Zhejiang University](http://www.zju.edu.cn/english), China. My research interests land on the general area of social networks analysis, specifically network sampling inferences. My enthusiasm goes for using machine learning techniques to explore, understand and predict. My tech hobbies include torturing data (untill it confesses), solving programming challenges and playing with maths. 
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
