@@ -7,19 +7,19 @@
 </description>
     <link>http://wendyran.github.io/</link>
     <atom:link href="http://wendyran.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 27 May 2015 13:14:10 -0400</pubDate>
-    <lastBuildDate>Wed, 27 May 2015 13:14:10 -0400</lastBuildDate>
+    <pubDate>Wed, 27 May 2015 15:17:56 -0400</pubDate>
+    <lastBuildDate>Wed, 27 May 2015 15:17:56 -0400</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
-        <title>A Closer Look at Dicision Trees and Random Forests</title>
+        <title>A Closer Look at Decision Trees and Random Forests</title>
         <description>&lt;h2 id=&quot;decision-tree&quot;&gt;Decision Tree&lt;/h2&gt;
 
 &lt;h4 id=&quot;how-decision-tree-works&quot;&gt;1. How Decision Tree Works&lt;/h4&gt;
 
 &lt;p&gt;The definition of a decision tree (or classification &amp;amp; regression tree) procedure is:&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Begining with a parent node which contains the entire sample, the C&amp;amp;RT procedure iteratively examines all available independent, or splitting, variables, selects the one that results in binary groups that are most different with respect to the dependent variable, according to a predetermined splitting criterion and stops until the stopping rule is satisfied. At the point that no further split is made, a terminal node is created.&lt;/em&gt;[1]&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Beginning with a parent node which contains the entire sample, the C&amp;amp;RT procedure iteratively examines all available independent, or splitting, variables, selects the one that results in binary groups that are most different with respect to the dependent variable, according to a predetermined splitting criterion and stops when the stopping rule is satisfied. At the point that no further split is made, a terminal node is created.&lt;/em&gt;[1]&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Splitting Criterion&lt;/strong&gt;&lt;/p&gt;
 
@@ -102,7 +102,7 @@
     &lt;p&gt;Define the maximum number of levels to which the tree can grow.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Redetermine the minimum value of the splitting criterion.&lt;/p&gt;
+    &lt;p&gt;Predetermine the minimum value of the splitting criterion.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -130,7 +130,7 @@
 
 &lt;p&gt;&lt;strong&gt;M5&lt;/strong&gt;, an adaptation of a regression tree al- gorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.&lt;/p&gt;
 
-&lt;p&gt;A comparision talbe of CART, GUIDE and M5 is listed in [2].&lt;/p&gt;
+&lt;p&gt;A comparision table of CART, GUIDE and M5 is listed in [2].&lt;/p&gt;
 
 &lt;h4 id=&quot;properties-of-decision-tree-tbc&quot;&gt;3. Properties of Decision Tree (TBC)&lt;/h4&gt;
 

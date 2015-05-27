@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "A Closer Look at Dicision Trees and Random Forests"
+title:  "A Closer Look at Decision Trees and Random Forests"
 date:   2015-05-26 18:04:00
 categories: jekyll update
 ---
@@ -11,7 +11,7 @@ categories: jekyll update
 
 The definition of a decision tree (or classification & regression tree) procedure is:
 
-*Begining with a parent node which contains the entire sample, the C&RT procedure iteratively examines all available independent, or splitting, variables, selects the one that results in binary groups that are most different with respect to the dependent variable, according to a predetermined splitting criterion and stops until the stopping rule is satisfied. At the point that no further split is made, a terminal node is created.*[1]
+*Beginning with a parent node which contains the entire sample, the C&RT procedure iteratively examines all available independent, or splitting, variables, selects the one that results in binary groups that are most different with respect to the dependent variable, according to a predetermined splitting criterion and stops when the stopping rule is satisfied. At the point that no further split is made, a terminal node is created.*[1]
 
 **Splitting Criterion**
 
@@ -86,7 +86,7 @@ Larger values of the Gini improvement measure indicate greater difference with r
 
 - Define the maximum number of levels to which the tree can grow.
 
-- Redetermine the minimum value of the splitting criterion. 
+- Predetermine the minimum value of the splitting criterion. 
 
 #### 2. Related Algorithms [2]
 
@@ -108,7 +108,7 @@ Historically, the first regression tree algorithm is **AID** which appeared seve
 
 **M5**, an adaptation of a regression tree al- gorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.
 
-A comparision talbe of CART, GUIDE and M5 is listed in [2].
+A comparision table of CART, GUIDE and M5 is listed in [2].
 
 
 #### 3. Properties of Decision Tree (TBC)
