@@ -64,19 +64,19 @@ Take Gini Index as an example [1]
 
 -- 1. The first step involves calculating Gini impurity function for the parent node, which is sometimes referred to as the Gini diversity index. (Diversity index)
 
--- 2. The second step involves calculating the Gini diver- sity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)
+-- 2. The second step involves calculating the Gini diversity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)
 
--- 3. The third step involves calculating the weighted aver- age, according to the proportion of the parent node that is included in each child node, of the Gini diver- sity indexes for each of the child nodes. This can be obtained by solving the following equation:
+-- 3. The third step involves calculating the weighted average, according to the proportion of the parent node that is included in each child node, of the Gini diversity indexes for each of the child nodes. This can be obtained by solving the following equation:
 
 Weighted diversity index = [(p1)(diversity index1)] + [(p2)(diversity index2)],
 
 where p1 and p2 refer to the proportions of the parent node that are included in the respective child nodes.
 
--- 4. The last step requires calculating the Gini improve- ment measure, which is equal to the following:
+-- 4. The last step requires calculating the Gini improvement measure, which is equal to the following:
 
-Improvement measure = diversity index of parent node – weighted diversity index. 
+Improvement measure = diversity index of parent node weighted diversity index. 
 
-Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the depend- ent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.
+Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the dependent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.
 
 > Illustrating Example
 
@@ -106,7 +106,7 @@ A comparision talbe is listed in [2].
 
 Historically, the first regression tree algorithm is **AID** which appeared several years before THAID. The AID and CART regression tree methods follow Algorithm 1, with the node impurity being the sum of squared deviations about the mean and the node predicting the sample mean of Y.
 
-**M5**, an adaptation of a regression tree al- gorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.
+**M5**, an adaptation of a regression tree algorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.
 
 A comparision table of CART, GUIDE and M5 is listed in [2].
 
@@ -119,6 +119,8 @@ A comparision table of CART, GUIDE and M5 is listed in [2].
 
 
 ## Random Forest
+
+(Coming Soon)
 
 
 ----

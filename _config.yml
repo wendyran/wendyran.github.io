@@ -2,8 +2,7 @@
 title: Versatile Spirit 
 subtitle: Ran Wei's Blog 
 email: versatile.spirit.info@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  Welcome to my website! 
+description: Welcome to my website! Send me an email (versatile.spirit.info@gmail.com) if you have any comments or questions.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://wendyran.github.io" # the base hostname & protocol for your site
 twitter_username: wendyranstat

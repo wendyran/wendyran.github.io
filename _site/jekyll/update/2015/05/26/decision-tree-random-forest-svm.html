@@ -132,19 +132,19 @@
 
 <p>– 1. The first step involves calculating Gini impurity function for the parent node, which is sometimes referred to as the Gini diversity index. (Diversity index)</p>
 
-<p>– 2. The second step involves calculating the Gini diver- sity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)</p>
+<p>– 2. The second step involves calculating the Gini diversity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)</p>
 
-<p>– 3. The third step involves calculating the weighted aver- age, according to the proportion of the parent node that is included in each child node, of the Gini diver- sity indexes for each of the child nodes. This can be obtained by solving the following equation:</p>
+<p>– 3. The third step involves calculating the weighted average, according to the proportion of the parent node that is included in each child node, of the Gini diversity indexes for each of the child nodes. This can be obtained by solving the following equation:</p>
 
 <p>Weighted diversity index = [(p1)(diversity index1)] + [(p2)(diversity index2)],</p>
 
 <p>where p1 and p2 refer to the proportions of the parent node that are included in the respective child nodes.</p>
 
-<p>– 4. The last step requires calculating the Gini improve- ment measure, which is equal to the following:</p>
+<p>– 4. The last step requires calculating the Gini improvement measure, which is equal to the following:</p>
 
-<p>Improvement measure = diversity index of parent node – weighted diversity index.</p>
+<p>Improvement measure = diversity index of parent node weighted diversity index.</p>
 
-<p>Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the depend- ent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.</p>
+<p>Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the dependent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.</p>
 
 <blockquote>
   <p>Illustrating Example</p>
@@ -186,7 +186,7 @@
 
 <p>Historically, the first regression tree algorithm is <strong>AID</strong> which appeared several years before THAID. The AID and CART regression tree methods follow Algorithm 1, with the node impurity being the sum of squared deviations about the mean and the node predicting the sample mean of Y.</p>
 
-<p><strong>M5</strong>, an adaptation of a regression tree al- gorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.</p>
+<p><strong>M5</strong>, an adaptation of a regression tree algorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.</p>
 
 <p>A comparision table of CART, GUIDE and M5 is listed in [2].</p>
 
@@ -202,6 +202,8 @@
 </ul>
 
 <h2 id="random-forest">Random Forest</h2>
+
+<p>(Coming Soon)</p>
 
 <hr />
 <p>Wondering how I typed in the beautiful equations using Jekyll? These are two helpful posts that tell you how to use MathJex with Jekyll:</p>

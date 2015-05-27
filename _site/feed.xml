@@ -7,8 +7,8 @@
 </description>
     <link>http://wendyran.github.io/</link>
     <atom:link href="http://wendyran.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 27 May 2015 15:17:56 -0400</pubDate>
-    <lastBuildDate>Wed, 27 May 2015 15:17:56 -0400</lastBuildDate>
+    <pubDate>Wed, 27 May 2015 15:27:43 -0400</pubDate>
+    <lastBuildDate>Wed, 27 May 2015 15:27:43 -0400</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -74,19 +74,19 @@
 
 &lt;p&gt;– 1. The first step involves calculating Gini impurity function for the parent node, which is sometimes referred to as the Gini diversity index. (Diversity index)&lt;/p&gt;
 
-&lt;p&gt;– 2. The second step involves calculating the Gini diver- sity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)&lt;/p&gt;
+&lt;p&gt;– 2. The second step involves calculating the Gini diversity index for each of the two child nodes into which the parent node splits. (diversity index1 and diversity index2)&lt;/p&gt;
 
-&lt;p&gt;– 3. The third step involves calculating the weighted aver- age, according to the proportion of the parent node that is included in each child node, of the Gini diver- sity indexes for each of the child nodes. This can be obtained by solving the following equation:&lt;/p&gt;
+&lt;p&gt;– 3. The third step involves calculating the weighted average, according to the proportion of the parent node that is included in each child node, of the Gini diversity indexes for each of the child nodes. This can be obtained by solving the following equation:&lt;/p&gt;
 
 &lt;p&gt;Weighted diversity index = [(p1)(diversity index1)] + [(p2)(diversity index2)],&lt;/p&gt;
 
 &lt;p&gt;where p1 and p2 refer to the proportions of the parent node that are included in the respective child nodes.&lt;/p&gt;
 
-&lt;p&gt;– 4. The last step requires calculating the Gini improve- ment measure, which is equal to the following:&lt;/p&gt;
+&lt;p&gt;– 4. The last step requires calculating the Gini improvement measure, which is equal to the following:&lt;/p&gt;
 
-&lt;p&gt;Improvement measure = diversity index of parent node – weighted diversity index.&lt;/p&gt;
+&lt;p&gt;Improvement measure = diversity index of parent node weighted diversity index.&lt;/p&gt;
 
-&lt;p&gt;Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the depend- ent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.&lt;/p&gt;
+&lt;p&gt;Larger values of the Gini improvement measure indicate greater difference with respect to the prevalence of the dependent measure in the two child nodes. The independent variable whose split provides the largest value of the improvement measure is selected for splitting at each step.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Illustrating Example&lt;/p&gt;
@@ -128,7 +128,7 @@
 
 &lt;p&gt;Historically, the first regression tree algorithm is &lt;strong&gt;AID&lt;/strong&gt; which appeared several years before THAID. The AID and CART regression tree methods follow Algorithm 1, with the node impurity being the sum of squared deviations about the mean and the node predicting the sample mean of Y.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;M5&lt;/strong&gt;, an adaptation of a regression tree al- gorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;M5&lt;/strong&gt;, an adaptation of a regression tree algorithm by Quinlan uses a more computationally efficient strategy to construct piecewise linear models.&lt;/p&gt;
 
 &lt;p&gt;A comparision table of CART, GUIDE and M5 is listed in [2].&lt;/p&gt;
 
@@ -144,6 +144,8 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;random-forest&quot;&gt;Random Forest&lt;/h2&gt;
+
+&lt;p&gt;(Coming Soon)&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;Wondering how I typed in the beautiful equations using Jekyll? These are two helpful posts that tell you how to use MathJex with Jekyll:&lt;/p&gt;
