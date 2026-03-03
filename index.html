@@ -9,19 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #FFF5F0;
-            --bg-warm: #FFE8DC;
+            --bg: #FFF0F3;
+            --bg-warm: #FFE0E6;
             --text: #1A1A2E;
             --text-soft: #5A5A6E;
             --accent: #E8614D;
             --accent-dark: #D4522A;
             --accent-light: #FFB8A8;
-            --accent-pink: #F472B6;
+            --accent-pink: #EC4899;
             --accent-gold: #F59E0B;
-            --gradient: linear-gradient(135deg, #F472B6, #F59E0B);
-            --gradient-soft: linear-gradient(135deg, rgba(244,114,182,0.1), rgba(245,158,11,0.1));
+            --gradient: linear-gradient(135deg, #EC4899, #F59E0B);
+            --gradient-soft: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.12));
             --card: #FFFFFF;
-            --border: #F0D5C8;
+            --border: #F5C6D0;
             --serif: 'Instrument Serif', Georgia, serif;
             --sans: 'DM Sans', system-ui, sans-serif;
         }
@@ -39,9 +39,11 @@
         body {
             font-family: var(--sans);
             background: var(--bg);
+            background-image: radial-gradient(ellipse at 20% 0%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                              radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.06) 0%, transparent 50%);
             color: var(--text);
-            line-height: 1.65;
-            font-size: 1.05rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -51,7 +53,7 @@
             top: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(255, 245, 240, 0.88);
+            background: rgba(255, 240, 243, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -87,7 +89,7 @@
         nav .nav-links a {
             text-decoration: none;
             color: var(--text-soft);
-            font-size: 0.925rem;
+            font-size: 0.975rem;
             font-weight: 500;
             transition: color 0.2s;
             letter-spacing: 0.02em;
@@ -142,7 +144,7 @@
         }
 
         .hero-text p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--text-soft);
             line-height: 1.75;
             margin-bottom: 1rem;
@@ -185,7 +187,7 @@
             border-radius: 100px;
             text-decoration: none;
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             transition: all 0.2s;
         }
@@ -219,15 +221,15 @@
 
         .preorder-banner {
             margin-top: 0.75rem;
-            padding: 0.6rem 1rem;
+            padding: 0.7rem 1.1rem;
             background: var(--gradient-soft);
-            border: 1px solid rgba(244, 114, 182, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.25);
             border-radius: 10px;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             color: var(--text-soft);
             line-height: 1.5;
             text-align: center;
-            max-width: 340px;
+            max-width: 360px;
         }
 
         .preorder-banner a {
@@ -244,14 +246,14 @@
             display: inline-block;
             background: var(--gradient);
             color: #fff;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 0.15rem 0.5rem;
-            border-radius: 3px;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
             vertical-align: middle;
-            margin-right: 0.25rem;
+            margin-right: 0.3rem;
         }
 
         .hero-visual .hero-links {
@@ -261,8 +263,8 @@
         }
 
         .profile-image-container {
-            width: 340px;
-            height: 340px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             overflow: hidden;
             padding: 3px;
@@ -438,7 +440,7 @@
         }
 
         .timeline-date {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-soft);
             padding-top: 0.15rem;
         }
@@ -452,13 +454,13 @@
         .timeline-content .company {
             color: var(--accent);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin-bottom: 0.75rem;
         }
 
         .timeline-content p {
             color: var(--text-soft);
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.7;
         }
 
@@ -496,16 +498,17 @@
         }
 
         .card h3 {
-            font-family: var(--serif);
-            font-size: 1.3rem;
-            line-height: 1.3;
+            font-family: var(--sans);
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.4;
             margin-bottom: 0.75rem;
             letter-spacing: -0.01em;
         }
 
         .card p {
             color: var(--text-soft);
-            font-size: 0.925rem;
+            font-size: 0.975rem;
             line-height: 1.6;
         }
 
@@ -561,14 +564,14 @@
         }
 
         .edu-item h3 {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
         .edu-item .degree {
             color: var(--accent);
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
@@ -584,7 +587,7 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 100px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             color: var(--text);
             transition: all 0.2s;
@@ -621,7 +624,7 @@
         }
 
         .oss-card h3 {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             display: flex;
@@ -637,7 +640,7 @@
 
         .oss-card p {
             color: var(--text-soft);
-            font-size: 0.925rem;
+            font-size: 0.975rem;
             line-height: 1.6;
         }
 
@@ -655,7 +658,7 @@
         }
 
         footer p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-soft);
         }
 
@@ -667,7 +670,7 @@
         footer .footer-links a {
             color: var(--text-soft);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: color 0.2s;
         }
 
@@ -847,7 +850,7 @@
             </div>
             <div>
                 <div class="card-type">Chinese Book — China Machine Press · Nov 2025</div>
-                <h3>Data Science: Methods and Practice<br><span style="font-family: var(--sans); font-size: 0.95rem; font-weight: 400; color: var(--text-soft);">数据科学：方法与实践</span></h3>
+                <h3>Data Science: Methods and Practice<br><span style="font-family: var(--sans); font-size: 1rem; font-weight: 400; color: var(--text-soft);">数据科学：方法与实践</span></h3>
                 <p>A comprehensive data science textbook spanning 5 parts and 16 chapters — covering statistics, machine learning, deep learning, data engineering, product analytics, A/B experimentation, and domain applications in search, recommendation, advertising, NLP, and large language models. Combines methods with real-world industry practice.</p>
                 <div class="card-meta">ISBN: 978-7-111-79219-2</div>
             </div>
@@ -864,9 +867,9 @@
         <div class="edu-item">
             <h3>The Ohio State University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— US</span></h3>
             <div class="degree">PhD, Statistics · Minor in Computer Science</div>
-            <p style="margin-top: 0.75rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Dissertation:</strong> <a href="http://rave.ohiolink.edu/etdc/view?acc_num=osu1471846863" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">On Estimation Problems in Network Sampling</a></p>
-            <p style="margin-top: 0.35rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Research:</strong> Statistical methods for estimation challenges arising from sampled network data structures</p>
-            <p style="margin-top: 0.35rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Award:</strong> <a href="https://artsandsciences.osu.edu/news/statistics-graduate-students-win-national-data-analytics/modeling-competition" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Winner, 2013 Capital One National Data Analytics/Modeling Competition</a></p>
+            <p style="margin-top: 0.75rem; font-size: 0.975rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Dissertation:</strong> <a href="http://rave.ohiolink.edu/etdc/view?acc_num=osu1471846863" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">On Estimation Problems in Network Sampling</a></p>
+            <p style="margin-top: 0.35rem; font-size: 0.975rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Research:</strong> Statistical methods for estimation challenges arising from sampled network data structures</p>
+            <p style="margin-top: 0.35rem; font-size: 0.975rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Award:</strong> <a href="https://artsandsciences.osu.edu/news/statistics-graduate-students-win-national-data-analytics/modeling-competition" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Winner, 2013 Capital One National Data Analytics/Modeling Competition</a></p>
         </div>
         <div class="edu-item">
             <h3>Zhejiang University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— China</span></h3>
