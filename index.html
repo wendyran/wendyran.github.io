@@ -173,35 +173,97 @@
             align-items: center;
         }
 
+        .hero-graphic {
+            width: 320px;
+            height: 320px;
+            position: relative;
+        }
+
+        .hero-graphic .ring {
+            position: absolute;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        .hero-graphic .ring:nth-child(1) { width: 100%; height: 100%; top: 0; left: 0; }
+        .hero-graphic .ring:nth-child(2) { width: 75%; height: 75%; top: 12.5%; left: 12.5%; animation-delay: 1s; }
+        .hero-graphic .ring:nth-child(3) { width: 50%; height: 50%; top: 25%; left: 25%; animation-delay: 2s; }
+
+        .hero-graphic .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .hero-graphic .center-text .big {
+            font-family: var(--serif);
+            font-size: 2.75rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .hero-graphic .center-text .small {
+            font-size: 0.7rem;
+            color: var(--text-soft);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        .hero-graphic .orbit-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .hero-graphic .orbit-dot:nth-child(5) { top: -4px; left: 50%; }
+        .hero-graphic .orbit-dot:nth-child(6) { bottom: 12.5%; right: 4%; }
+        .hero-graphic .orbit-dot:nth-child(7) { top: 30%; left: 2%; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
         .hero-radar {
-            width: 420px;
-            height: 420px;
+            width: 480px;
+            position: relative;
         }
 
         .hero-radar svg {
             width: 100%;
-            height: 100%;
+            height: auto;
             overflow: visible;
         }
 
         .radar-label-main {
             font-family: var(--sans);
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             fill: var(--text);
             letter-spacing: 0.02em;
         }
 
-        .radar-company {
+        .radar-label-sub {
             font-family: var(--sans);
-            font-size: 9.5px;
-            font-weight: 600;
-            fill: var(--accent);
-            letter-spacing: 0.03em;
+            font-size: 8.5px;
+            font-weight: 400;
+            fill: var(--text-soft);
+            letter-spacing: 0.01em;
         }
 
         .radar-shape {
             animation: radarReveal 1.2s ease-out forwards;
+            transform-origin: center;
+        }
+
+        .radar-shape-inner {
+            animation: radarReveal 1.4s ease-out forwards;
             transform-origin: center;
         }
 
@@ -216,17 +278,60 @@
         }
 
         .radar-dot:nth-child(1) { animation-delay: 0.6s; }
-        .radar-dot:nth-child(2) { animation-delay: 0.7s; }
-        .radar-dot:nth-child(3) { animation-delay: 0.8s; }
-        .radar-dot:nth-child(4) { animation-delay: 0.9s; }
-        .radar-dot:nth-child(5) { animation-delay: 1.0s; }
-        .radar-dot:nth-child(6) { animation-delay: 1.1s; }
+        .radar-dot:nth-child(2) { animation-delay: 0.65s; }
+        .radar-dot:nth-child(3) { animation-delay: 0.7s; }
+        .radar-dot:nth-child(4) { animation-delay: 0.75s; }
+        .radar-dot:nth-child(5) { animation-delay: 0.8s; }
+        .radar-dot:nth-child(6) { animation-delay: 0.85s; }
+        .radar-dot:nth-child(7) { animation-delay: 0.9s; }
+        .radar-dot:nth-child(8) { animation-delay: 0.95s; }
 
         @keyframes dotPop {
             0% { opacity: 0; r: 0; }
-            50% { r: 7; }
-            100% { opacity: 1; r: 5; }
+            50% { r: 6; }
+            100% { opacity: 1; r: 4.5; }
         }
+
+        .radar-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem 1.5rem;
+            margin-top: 1.25rem;
+            padding: 0 0.5rem;
+        }
+
+        .radar-cat {
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .radar-cat-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .radar-cat-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .radar-cat-detail {
+            font-size: 0.65rem;
+            color: var(--text-soft);
+            line-height: 1.3;
+            margin-top: 1px;
+        }
+
+        .cat-social { background: #C05D3B; }
+        .cat-ecom { background: #2D7D9A; }
+        .cat-startup { background: #7B6DAA; }
+        .cat-author { background: #4A8B5C; }
 
         /* ── BOOK HIGHLIGHT ── */
         .book-highlight {
@@ -656,8 +761,13 @@
             }
 
             .hero-radar {
-                width: 320px;
-                height: 320px;
+                width: 100%;
+                max-width: 360px;
+            }
+
+            .radar-categories {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
 
             .timeline-item {
@@ -724,10 +834,10 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero">
-    <div class="hero-text">
+<header class="hero" style="grid-template-columns: 1fr; max-width: 800px;">
+    <div class="hero-text" style="max-width: 100%;">
         <h1>Machine Learning<br>Engineer &<br><span class="italic">Author</span></h1>
-        <p>Entrepreneur and ML Engineer with a decade of experience building personalization, recommendation, and search systems at scale — from social networks to e-commerce. Currently at Airbnb, and authoring a book on RAG &amp; Knowledge Graphs.</p>
+        <p>ML Engineer and published author with over a decade of experience building search, recommendation, and personalization systems at companies including Twitter, Pinterest, Meta, Coupang, and Airbnb. Has authored two books — on Retrieval-Augmented Generation (Wiley-IEEE Press) and Data Science (China Machine Press) — and founded TigerLab AI, an open-source LLM toolkit. Holds a PhD in Statistics with a minor in Computer Science from The Ohio State University.</p>
         <div class="hero-links">
             <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -741,83 +851,6 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
                 Twitter
             </a>
-            <a href="https://wendywei.ai/" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                wendywei.ai
-            </a>
-        </div>
-    </div>
-    <div class="hero-visual">
-        <div class="hero-radar">
-            <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
-                <!-- Background rings -->
-                <g transform="translate(210,210)">
-                    <polygon points="0,-180 155.88,-90 155.88,90 0,180 -155.88,90 -155.88,-90" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.4"/>
-                    <polygon points="0,-140 121.24,-70 121.24,70 0,140 -121.24,70 -121.24,-70" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <polygon points="0,-100 86.6,-50 86.6,50 0,100 -86.6,50 -86.6,-50" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.2"/>
-                    <polygon points="0,-60 51.96,-30 51.96,30 0,60 -51.96,30 -51.96,-30" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.15"/>
-                    <!-- Axis lines -->
-                    <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <line x1="0" y1="0" x2="155.88" y2="-90" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <line x1="0" y1="0" x2="155.88" y2="90" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <line x1="0" y1="0" x2="-155.88" y2="90" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-                    <line x1="0" y1="0" x2="-155.88" y2="-90" stroke="#E8E4DF" stroke-width="0.5" opacity="0.3"/>
-
-                    <!-- Radar fill - skills shape -->
-                    <polygon class="radar-shape"
-                        points="0,-170 140,-75 130,80 0,145 -120,72 -145,-78"
-                        fill="rgba(192,93,59,0.1)"
-                        stroke="var(--accent)"
-                        stroke-width="2"
-                    />
-
-                    <!-- Data dots -->
-                    <circle cx="0" cy="-170" r="5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="140" cy="-75" r="5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="130" cy="80" r="5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="0" cy="145" r="5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-120" cy="72" r="5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-145" cy="-78" r="5" fill="var(--accent)" class="radar-dot"/>
-                </g>
-
-                <!-- Axis labels - Skills -->
-                <text x="210" y="24" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
-
-                <text x="388" y="115" text-anchor="start" class="radar-label-main">Recommendation</text>
-                <text x="388" y="130" text-anchor="start" class="radar-label-main">Systems</text>
-
-                <text x="378" y="300" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
-
-                <text x="210" y="412" text-anchor="middle" class="radar-label-main">Deep Learning</text>
-
-                <text x="42" y="300" text-anchor="end" class="radar-label-main">Data Mining &amp;</text>
-                <text x="42" y="315" text-anchor="end" class="radar-label-main">Personalization</text>
-
-                <text x="32" y="122" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
-                <text x="32" y="137" text-anchor="end" class="radar-label-main">Graphs</text>
-
-                <!-- Company tags floating around -->
-                <g class="company-tags">
-                    <rect x="158" y="42" width="56" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="186" y="56" text-anchor="middle" class="radar-company">Airbnb</text>
-
-                    <rect x="320" y="152" width="68" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="354" y="166" text-anchor="middle" class="radar-company">Pinterest</text>
-
-                    <rect x="310" y="248" width="72" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="346" y="262" text-anchor="middle" class="radar-company">Coupang</text>
-
-                    <rect x="140" y="370" width="46" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="163" y="384" text-anchor="middle" class="radar-company">Meta</text>
-
-                    <rect x="20" y="248" width="58" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="49" y="262" text-anchor="middle" class="radar-company">Twitter</text>
-
-                    <rect x="38" y="152" width="70" height="20" rx="10" fill="var(--accent)" opacity="0.12"/>
-                    <text x="73" y="166" text-anchor="middle" class="radar-company">TigerLab</text>
-                </g>
-            </svg>
         </div>
     </div>
 </header>
@@ -858,6 +891,109 @@
 <section id="experience" class="fade-in">
     <div class="section-label">Career</div>
     <h2 class="section-title">Experience</h2>
+
+    <!-- Radar Chart -->
+    <div style="display: flex; justify-content: center; margin-bottom: 3rem;">
+        <div class="hero-radar">
+            <svg viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(250,210)">
+                    <!-- Background grid rings (octagon) -->
+                    <polygon points="0,-180 127.28,-127.28 180,0 127.28,127.28 0,180 -127.28,127.28 -180,0 -127.28,-127.28" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.35"/>
+                    <polygon points="0,-140 98.99,-98.99 140,0 98.99,98.99 0,140 -98.99,98.99 -140,0 -98.99,-98.99" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <polygon points="0,-100 70.71,-70.71 100,0 70.71,70.71 0,100 -70.71,70.71 -100,0 -70.71,-70.71" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.18"/>
+                    <polygon points="0,-60 42.43,-42.43 60,0 42.43,42.43 0,60 -42.43,42.43 -60,0 -42.43,-42.43" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.12"/>
+
+                    <!-- Axis lines -->
+                    <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+
+                    <!-- Outer radar fill -->
+                    <polygon class="radar-shape"
+                        points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105"
+                        fill="rgba(192,93,59,0.08)"
+                        stroke="var(--accent)"
+                        stroke-width="1.5"
+                    />
+
+                    <!-- Inner secondary shape -->
+                    <polygon class="radar-shape-inner"
+                        points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80"
+                        fill="rgba(45,125,154,0.06)"
+                        stroke="#2D7D9A"
+                        stroke-width="1"
+                        stroke-dasharray="4 3"
+                        opacity="0.5"
+                    />
+
+                    <!-- Data dots -->
+                    <circle cx="0" cy="-170" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="118" cy="-110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="165" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="110" cy="110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="0" cy="150" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-105" cy="105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-160" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-115" cy="-105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                </g>
+
+                <!-- Axis labels -->
+                <text x="250" y="22" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
+                <text x="400" y="80" text-anchor="start" class="radar-label-main">Recommendation</text>
+                <text x="400" y="93" text-anchor="start" class="radar-label-sub">Systems &amp; Ranking</text>
+                <text x="432" y="210" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
+                <text x="432" y="223" text-anchor="start" class="radar-label-sub">RAG · Agents</text>
+                <text x="382" y="340" text-anchor="start" class="radar-label-main">Deep Learning</text>
+                <text x="382" y="353" text-anchor="start" class="radar-label-sub">Neural Networks</text>
+                <text x="250" y="418" text-anchor="middle" class="radar-label-main">Product Analytics</text>
+                <text x="250" y="431" text-anchor="middle" class="radar-label-sub">A/B Testing · Metrics</text>
+                <text x="118" y="340" text-anchor="end" class="radar-label-main">Data Mining</text>
+                <text x="118" y="353" text-anchor="end" class="radar-label-sub">Personalization</text>
+                <text x="68" y="210" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
+                <text x="68" y="223" text-anchor="end" class="radar-label-sub">Graphs · Embeddings</text>
+                <text x="100" y="80" text-anchor="end" class="radar-label-main">Statistics &amp;</text>
+                <text x="100" y="93" text-anchor="end" class="radar-label-sub">Network Analysis</text>
+            </svg>
+
+            <!-- Category legend -->
+            <div class="radar-categories">
+                <div class="radar-cat">
+                    <div class="radar-cat-dot cat-social"></div>
+                    <div>
+                        <div class="radar-cat-label">Social Networks</div>
+                        <div class="radar-cat-detail">Twitter/X · Pinterest · Meta</div>
+                    </div>
+                </div>
+                <div class="radar-cat">
+                    <div class="radar-cat-dot cat-ecom"></div>
+                    <div>
+                        <div class="radar-cat-label">E-Commerce &amp; Marketplace</div>
+                        <div class="radar-cat-detail">Airbnb · Coupang</div>
+                    </div>
+                </div>
+                <div class="radar-cat">
+                    <div class="radar-cat-dot cat-startup"></div>
+                    <div>
+                        <div class="radar-cat-label">Startups &amp; Consulting</div>
+                        <div class="radar-cat-detail">Founder · Advisor · Consultant</div>
+                    </div>
+                </div>
+                <div class="radar-cat">
+                    <div class="radar-cat-dot cat-author"></div>
+                    <div>
+                        <div class="radar-cat-label">Author &amp; Educator</div>
+                        <div class="radar-cat-detail">Books · Courses · Teaching</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="timeline">
         <div class="timeline-item">
             <div class="timeline-date">Jul 2025 — Present</div>
@@ -908,18 +1044,114 @@
             </div>
         </div>
     </div>
-</section>
 
-<!-- PATENTS -->
+    <!-- Skill Radar & Career Categories -->
+    <div class="experience-radar-wrapper">
+        <div class="experience-radar">
+            <svg viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(250,210)">
+                    <polygon points="0,-180 127.28,-127.28 180,0 127.28,127.28 0,180 -127.28,127.28 -180,0 -127.28,-127.28" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.35"/>
+                    <polygon points="0,-140 98.99,-98.99 140,0 98.99,98.99 0,140 -98.99,98.99 -140,0 -98.99,-98.99" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <polygon points="0,-100 70.71,-70.71 100,0 70.71,70.71 0,100 -70.71,70.71 -100,0 -70.71,-70.71" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.18"/>
+                    <polygon points="0,-60 42.43,-42.43 60,0 42.43,42.43 0,60 -42.43,42.43 -60,0 -42.43,-42.43" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.12"/>
+
+                    <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                    <line x1="0" y1="0" x2="-127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+
+                    <polygon class="radar-shape"
+                        points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105"
+                        fill="rgba(192,93,59,0.08)"
+                        stroke="var(--accent)"
+                        stroke-width="1.5"
+                    />
+
+                    <polygon class="radar-shape-inner"
+                        points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80"
+                        fill="rgba(45,125,154,0.06)"
+                        stroke="#2D7D9A"
+                        stroke-width="1"
+                        stroke-dasharray="4 3"
+                        opacity="0.5"
+                    />
+
+                    <circle cx="0" cy="-170" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="118" cy="-110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="165" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="110" cy="110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="0" cy="150" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-105" cy="105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-160" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    <circle cx="-115" cy="-105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                </g>
+
+                <text x="250" y="22" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
+                <text x="400" y="80" text-anchor="start" class="radar-label-main">Recommendation</text>
+                <text x="400" y="93" text-anchor="start" class="radar-label-sub">Systems &amp; Ranking</text>
+                <text x="432" y="210" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
+                <text x="432" y="223" text-anchor="start" class="radar-label-sub">RAG · Agents</text>
+                <text x="382" y="340" text-anchor="start" class="radar-label-main">Deep Learning</text>
+                <text x="382" y="353" text-anchor="start" class="radar-label-sub">Neural Networks</text>
+                <text x="250" y="418" text-anchor="middle" class="radar-label-main">Product Analytics</text>
+                <text x="250" y="431" text-anchor="middle" class="radar-label-sub">A/B Testing · Metrics</text>
+                <text x="118" y="340" text-anchor="end" class="radar-label-main">Data Mining</text>
+                <text x="118" y="353" text-anchor="end" class="radar-label-sub">Personalization</text>
+                <text x="68" y="210" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
+                <text x="68" y="223" text-anchor="end" class="radar-label-sub">Graphs · Embeddings</text>
+                <text x="100" y="80" text-anchor="end" class="radar-label-main">Statistics &amp;</text>
+                <text x="100" y="93" text-anchor="end" class="radar-label-sub">Network Analysis</text>
+            </svg>
+        </div>
+        <div class="experience-categories">
+            <div class="radar-cat">
+                <div class="radar-cat-dot cat-social"></div>
+                <div>
+                    <div class="radar-cat-label">Social Networks</div>
+                    <div class="radar-cat-detail">Twitter/X · Pinterest · Meta</div>
+                </div>
+            </div>
+            <div class="radar-cat">
+                <div class="radar-cat-dot cat-ecom"></div>
+                <div>
+                    <div class="radar-cat-label">E-Commerce &amp; Marketplace</div>
+                    <div class="radar-cat-detail">Airbnb · Coupang</div>
+                </div>
+            </div>
+            <div class="radar-cat">
+                <div class="radar-cat-dot cat-startup"></div>
+                <div>
+                    <div class="radar-cat-label">Startups &amp; Consulting</div>
+                    <div class="radar-cat-detail">Founder · Advisor · Consultant</div>
+                </div>
+            </div>
+            <div class="radar-cat">
+                <div class="radar-cat-dot cat-author"></div>
+                <div>
+                    <div class="radar-cat-label">Author &amp; Educator</div>
+                    <div class="radar-cat-detail">Books · Courses · Teaching</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="section-divider"><hr></div>
 <section id="patents" class="fade-in">
     <div class="section-label">Innovation</div>
     <h2 class="section-title">Patents</h2>
     <div class="cards-grid">
         <div class="card">
-            <div class="card-type">Patent</div>
+            <div class="card-type">Patent · US &amp; European</div>
             <h3>Detecting Scripted or Otherwise Anomalous Interactions with Social Media Platform</h3>
             <p>Methods and systems for identifying automated, scripted, or malicious interactions on social media platforms using machine learning-based detection models.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://patents.google.com/patent/US20180046475A1" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 500;">US20180046475A1 →</a>
+                <a href="https://patents.google.com/patent/EP3497609B1" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 500;">EP3497609B1 →</a>
+            </div>
         </div>
     </div>
 </section>
@@ -958,6 +1190,7 @@
             <div class="degree">PhD, Statistics · Minor in Computer Science</div>
             <p style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Dissertation:</strong> <a href="http://rave.ohiolink.edu/etdc/view?acc_num=osu1471846863" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">On Estimation Problems in Network Sampling</a></p>
             <p style="margin-top: 0.35rem; font-size: 0.875rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Research:</strong> Statistical methods for estimation challenges arising from sampled network data structures</p>
+            <p style="margin-top: 0.35rem; font-size: 0.875rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Award:</strong> <a href="https://artsandsciences.osu.edu/news/statistics-graduate-students-win-national-data-analytics/modeling-competition" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Winner, 2013 Capital One National Data Analytics/Modeling Competition</a></p>
         </div>
         <div class="edu-item">
             <h3>Zhejiang University</h3>
@@ -999,7 +1232,6 @@
         <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
         <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter</a>
-        <a href="https://wendywei.ai/" target="_blank" rel="noopener">wendywei.ai</a>
     </div>
 </footer>
 
