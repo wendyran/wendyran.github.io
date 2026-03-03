@@ -212,10 +212,11 @@
         }
 
         .profile-name {
-            font-family: var(--serif);
-            font-size: 1.5rem;
+            font-family: var(--sans);
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--text);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
             text-align: center;
         }
 
@@ -597,6 +598,49 @@
             border-color: var(--accent-pink);
             background: var(--gradient-soft);
             color: var(--accent);
+        }
+
+        /* ── HOBBIES ── */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .hobby-group {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+
+        .hobby-group:hover {
+            border-color: var(--accent-pink);
+            box-shadow: 0 6px 24px rgba(236, 72, 153, 0.08);
+        }
+
+        .hobby-group-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hobby-group h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .hobby-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .hobby-tags .skill-tag {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.9rem;
         }
 
         /* ── OPEN SOURCE ── */
@@ -1082,25 +1126,63 @@
     </div>
 </section>
 
-<!-- SKILLS -->
+<!-- HOBBIES -->
 <div class="section-divider"><hr></div>
 <section class="fade-in">
-    <div class="section-label">Expertise</div>
-    <h2 class="section-title">Skills &amp; Interests</h2>
-    <div class="skills-row">
-        <span class="skill-tag">Machine Learning</span>
-        <span class="skill-tag">Deep Learning</span>
-        <span class="skill-tag">Natural Language Processing</span>
-        <span class="skill-tag">Retrieval-Augmented Generation</span>
-        <span class="skill-tag">Knowledge Graphs</span>
-        <span class="skill-tag">Large Language Models</span>
-        <span class="skill-tag">Recommendation Systems</span>
-        <span class="skill-tag">Search &amp; Retrieval</span>
-        <span class="skill-tag">Data Mining</span>
-        <span class="skill-tag">Personalization</span>
-        <span class="skill-tag">Predictive Modeling</span>
-        <span class="skill-tag">Fraud Detection</span>
-        <span class="skill-tag">GenAI</span>
+    <div class="section-label">Beyond Work</div>
+    <h2 class="section-title">Hobbies</h2>
+    <div class="hobbies-grid">
+        <div class="hobby-group">
+            <div class="hobby-group-icon">🏔️</div>
+            <h3>Sports</h3>
+            <div class="hobby-tags">
+                <span class="skill-tag">Skiing</span>
+                <span class="skill-tag">Snowboarding</span>
+                <span class="skill-tag">Ice Skating</span>
+                <span class="skill-tag">Surfing</span>
+                <span class="skill-tag">Swimming</span>
+                <span class="skill-tag">Diving</span>
+                <span class="skill-tag">Stand-Up Paddleboarding</span>
+                <span class="skill-tag">Skydiving</span>
+                <span class="skill-tag">Pickleball</span>
+                <span class="skill-tag">Table Tennis</span>
+            </div>
+        </div>
+        <div class="hobby-group">
+            <div class="hobby-group-icon">🎨</div>
+            <h3>Art, Music &amp; Dance</h3>
+            <div class="hobby-tags">
+                <span class="skill-tag">Piano</span>
+                <span class="skill-tag">Guzheng (Chinese Zither)</span>
+                <span class="skill-tag">Singing</span>
+                <span class="skill-tag">Acapella</span>
+                <span class="skill-tag">Dancing</span>
+                <span class="skill-tag">Ballet</span>
+                <span class="skill-tag">Yoga</span>
+                <span class="skill-tag">Acrylic Painting</span>
+                <span class="skill-tag">Chinese Calligraphy</span>
+            </div>
+        </div>
+        <div class="hobby-group">
+            <div class="hobby-group-icon">🌍</div>
+            <h3>Travel &amp; Adventure</h3>
+            <div class="hobby-tags">
+                <span class="skill-tag">International Travel</span>
+                <span class="skill-tag">Road Trips</span>
+                <span class="skill-tag">Hiking</span>
+                <span class="skill-tag">Camping</span>
+                <span class="skill-tag">National Parks</span>
+            </div>
+        </div>
+        <div class="hobby-group">
+            <div class="hobby-group-icon">🌿</div>
+            <h3>Life</h3>
+            <div class="hobby-tags">
+                <span class="skill-tag">Cats</span>
+                <span class="skill-tag">Gardening</span>
+                <span class="skill-tag">Board Games</span>
+            </div>
+        </div>
     </div>
 </section>
 
