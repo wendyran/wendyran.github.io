@@ -110,9 +110,9 @@
             margin: 0 auto;
             padding: 140px 2rem 80px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+            grid-template-columns: auto 1fr;
+            gap: 3.5rem;
+            align-items: start;
         }
 
         .hero-text h1 {
@@ -135,6 +135,35 @@
             line-height: 1.7;
             max-width: 480px;
             margin-bottom: 2rem;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            color: var(--text-soft);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .hero-book-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        .hero-book-list li {
+            font-size: 1rem;
+            color: var(--text-soft);
+            line-height: 1.7;
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-book-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
         }
 
         .hero-links {
@@ -171,8 +200,23 @@
         /* ── HERO VISUAL ── */
         .hero-visual {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-name {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .hero-visual .hero-links {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
         }
 
         .profile-image-container {
@@ -706,10 +750,7 @@
         <div class="profile-image-container">
             <img src="profile-image.jpg" alt="Wendy Ran Wei" />
         </div>
-    </div>
-    <div class="hero-text" style="max-width: 100%;">
-        <h1>Machine Learning Engineer & <span class="italic">Author</span></h1>
-        <p style="max-width: 720px;">Wendy Wei is an ML Engineer with over a decade of experience building search, recommendation, and personalization systems at scale across social networks, e-commerce, and marketplace platforms — including Twitter, Pinterest, Meta, Coupang, and Airbnb. Published author of two technical books: <em>Advanced Retrieval-Augmented Generation</em> (Wiley-IEEE Press), bridging LLMs and knowledge graphs, and <em>Data Science: Methods and Practice</em> (China Machine Press), a comprehensive guide spanning statistics, deep learning, and industry applications. Founded TigerLab AI, an open-source LLM toolkit for AI safety evaluation, and has taught courses on Python and machine learning. Holds a PhD in Statistics with a minor in Computer Science from The Ohio State University, with doctoral research in network sampling and estimation theory.</p>
+        <div class="profile-name">Wendy Ran Wei</div>
         <div class="hero-links">
             <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -721,9 +762,15 @@
             </a>
             <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
-                Twitter
+                Twitter/X
             </a>
         </div>
+    </div>
+    <div class="hero-text">
+        <h1>Machine Learning Engineer & <span class="italic">Author</span></h1>
+        <p>Wendy is an ML Engineer specializing in search, recommendation, and personalization systems at scale. She has 10 years of industry experience spanning global social networks (Twitter/X, Pinterest, Meta) and e-commerce platforms (Coupang). Her current work at Airbnb focuses on embedding-based retrieval, synthetic data generation for AI Search, and experimentation frameworks powering next-generation search and ranking.</p>
+        <p>Her academic background includes a PhD in Statistics (minor in Computer Science) from The Ohio State University, with doctoral research in network sampling and estimation theory. Previously, she founded TigerLab AI, an open-source toolkit for LLM safety evaluation. She has taught online Python and machine learning courses, passionate about knowledge sharing and mentoring. Wendy is the author of <a href="https://www.amazon.com/Advanced-Retrieval-Augmented-Generation-Bridging-Knowledge/dp/1394374682" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;"><em>Advanced Retrieval-Augmented Generation: Bridging Large Language Models and Knowledge Graphs</em></a> (Wiley-IEEE Press).</p>
+        <p>Beyond technical work, Wendy is committed to teaching, mentoring, and advancing AI safety and best practices for scalable, production-grade ML systems.</p>
     </div>
 </header>
 
@@ -935,7 +982,7 @@
             <div class="timeline-date">Jan 2016 — May 2019</div>
             <div class="timeline-content">
                 <h3>Machine Learning Engineer</h3>
-                <div class="company">Twitter</div>
+                <div class="company">Twitter/X</div>
                 <p>Built personalization and recommendation systems for the Explore Tab — topic and interest relevance modeling, Trends, Events, and Topic Modules. Previously interned as a Data Scientist and Software Engineer (2014–2015).</p>
             </div>
         </div>
@@ -1010,7 +1057,7 @@
     <div class="footer-links">
         <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter/X</a>
     </div>
 </footer>
 
