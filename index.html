@@ -167,68 +167,7 @@
             height: 16px;
         }
 
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-graphic {
-            width: 320px;
-            height: 320px;
-            position: relative;
-        }
-
-        .hero-graphic .ring {
-            position: absolute;
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            animation: pulse 6s ease-in-out infinite;
-        }
-
-        .hero-graphic .ring:nth-child(1) { width: 100%; height: 100%; top: 0; left: 0; }
-        .hero-graphic .ring:nth-child(2) { width: 75%; height: 75%; top: 12.5%; left: 12.5%; animation-delay: 1s; }
-        .hero-graphic .ring:nth-child(3) { width: 50%; height: 50%; top: 25%; left: 25%; animation-delay: 2s; }
-
-        .hero-graphic .center-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .hero-graphic .center-text .big {
-            font-family: var(--serif);
-            font-size: 2.75rem;
-            color: var(--accent);
-            line-height: 1;
-        }
-
-        .hero-graphic .center-text .small {
-            font-size: 0.7rem;
-            color: var(--text-soft);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-top: 0.25rem;
-        }
-
-        .hero-graphic .orbit-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .hero-graphic .orbit-dot:nth-child(5) { top: -4px; left: 50%; }
-        .hero-graphic .orbit-dot:nth-child(6) { bottom: 12.5%; right: 4%; }
-        .hero-graphic .orbit-dot:nth-child(7) { top: 30%; left: 2%; }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
+        /* ── RADAR CHART ── */
 
         .hero-radar {
             width: 480px;
@@ -333,111 +272,6 @@
         .cat-startup { background: #7B6DAA; }
         .cat-author { background: #4A8B5C; }
 
-        /* ── BOOK HIGHLIGHT ── */
-        .book-highlight {
-            padding-top: 0;
-            padding-bottom: 40px;
-        }
-
-        .book-highlight-inner {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 2.5rem;
-            align-items: center;
-            background: linear-gradient(135deg, #0D1B2A 0%, #1B2D45 60%, #1A3A5C 100%);
-            border-radius: 16px;
-            padding: 2.5rem 3rem;
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.3s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .book-highlight-inner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .book-highlight-inner:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(13, 27, 42, 0.3);
-        }
-
-        .book-highlight-cover img {
-            width: 100%;
-            border-radius: 6px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-
-        .book-highlight-text {
-            position: relative;
-            z-index: 1;
-        }
-
-        .book-highlight .section-label {
-            color: #60A5FA;
-        }
-
-        .book-highlight-title {
-            font-family: var(--serif);
-            font-size: 1.75rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.35rem;
-            color: #fff;
-        }
-
-        .book-highlight-subtitle {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.65);
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .book-highlight-desc {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.6;
-            max-width: 520px;
-        }
-
-        .book-highlight-meta {
-            margin-top: 0.75rem;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.4);
-        }
-
-        .book-highlight-cta {
-            display: inline-block;
-            margin-top: 1.25rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #60A5FA;
-            letter-spacing: 0.02em;
-        }
-
-        @media (max-width: 768px) {
-            .book-highlight-inner {
-                grid-template-columns: 120px 1fr;
-                padding: 1.75rem;
-                gap: 1.5rem;
-            }
-
-            .book-highlight-title {
-                font-size: 1.3rem;
-            }
-
-            .book-highlight-desc {
-                display: none;
-            }
-        }
 
         /* ── SECTIONS ── */
         section {
@@ -756,9 +590,6 @@
                 font-size: 2.5rem;
             }
 
-            .hero-visual {
-                order: -1;
-            }
 
             .hero-radar {
                 width: 100%;
@@ -834,10 +665,10 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" style="grid-template-columns: 1fr; max-width: 800px;">
+<header class="hero" style="grid-template-columns: 1fr;">
     <div class="hero-text" style="max-width: 100%;">
         <h1>Machine Learning<br>Engineer &<br><span class="italic">Author</span></h1>
-        <p>ML Engineer and published author with over a decade of experience building search, recommendation, and personalization systems at companies including Twitter, Pinterest, Meta, Coupang, and Airbnb. Has authored two books — on Retrieval-Augmented Generation (Wiley-IEEE Press) and Data Science (China Machine Press) — and founded TigerLab AI, an open-source LLM toolkit. Holds a PhD in Statistics with a minor in Computer Science from The Ohio State University.</p>
+        <p style="max-width: 720px;">ML Engineer with over a decade of experience building search, recommendation, and personalization systems at scale across social networks, e-commerce, and marketplace platforms — including Twitter, Pinterest, Meta, Coupang, and Airbnb. Published author of two technical books: <em>Advanced Retrieval-Augmented Generation</em> (Wiley-IEEE Press), bridging LLMs and knowledge graphs, and <em>Data Science: Methods and Practice</em> (China Machine Press), a comprehensive guide spanning statistics, deep learning, and industry applications. Founded TigerLab AI, an open-source LLM toolkit for AI safety evaluation, and has taught courses on Python and machine learning. Holds a PhD in Statistics with a minor in Computer Science from The Ohio State University, with doctoral research in machine learning, network sampling and estimation theory.</p>
         <div class="hero-links">
             <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -1045,99 +876,6 @@
         </div>
     </div>
 
-    <!-- Skill Radar & Career Categories -->
-    <div class="experience-radar-wrapper">
-        <div class="experience-radar">
-            <svg viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(250,210)">
-                    <polygon points="0,-180 127.28,-127.28 180,0 127.28,127.28 0,180 -127.28,127.28 -180,0 -127.28,-127.28" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.35"/>
-                    <polygon points="0,-140 98.99,-98.99 140,0 98.99,98.99 0,140 -98.99,98.99 -140,0 -98.99,-98.99" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <polygon points="0,-100 70.71,-70.71 100,0 70.71,70.71 0,100 -70.71,70.71 -100,0 -70.71,-70.71" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.18"/>
-                    <polygon points="0,-60 42.43,-42.43 60,0 42.43,42.43 0,60 -42.43,42.43 -60,0 -42.43,-42.43" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.12"/>
-
-                    <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-
-                    <polygon class="radar-shape"
-                        points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105"
-                        fill="rgba(192,93,59,0.08)"
-                        stroke="var(--accent)"
-                        stroke-width="1.5"
-                    />
-
-                    <polygon class="radar-shape-inner"
-                        points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80"
-                        fill="rgba(45,125,154,0.06)"
-                        stroke="#2D7D9A"
-                        stroke-width="1"
-                        stroke-dasharray="4 3"
-                        opacity="0.5"
-                    />
-
-                    <circle cx="0" cy="-170" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="118" cy="-110" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="165" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="110" cy="110" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="0" cy="150" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-105" cy="105" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-160" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-115" cy="-105" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                </g>
-
-                <text x="250" y="22" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
-                <text x="400" y="80" text-anchor="start" class="radar-label-main">Recommendation</text>
-                <text x="400" y="93" text-anchor="start" class="radar-label-sub">Systems &amp; Ranking</text>
-                <text x="432" y="210" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
-                <text x="432" y="223" text-anchor="start" class="radar-label-sub">RAG · Agents</text>
-                <text x="382" y="340" text-anchor="start" class="radar-label-main">Deep Learning</text>
-                <text x="382" y="353" text-anchor="start" class="radar-label-sub">Neural Networks</text>
-                <text x="250" y="418" text-anchor="middle" class="radar-label-main">Product Analytics</text>
-                <text x="250" y="431" text-anchor="middle" class="radar-label-sub">A/B Testing · Metrics</text>
-                <text x="118" y="340" text-anchor="end" class="radar-label-main">Data Mining</text>
-                <text x="118" y="353" text-anchor="end" class="radar-label-sub">Personalization</text>
-                <text x="68" y="210" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
-                <text x="68" y="223" text-anchor="end" class="radar-label-sub">Graphs · Embeddings</text>
-                <text x="100" y="80" text-anchor="end" class="radar-label-main">Statistics &amp;</text>
-                <text x="100" y="93" text-anchor="end" class="radar-label-sub">Network Analysis</text>
-            </svg>
-        </div>
-        <div class="experience-categories">
-            <div class="radar-cat">
-                <div class="radar-cat-dot cat-social"></div>
-                <div>
-                    <div class="radar-cat-label">Social Networks</div>
-                    <div class="radar-cat-detail">Twitter/X · Pinterest · Meta</div>
-                </div>
-            </div>
-            <div class="radar-cat">
-                <div class="radar-cat-dot cat-ecom"></div>
-                <div>
-                    <div class="radar-cat-label">E-Commerce &amp; Marketplace</div>
-                    <div class="radar-cat-detail">Airbnb · Coupang</div>
-                </div>
-            </div>
-            <div class="radar-cat">
-                <div class="radar-cat-dot cat-startup"></div>
-                <div>
-                    <div class="radar-cat-label">Startups &amp; Consulting</div>
-                    <div class="radar-cat-detail">Founder · Advisor · Consultant</div>
-                </div>
-            </div>
-            <div class="radar-cat">
-                <div class="radar-cat-dot cat-author"></div>
-                <div>
-                    <div class="radar-cat-label">Author &amp; Educator</div>
-                    <div class="radar-cat-detail">Books · Courses · Teaching</div>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 <div class="section-divider"><hr></div>
 <section id="patents" class="fade-in">
