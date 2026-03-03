@@ -382,6 +382,38 @@
             opacity: 0.7;
         }
 
+        .card-featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0 2rem;
+        }
+
+        .card-featured .card-cover {
+            grid-row: 1 / -1;
+            display: flex;
+            align-items: start;
+        }
+
+        .card-featured .card-cover img {
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .card-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .card-featured .card-cover {
+                grid-row: auto;
+                max-width: 180px;
+                margin-bottom: 1rem;
+            }
+        }
+
         /* ── EDUCATION ── */
         .edu-grid {
             display: grid;
@@ -729,16 +761,27 @@
     <div class="section-label">Research</div>
     <h2 class="section-title">Publications</h2>
     <div class="cards-grid">
-        <a class="card" href="#" target="_blank" rel="noopener">
-            <div class="card-type">Book — IEEE Press / Wiley</div>
-            <h3>Advanced Retrieval-Augmented Generation: Bridging Large Language Models and Knowledge Graphs</h3>
-            <p>A comprehensive technical guide on RAG systems, covering the intersection of LLMs, knowledge graphs, and retrieval-based approaches for building next-generation AI applications.</p>
-            <div class="card-meta">Co-authored with Huijun Wu · Forthcoming</div>
+        <a class="card card-featured" href="https://www.amazon.com/Advanced-Retrieval-Augmented-Generation-Bridging-Knowledge/dp/1394374682" target="_blank" rel="noopener">
+            <div class="card-cover">
+                <img src="book-cover-rag.png" alt="Advanced Retrieval-Augmented Generation book cover" />
+            </div>
+            <div>
+                <div class="card-type">Book — Wiley-IEEE Press</div>
+                <h3>Advanced Retrieval-Augmented Generation: Bridging Large Language Models and Knowledge Graphs</h3>
+                <p>A comprehensive technical guide on RAG systems, covering the intersection of LLMs, knowledge graphs, and retrieval-based approaches for building next-generation AI applications.</p>
+                <div class="card-meta">Co-authored with Huijun Wu · ISBN: 978-1-394-37468-7</div>
+            </div>
         </a>
-        <a class="card" href="#" target="_blank" rel="noopener">
-            <div class="card-type">Book</div>
-            <h3>Data Science: Methods and Practice</h3>
-            <p>Covering the foundational and practical aspects of data science methodologies, statistical modeling, and real-world applications.</p>
+        <a class="card card-featured" href="http://cs.cmpedu.com/books/book/5610009.htm" target="_blank" rel="noopener">
+            <div class="card-cover">
+                <img src="book-cover-ds.png" alt="Data Science: Methods and Practice book cover" />
+            </div>
+            <div>
+                <div class="card-type">Book — China Machine Press · Nov 2025</div>
+                <h3>Data Science: Methods and Practice<br><span style="font-family: var(--sans); font-size: 0.95rem; font-weight: 400; color: var(--text-soft);">数据科学：方法与实践</span></h3>
+                <p>Covering the foundational and practical aspects of data science methodologies, statistical modeling, and real-world applications.</p>
+                <div class="card-meta">ISBN: 978-7-111-79219-2</div>
+            </div>
         </a>
         <a class="card" href="#" target="_blank" rel="noopener">
             <div class="card-type">Research Paper</div>
