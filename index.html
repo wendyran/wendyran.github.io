@@ -9,13 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #FAF8F5;
-            --text: #1A1A1A;
-            --text-soft: #5A5A5A;
-            --accent: #C05D3B;
-            --accent-light: #E8D5CC;
+            --bg: #FFF5F0;
+            --bg-warm: #FFE8DC;
+            --text: #1A1A2E;
+            --text-soft: #5A5A6E;
+            --accent: #E8614D;
+            --accent-dark: #D4522A;
+            --accent-light: #FFB8A8;
+            --accent-pink: #F472B6;
+            --accent-gold: #F59E0B;
+            --gradient: linear-gradient(135deg, #F472B6, #F59E0B);
+            --gradient-soft: linear-gradient(135deg, rgba(244,114,182,0.1), rgba(245,158,11,0.1));
             --card: #FFFFFF;
-            --border: #E8E4DF;
+            --border: #F0D5C8;
             --serif: 'Instrument Serif', Georgia, serif;
             --sans: 'DM Sans', system-ui, sans-serif;
         }
@@ -39,37 +45,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── TOP BANNER ── */
-        .top-banner {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 101;
-            background: #1A1A1A;
-            color: #fff;
-            text-align: center;
-            padding: 0.5rem 1rem;
-            font-size: 0.82rem;
-            letter-spacing: 0.01em;
-        }
-
-        .top-banner a {
-            color: #fff;
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
-        .top-banner a:hover {
-            color: var(--accent-light);
-        }
-
         /* ── NAV ── */
         nav {
             position: fixed;
-            top: 36px;
+            top: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(250, 248, 245, 0.85);
+            background: rgba(255, 245, 240, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -88,7 +70,10 @@
         nav .logo {
             font-family: var(--serif);
             font-size: 1.25rem;
-            color: var(--text);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
             letter-spacing: -0.02em;
         }
@@ -133,7 +118,7 @@
         .hero {
             max-width: 1120px;
             margin: 0 auto;
-            padding: 176px 2rem 80px;
+            padding: 140px 2rem 80px;
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 3.5rem;
@@ -150,7 +135,10 @@
 
         .hero-text h1 .italic {
             font-style: italic;
-            color: var(--accent);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-text p {
@@ -229,9 +217,32 @@
             text-align: center;
         }
 
+        .preorder-banner {
+            margin-top: 0.75rem;
+            padding: 0.6rem 1rem;
+            background: var(--gradient-soft);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            line-height: 1.5;
+            text-align: center;
+            max-width: 340px;
+        }
+
+        .preorder-banner a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .preorder-banner a:hover {
+            text-decoration: underline;
+        }
+
         .preorder-new {
             display: inline-block;
-            background: var(--accent);
+            background: var(--gradient);
             color: #fff;
             font-size: 0.65rem;
             font-weight: 700;
@@ -254,8 +265,9 @@
             height: 340px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid var(--border);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            padding: 3px;
+            background: var(--gradient);
+            box-shadow: 0 8px 40px rgba(244, 114, 182, 0.15), 0 4px 20px rgba(245, 158, 11, 0.1);
         }
 
         .profile-image-container img {
@@ -263,6 +275,7 @@
             height: 100%;
             object-fit: cover;
             object-position: center top;
+            border-radius: 50%;
         }
 
         @media (max-width: 768px) {
@@ -372,10 +385,10 @@
             margin-top: 1px;
         }
 
-        .cat-social { background: #C05D3B; }
-        .cat-ecom { background: #2D7D9A; }
-        .cat-startup { background: #7B6DAA; }
-        .cat-author { background: #4A8B5C; }
+        .cat-social { background: #F472B6; }
+        .cat-ecom { background: #F59E0B; }
+        .cat-startup { background: #A78BFA; }
+        .cat-author { background: #34D399; }
 
 
         /* ── SECTIONS ── */
@@ -389,7 +402,10 @@
             font-size: 0.7rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--accent);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
             margin-bottom: 0.75rem;
         }
@@ -465,8 +481,8 @@
         }
 
         .card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 8px 32px rgba(192, 93, 59, 0.08);
+            border-color: var(--accent-pink);
+            box-shadow: 0 8px 32px rgba(244, 114, 182, 0.12);
             transform: translateY(-2px);
         }
 
@@ -575,7 +591,8 @@
         }
 
         .skill-tag:hover {
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
+            background: var(--gradient-soft);
             color: var(--accent);
         }
 
@@ -687,7 +704,7 @@
         @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
-                padding: 156px 1.5rem 60px;
+                padding: 120px 1.5rem 60px;
                 gap: 2rem;
             }
 
@@ -757,11 +774,6 @@
 </head>
 <body>
 
-<!-- TOP BANNER -->
-<div class="top-banner">
-    <span class="preorder-new">New</span> New book <a href="https://www.amazon.com/Advanced-Retrieval-Augmented-Generation-Bridging-Knowledge/dp/1394374682" target="_blank" rel="noopener"><em>Advanced Retrieval-Augmented Generation</em></a> is ready for pre-order
-</div>
-
 <!-- NAV -->
 <nav>
     <div class="nav-inner">
@@ -785,7 +797,7 @@
         <div class="profile-image-container">
             <img src="profile-image.jpg" alt="Wendy Ran Wei" />
         </div>
-        <div class="profile-name">Wendy Ran Wei</div>
+        <div class="profile-name">Wendy Wei</div>
         <div class="hero-links">
             <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -799,6 +811,9 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
                 Twitter/X
             </a>
+        </div>
+        <div class="preorder-banner">
+            <span class="preorder-new">New</span> New book <a href="https://www.amazon.com/Advanced-Retrieval-Augmented-Generation-Bridging-Knowledge/dp/1394374682" target="_blank" rel="noopener"><em>Advanced Retrieval-Augmented Generation</em></a> is ready for pre-order
         </div>
     </div>
     <div class="hero-text">
@@ -847,18 +862,18 @@
     <h2 class="section-title">Education</h2>
     <div class="edu-grid">
         <div class="edu-item">
-            <h3>The Ohio State University</h3>
+            <h3>The Ohio State University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— US</span></h3>
             <div class="degree">PhD, Statistics · Minor in Computer Science</div>
             <p style="margin-top: 0.75rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Dissertation:</strong> <a href="http://rave.ohiolink.edu/etdc/view?acc_num=osu1471846863" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">On Estimation Problems in Network Sampling</a></p>
             <p style="margin-top: 0.35rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Research:</strong> Statistical methods for estimation challenges arising from sampled network data structures</p>
             <p style="margin-top: 0.35rem; font-size: 0.925rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Award:</strong> <a href="https://artsandsciences.osu.edu/news/statistics-graduate-students-win-national-data-analytics/modeling-competition" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Winner, 2013 Capital One National Data Analytics/Modeling Competition</a></p>
         </div>
         <div class="edu-item">
-            <h3>Zhejiang University</h3>
+            <h3>Zhejiang University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— China</span></h3>
             <div class="degree">B.S., Mathematics &amp; Statistics</div>
         </div>
         <div class="edu-item">
-            <h3>Uppsala University</h3>
+            <h3>Uppsala University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— Sweden</span></h3>
             <div class="degree">Statistics (Exchange)</div>
         </div>
     </div>
@@ -894,7 +909,7 @@
                     <!-- Outer radar fill -->
                     <polygon class="radar-shape"
                         points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105"
-                        fill="rgba(192,93,59,0.08)"
+                        fill="rgba(244,114,182,0.08)"
                         stroke="var(--accent)"
                         stroke-width="1.5"
                     />
@@ -902,8 +917,8 @@
                     <!-- Inner secondary shape -->
                     <polygon class="radar-shape-inner"
                         points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80"
-                        fill="rgba(45,125,154,0.06)"
-                        stroke="#2D7D9A"
+                        fill="rgba(245,158,11,0.06)"
+                        stroke="#F59E0B"
                         stroke-width="1"
                         stroke-dasharray="4 3"
                         opacity="0.5"
@@ -1001,7 +1016,7 @@
             <div class="timeline-date">Jan 2021 — Jan 2023</div>
             <div class="timeline-content">
                 <h3>Machine Learning Engineer</h3>
-                <div class="company">Meta</div>
+                <div class="company">Facebook/Meta</div>
                 <p>Recommendation systems for video products (long and short form). Built models for producer value estimation and creator growth, democratizing video creation and distribution.</p>
             </div>
         </div>
