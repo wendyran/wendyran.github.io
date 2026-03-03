@@ -420,6 +420,74 @@
             margin-bottom: 3rem;
         }
 
+        /* ── EXPERIENCE LAYOUT ── */
+        .experience-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .experience-radar-col {
+            display: flex;
+            justify-content: center;
+        }
+
+        .experience-radar-col .hero-radar {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .compact-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .compact-item:first-child {
+            padding-top: 0;
+        }
+
+        .compact-item:last-child {
+            border-bottom: none;
+        }
+
+        .compact-date {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            opacity: 0.7;
+            margin-bottom: 0.2rem;
+        }
+
+        .compact-role {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .compact-company {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .compact-desc {
+            font-size: 0.875rem;
+            color: var(--text-soft);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .experience-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-radar-col .hero-radar {
+                max-width: 360px;
+            }
+        }
+
         /* ── EXPERIENCE TIMELINE ── */
         .timeline {
             display: flex;
@@ -932,155 +1000,97 @@
     <div class="section-label">Career</div>
     <h2 class="section-title">Experience</h2>
 
-    <!-- Radar Chart -->
-    <div style="display: flex; justify-content: center; margin-bottom: 3rem;">
-        <div class="hero-radar">
-            <svg viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(250,210)">
-                    <!-- Background grid rings (octagon) -->
-                    <polygon points="0,-180 127.28,-127.28 180,0 127.28,127.28 0,180 -127.28,127.28 -180,0 -127.28,-127.28" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.35"/>
-                    <polygon points="0,-140 98.99,-98.99 140,0 98.99,98.99 0,140 -98.99,98.99 -140,0 -98.99,-98.99" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <polygon points="0,-100 70.71,-70.71 100,0 70.71,70.71 0,100 -70.71,70.71 -100,0 -70.71,-70.71" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.18"/>
-                    <polygon points="0,-60 42.43,-42.43 60,0 42.43,42.43 0,60 -42.43,42.43 -60,0 -42.43,-42.43" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.12"/>
-
-                    <!-- Axis lines -->
-                    <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-                    <line x1="0" y1="0" x2="-127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
-
-                    <!-- Outer radar fill -->
-                    <polygon class="radar-shape"
-                        points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105"
-                        fill="rgba(244,114,182,0.08)"
-                        stroke="var(--accent)"
-                        stroke-width="1.5"
-                    />
-
-                    <!-- Inner secondary shape -->
-                    <polygon class="radar-shape-inner"
-                        points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80"
-                        fill="rgba(245,158,11,0.06)"
-                        stroke="#F59E0B"
-                        stroke-width="1"
-                        stroke-dasharray="4 3"
-                        opacity="0.5"
-                    />
-
-                    <!-- Data dots -->
-                    <circle cx="0" cy="-170" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="118" cy="-110" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="165" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="110" cy="110" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="0" cy="150" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-105" cy="105" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-160" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                    <circle cx="-115" cy="-105" r="4.5" fill="var(--accent)" class="radar-dot"/>
-                </g>
-
-                <!-- Axis labels -->
-                <text x="250" y="22" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
-                <text x="400" y="80" text-anchor="start" class="radar-label-main">Recommendation</text>
-                <text x="400" y="93" text-anchor="start" class="radar-label-sub">Systems &amp; Ranking</text>
-                <text x="432" y="210" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
-                <text x="432" y="223" text-anchor="start" class="radar-label-sub">RAG · Agents</text>
-                <text x="382" y="340" text-anchor="start" class="radar-label-main">Deep Learning</text>
-                <text x="382" y="353" text-anchor="start" class="radar-label-sub">Neural Networks</text>
-                <text x="250" y="418" text-anchor="middle" class="radar-label-main">Product Analytics</text>
-                <text x="250" y="431" text-anchor="middle" class="radar-label-sub">A/B Testing · Metrics</text>
-                <text x="118" y="340" text-anchor="end" class="radar-label-main">Data Mining</text>
-                <text x="118" y="353" text-anchor="end" class="radar-label-sub">Personalization</text>
-                <text x="68" y="210" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
-                <text x="68" y="223" text-anchor="end" class="radar-label-sub">Graphs · Embeddings</text>
-                <text x="100" y="80" text-anchor="end" class="radar-label-main">Statistics &amp;</text>
-                <text x="100" y="93" text-anchor="end" class="radar-label-sub">Network Analysis</text>
-            </svg>
-
-            <!-- Category legend -->
-            <div class="radar-categories">
-                <div class="radar-cat">
-                    <div class="radar-cat-dot cat-social"></div>
-                    <div>
-                        <div class="radar-cat-label">Social Networks</div>
-                        <div class="radar-cat-detail">Twitter/X · Pinterest · Meta</div>
-                    </div>
-                </div>
-                <div class="radar-cat">
-                    <div class="radar-cat-dot cat-ecom"></div>
-                    <div>
-                        <div class="radar-cat-label">E-Commerce &amp; Marketplace</div>
-                        <div class="radar-cat-detail">Airbnb · Coupang</div>
-                    </div>
-                </div>
-                <div class="radar-cat">
-                    <div class="radar-cat-dot cat-startup"></div>
-                    <div>
-                        <div class="radar-cat-label">Startups &amp; Consulting</div>
-                        <div class="radar-cat-detail">Founder · Advisor · Consultant</div>
-                    </div>
-                </div>
-                <div class="radar-cat">
-                    <div class="radar-cat-dot cat-author"></div>
-                    <div>
-                        <div class="radar-cat-label">Author &amp; Educator</div>
-                        <div class="radar-cat-detail">Books · Courses · Teaching</div>
-                    </div>
+    <div class="experience-layout">
+        <!-- Radar Chart (left) -->
+        <div class="experience-radar-col">
+            <div class="hero-radar">
+                <svg viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(250,210)">
+                        <polygon points="0,-180 127.28,-127.28 180,0 127.28,127.28 0,180 -127.28,127.28 -180,0 -127.28,-127.28" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.35"/>
+                        <polygon points="0,-140 98.99,-98.99 140,0 98.99,98.99 0,140 -98.99,98.99 -140,0 -98.99,-98.99" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <polygon points="0,-100 70.71,-70.71 100,0 70.71,70.71 0,100 -70.71,70.71 -100,0 -70.71,-70.71" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.18"/>
+                        <polygon points="0,-60 42.43,-42.43 60,0 42.43,42.43 0,60 -42.43,42.43 -60,0 -42.43,-42.43" fill="none" stroke="#E8E4DF" stroke-width="0.5" opacity="0.12"/>
+                        <line x1="0" y1="0" x2="0" y2="-180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="0" y2="180" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="-127.28" y2="127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="-180" y2="0" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <line x1="0" y1="0" x2="-127.28" y2="-127.28" stroke="#E8E4DF" stroke-width="0.5" opacity="0.25"/>
+                        <polygon class="radar-shape" points="0,-170 118,-110 165,0 110,110 0,150 -105,105 -160,0 -115,-105" fill="rgba(244,114,182,0.08)" stroke="var(--accent)" stroke-width="1.5"/>
+                        <polygon class="radar-shape-inner" points="0,-120 85,-85 130,0 80,80 0,105 -80,75 -110,0 -80,-80" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+                        <circle cx="0" cy="-170" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="118" cy="-110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="165" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="110" cy="110" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="0" cy="150" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="-105" cy="105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="-160" cy="0" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                        <circle cx="-115" cy="-105" r="4.5" fill="var(--accent)" class="radar-dot"/>
+                    </g>
+                    <text x="250" y="22" text-anchor="middle" class="radar-label-main">Search &amp; Retrieval</text>
+                    <text x="400" y="80" text-anchor="start" class="radar-label-main">Recommendation</text>
+                    <text x="400" y="93" text-anchor="start" class="radar-label-sub">Systems &amp; Ranking</text>
+                    <text x="432" y="210" text-anchor="start" class="radar-label-main">LLMs &amp; GenAI</text>
+                    <text x="432" y="223" text-anchor="start" class="radar-label-sub">RAG · Agents</text>
+                    <text x="382" y="340" text-anchor="start" class="radar-label-main">Deep Learning</text>
+                    <text x="382" y="353" text-anchor="start" class="radar-label-sub">Neural Networks</text>
+                    <text x="250" y="418" text-anchor="middle" class="radar-label-main">Product Analytics</text>
+                    <text x="250" y="431" text-anchor="middle" class="radar-label-sub">A/B Testing · Metrics</text>
+                    <text x="118" y="340" text-anchor="end" class="radar-label-main">Data Mining</text>
+                    <text x="118" y="353" text-anchor="end" class="radar-label-sub">Personalization</text>
+                    <text x="68" y="210" text-anchor="end" class="radar-label-main">NLP &amp; Knowledge</text>
+                    <text x="68" y="223" text-anchor="end" class="radar-label-sub">Graphs · Embeddings</text>
+                    <text x="100" y="80" text-anchor="end" class="radar-label-main">Statistics &amp;</text>
+                    <text x="100" y="93" text-anchor="end" class="radar-label-sub">Network Analysis</text>
+                </svg>
+                <div class="radar-categories">
+                    <div class="radar-cat"><div class="radar-cat-dot cat-social"></div><div><div class="radar-cat-label">Social Networks</div><div class="radar-cat-detail">Twitter/X · Pinterest · Meta</div></div></div>
+                    <div class="radar-cat"><div class="radar-cat-dot cat-ecom"></div><div><div class="radar-cat-label">E-Commerce &amp; Marketplace</div><div class="radar-cat-detail">Airbnb · Coupang</div></div></div>
+                    <div class="radar-cat"><div class="radar-cat-dot cat-startup"></div><div><div class="radar-cat-label">Startups &amp; Consulting</div><div class="radar-cat-detail">Founder · Advisor · Consultant</div></div></div>
+                    <div class="radar-cat"><div class="radar-cat-dot cat-author"></div><div><div class="radar-cat-label">Author &amp; Educator</div><div class="radar-cat-detail">Books · Courses · Teaching</div></div></div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-date">Jul 2025 — Present</div>
-            <div class="timeline-content">
-                <h3>Machine Learning Engineer</h3>
-                <div class="company">Airbnb</div>
-                <p>Working on Ranking, Relevance and Personalization. Building retrieval and ranking models and end-to-end ML pipelines. Leveraging GenAI and LLMs to power search and recommendation products.</p>
+        <!-- Compact Experience List (right) -->
+        <div class="experience-list-col">
+            <div class="compact-item">
+                <div class="compact-date">2025 — Present</div>
+                <div class="compact-role">ML Engineer</div>
+                <div class="compact-company">Airbnb</div>
+                <div class="compact-desc">Ranking, Relevance &amp; Personalization. Retrieval and ranking models, GenAI-powered search.</div>
             </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-date">Dec 2023 — Jul 2025</div>
-            <div class="timeline-content">
-                <h3>Machine Learning Engineer</h3>
-                <div class="company">Coupang</div>
-                <p>Search retrieval and relevance engineering. Led new initiatives using GenAI and LLMs to improve search quality across the platform.</p>
+            <div class="compact-item">
+                <div class="compact-date">2023 — 2025</div>
+                <div class="compact-role">ML Engineer</div>
+                <div class="compact-company">Coupang</div>
+                <div class="compact-desc">Search retrieval &amp; relevance. GenAI/LLM initiatives for search quality.</div>
             </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-date">Jan 2023 — Dec 2023</div>
-            <div class="timeline-content">
-                <h3>Founder &amp; Advisor</h3>
-                <div class="company">Stealth AI Startup</div>
-                <p>Founded TigerLab AI — an open-source LLM toolkit. Mentored and advised businesses and individuals in the AI/LLM space. Taught courses on Python for production environments.</p>
+            <div class="compact-item">
+                <div class="compact-date">2023</div>
+                <div class="compact-role">Founder &amp; Advisor</div>
+                <div class="compact-company">Stealth AI Startup</div>
+                <div class="compact-desc">Founded TigerLab AI. Mentored in AI/LLM space. Taught Python courses.</div>
             </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-date">Jan 2021 — Jan 2023</div>
-            <div class="timeline-content">
-                <h3>Machine Learning Engineer</h3>
-                <div class="company">Facebook/Meta</div>
-                <p>Recommendation systems for video products (long and short form). Built models for producer value estimation and creator growth, democratizing video creation and distribution.</p>
+            <div class="compact-item">
+                <div class="compact-date">2021 — 2023</div>
+                <div class="compact-role">ML Engineer</div>
+                <div class="compact-company">Facebook/Meta</div>
+                <div class="compact-desc">Video recommendation systems. Producer value estimation &amp; creator growth.</div>
             </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-date">May 2019 — Dec 2020</div>
-            <div class="timeline-content">
-                <h3>Machine Learning Engineer</h3>
-                <div class="company">Pinterest</div>
-                <p>Built ML models for ads quality, providing recommendations to advertisers and improving advertiser and ad quality. Led workflow readiness across the ads quality org.</p>
+            <div class="compact-item">
+                <div class="compact-date">2019 — 2020</div>
+                <div class="compact-role">ML Engineer</div>
+                <div class="compact-company">Pinterest</div>
+                <div class="compact-desc">Ads quality ML models. Advertiser recommendations &amp; workflow readiness.</div>
             </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-date">Jan 2016 — May 2019</div>
-            <div class="timeline-content">
-                <h3>Machine Learning Engineer</h3>
-                <div class="company">Twitter/X</div>
-                <p>Built personalization and recommendation systems for the Explore Tab — topic and interest relevance modeling, Trends, Events, and Topic Modules. Previously interned as a Data Scientist and Software Engineer (2014–2015).</p>
+            <div class="compact-item">
+                <div class="compact-date">2016 — 2019</div>
+                <div class="compact-role">ML Engineer</div>
+                <div class="compact-company">Twitter/X</div>
+                <div class="compact-desc">Explore Tab personalization. Topic relevance, Trends &amp; Events. Intern 2014–15.</div>
             </div>
         </div>
     </div>
@@ -1136,51 +1146,57 @@
             <div class="hobby-group-icon">🏔️</div>
             <h3>Sports</h3>
             <div class="hobby-tags">
-                <span class="skill-tag">Skiing</span>
-                <span class="skill-tag">Snowboarding</span>
-                <span class="skill-tag">Ice Skating</span>
-                <span class="skill-tag">Surfing</span>
-                <span class="skill-tag">Swimming</span>
-                <span class="skill-tag">Diving</span>
-                <span class="skill-tag">Stand-Up Paddleboarding</span>
-                <span class="skill-tag">Skydiving</span>
-                <span class="skill-tag">Pickleball</span>
-                <span class="skill-tag">Table Tennis</span>
+                <span class="skill-tag">⛷️ Skiing</span>
+                <span class="skill-tag">🏂 Snowboarding</span>
+                <span class="skill-tag">⛸️ Ice Skating</span>
+                <span class="skill-tag">🏄 Surfing</span>
+                <span class="skill-tag">🏊 Swimming</span>
+                <span class="skill-tag">🤿 Scuba Diving</span>
+                <span class="skill-tag">🚣 Stand-Up Paddleboarding</span>
+                <span class="skill-tag">🪂 Skydiving</span>
+                <span class="skill-tag">🧗 Rock Climbing</span>
+                <span class="skill-tag">🏓 Pickleball</span>
+                <span class="skill-tag">🏸 Badminton</span>
             </div>
         </div>
         <div class="hobby-group">
             <div class="hobby-group-icon">🎨</div>
             <h3>Art, Music &amp; Dance</h3>
             <div class="hobby-tags">
-                <span class="skill-tag">Piano</span>
-                <span class="skill-tag">Guzheng (Chinese Zither)</span>
-                <span class="skill-tag">Singing</span>
-                <span class="skill-tag">Acapella</span>
-                <span class="skill-tag">Dancing</span>
-                <span class="skill-tag">Ballet</span>
-                <span class="skill-tag">Yoga</span>
-                <span class="skill-tag">Acrylic Painting</span>
-                <span class="skill-tag">Chinese Calligraphy</span>
+                <span class="skill-tag">🎹 Piano</span>
+                <span class="skill-tag">🎵 Guzheng (Chinese Zither)</span>
+                <span class="skill-tag">🎤 Singing</span>
+                <span class="skill-tag">🎶 Acapella</span>
+                <span class="skill-tag">💃 Dancing</span>
+                <span class="skill-tag">🩰 Ballet</span>
+                <span class="skill-tag">🧘 Yoga</span>
+                <span class="skill-tag">🖌️ Acrylic Painting</span>
+                <span class="skill-tag">✒️ Chinese Calligraphy</span>
             </div>
         </div>
         <div class="hobby-group">
             <div class="hobby-group-icon">🌍</div>
             <h3>Travel &amp; Adventure</h3>
             <div class="hobby-tags">
-                <span class="skill-tag">International Travel</span>
-                <span class="skill-tag">Road Trips</span>
-                <span class="skill-tag">Hiking</span>
-                <span class="skill-tag">Camping</span>
-                <span class="skill-tag">National Parks</span>
+                <span class="skill-tag">✈️ International Travel</span>
+                <span class="skill-tag">🚗 Road Trips</span>
+                <span class="skill-tag">🥾 Hiking</span>
+                <span class="skill-tag">⛺ Camping</span>
+                <span class="skill-tag">🏞️ National Parks</span>
+                <span class="skill-tag">🎭 Cultural Festivals</span>
             </div>
         </div>
         <div class="hobby-group">
             <div class="hobby-group-icon">🌿</div>
             <h3>Life</h3>
             <div class="hobby-tags">
-                <span class="skill-tag">Cats</span>
-                <span class="skill-tag">Gardening</span>
-                <span class="skill-tag">Board Games</span>
+                <span class="skill-tag">🐱 Cats</span>
+                <span class="skill-tag">🌱 Gardening</span>
+                <span class="skill-tag">🎲 Board Games</span>
+                <span class="skill-tag">📚 Reading</span>
+                <span class="skill-tag">✍️ Writing</span>
+                <span class="skill-tag">🍵 Tea</span>
+                <span class="skill-tag">🕯️ Meditation</span>
             </div>
         </div>
     </div>
