@@ -1,0 +1,426 @@
+---
+permalink: /conference-tracker/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Tracker — Wendy Ran Wei</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF0F3;
+            --text: #1A1A2E;
+            --text-soft: #5A5A6E;
+            --accent: #E8614D;
+            --accent-dark: #D4522A;
+            --accent-pink: #EC4899;
+            --accent-gold: #F59E0B;
+            --accent-green: #0F9D6B;
+            --accent-blue: #3B6FD8;
+            --gradient: linear-gradient(135deg, #EC4899, #F59E0B);
+            --gradient-soft: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.12));
+            --card: #FFFFFF;
+            --border: #F5C6D0;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', system-ui, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            background-image: radial-gradient(ellipse at 20% 0%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                              radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.06) 0%, transparent 50%);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 1.05rem;
+            -webkit-font-smoothing: antialiased;
+        }
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(255, 240, 243, 0.88);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1120px; margin: 0 auto; padding: 0 2rem; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo {
+            font-family: var(--serif); font-size: 1.25rem;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            text-decoration: none; letter-spacing: -0.02em;
+        }
+        nav .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+        nav .nav-links a { text-decoration: none; color: var(--text-soft); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em; }
+        nav .nav-links a:hover, nav .nav-links a.active { color: var(--accent); }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; }
+        main { max-width: 1000px; margin: 0 auto; padding: 130px 2rem 60px; }
+        .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; margin-bottom: 0.6rem; }
+        h1.page-title { font-family: var(--serif); font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .intro { color: var(--text-soft); max-width: 760px; margin-bottom: 0.5rem; }
+        .verified-note { font-size: 0.85rem; color: var(--text-soft); opacity: 0.75; margin-bottom: 2.5rem; }
+        h2.section-h { font-family: var(--serif); font-size: 1.7rem; margin: 3rem 0 1.25rem; letter-spacing: -0.01em; }
+        a { color: var(--accent); }
+        a:hover { color: var(--accent-dark); }
+
+        /* legend + timeline */
+        .legend { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 1.25rem; }
+        .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 0.4rem; }
+        .dot.deadline { background: var(--accent); }
+        .dot.notify { background: var(--accent-blue); }
+        .dot.conf { background: var(--accent-green); }
+        .cd-timeline { position: relative; margin: 0 0 1rem; padding-left: 1.4em; border-left: 3px solid var(--border); }
+        .cd-month { margin-bottom: 1.7em; }
+        .cd-month-label { font-weight: 700; font-size: 0.78em; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin: 0 0 0.6em -1.4em; padding-left: 0.9em; position: relative; }
+        .cd-month-label::before { content: ""; position: absolute; left: -0.42em; top: 0.4em; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-pink); }
+        .cd-event { position: relative; margin: 0 0 0.5em 0; padding-left: 0.4em; font-size: 0.95em; line-height: 1.5; color: var(--text); }
+        .cd-event .cd-date { display: inline-block; min-width: 4.2em; font-weight: 600; color: var(--text-soft); }
+
+        /* planner */
+        .plan-callout { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.4rem; font-size: 0.92rem; color: var(--text-soft); margin-bottom: 1.25rem; line-height: 1.6; }
+        .plan-callout strong { color: var(--text); }
+        table.plan-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1rem; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        table.plan-table th, table.plan-table td { padding: 0.65rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+        table.plan-table th { background: var(--gradient-soft); font-weight: 600; }
+        table.plan-table tr:last-child td { border-bottom: none; }
+        .plan-footnote { font-size: 0.82rem; color: var(--text-soft); opacity: 0.8; margin-top: 0.5rem; }
+
+        /* conference cards */
+        .conf-grid { display: grid; gap: 1.1rem; }
+        .conf-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.75rem; transition: box-shadow 0.25s, border-color 0.25s; }
+        .conf-card:hover { border-color: var(--accent-pink); box-shadow: 0 8px 28px rgba(236,72,153,0.1); }
+        .conf-name { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.15rem; }
+        .conf-name a { text-decoration: none; }
+        .conf-loc { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 0.9rem; }
+        .conf-row { font-size: 0.92rem; margin-bottom: 0.45rem; line-height: 1.55; }
+        .conf-row .label { font-weight: 600; color: var(--text); }
+        .status-pill { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; margin-left: 0.4rem; vertical-align: middle; }
+        .status-open { background: rgba(15,157,107,0.12); color: var(--accent-green); }
+        .status-closed { background: rgba(90,90,110,0.1); color: var(--text-soft); }
+        .status-pending { background: rgba(59,111,216,0.12); color: var(--accent-blue); }
+        .status-tba { background: rgba(245,158,11,0.14); color: var(--accent-gold); }
+        .tier-note { font-size: 0.85rem; color: var(--text-soft); margin: -0.5rem 0 1.5rem; }
+
+        footer { max-width: 1120px; margin: 3rem auto 0; padding: 3rem 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        footer p { font-size: 0.95rem; color: var(--text-soft); }
+        footer .footer-links { display: flex; gap: 1.5rem; }
+        footer .footer-links a { color: var(--text-soft); text-decoration: none; font-size: 0.95rem; }
+        footer .footer-links a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            main { padding: 110px 1.25rem 40px; }
+            h1.page-title { font-size: 1.9rem; }
+            nav .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+            nav .nav-links.open { display: flex; }
+            .hamburger { display: block; }
+            table.plan-table { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">Wendy Ran Wei</a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/#publications">Publications</a></li>
+            <li><a href="/#education">Education</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#patents">Patents</a></li>
+            <li><a href="/#opensource">Open Source</a></li>
+            <li><a href="/#hobbies">Hobbies</a></li>
+            <li><a href="/conference-tracker/" class="active">Conference Tracker</a></li>
+            <li><a href="/blogs/">Blogs</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-eyebrow">Paper Planning</div>
+    <h1 class="page-title">Conference Tracker</h1>
+    <p class="intro">My tracker for major AI / ML / LLM / NLP / IR conference submissions, grouped by general prestige tier. Verified against each conference's official site — dates are cited with sources. Entries marked "not yet officially posted" show the most recent confirmed prior-year cycle for reference only. All deadlines are 11:59 PM AoE ("Anywhere on Earth", UTC-12) unless noted otherwise. Every entry lists a <strong>Notification</strong> date too — useful for planning where to resubmit if a paper gets rejected (see the Resubmission Planner below).</p>
+    <p class="verified-note">Last verified: July 12, 2026</p>
+
+    <h2 class="section-h">Timeline</h2>
+    <div class="legend"><span class="dot deadline"></span>submission deadline &nbsp; <span class="dot notify"></span>notification/commitment &nbsp; <span class="dot conf"></span>conference dates</div>
+    <div class="cd-timeline">
+
+        <div class="cd-month">
+            <div class="cd-month-label">July 2026</div>
+            <div class="cd-event"><span class="cd-date">Jul 8</span><span class="dot notify"></span>COLM 2026 — notifications issued</div>
+            <div class="cd-event"><span class="cd-date">Jul 13</span><span class="dot deadline"></span>EMNLP 2026 — author response window closes</div>
+            <div class="cd-event"><span class="cd-date">Jul 15</span><span class="dot deadline"></span>RecSys 2026 — Demo &amp; R&amp;P Notes deadline (open now)</div>
+            <div class="cd-event"><span class="cd-date">Jul 15</span><span class="dot deadline"></span>AIAS+ 2026 — paper submission deadline (open now, ~3 days)</div>
+            <div class="cd-event"><span class="cd-date">Jul 19</span><span class="dot deadline"></span>KDD 2027 — abstract deadline</div>
+            <div class="cd-event"><span class="cd-date">Jul 21</span><span class="dot deadline"></span>AAAI-27 — abstract deadline</div>
+            <div class="cd-event"><span class="cd-date">Jul 26</span><span class="dot deadline"></span>KDD 2027 — full paper deadline</div>
+            <div class="cd-event"><span class="cd-date">Jul 28</span><span class="dot deadline"></span>AAAI-27 — full paper deadline</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">August 2026</div>
+            <div class="cd-event"><span class="cd-date">Aug 2</span><span class="dot notify"></span>EMNLP 2026 — ARR commitment deadline</div>
+            <div class="cd-event"><span class="cd-date">Aug 3</span><span class="dot deadline"></span>EACL 2027 — ARR submission deadline</div>
+            <div class="cd-event"><span class="cd-date">Aug 7</span><span class="dot notify"></span>CIKM 2026 — notifications</div>
+            <div class="cd-event"><span class="cd-date">Aug 15–21</span><span class="dot conf"></span>IJCAI-ECAI 2026 — Bremen (reference cycle; submissions closed)</div>
+            <div class="cd-event"><span class="cd-date">Aug 17</span><span class="dot deadline"></span>WSDM 2027 — abstract deadline</div>
+            <div class="cd-event"><span class="cd-date">Aug 24</span><span class="dot deadline"></span>WSDM 2027 — full paper deadline</div>
+            <div class="cd-event"><span class="cd-date">Aug 29</span><span class="dot notify"></span>AIAS+ 2026 — notification of acceptance</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">September–October 2026</div>
+            <div class="cd-event"><span class="cd-date">Sep 18</span><span class="dot deadline"></span>AIAS+ 2026 — student poster deadline</div>
+            <div class="cd-event"><span class="cd-date">Sep 24</span><span class="dot notify"></span>AAAI-27 — Phase-1 (reject-only) notice</div>
+            <div class="cd-event"><span class="cd-date">Sep 24</span><span class="dot notify"></span>NeurIPS 2026 — author notification</div>
+            <div class="cd-event"><span class="cd-date">Sep 28–Oct 2</span><span class="dot conf"></span>RecSys 2026 — Minneapolis</div>
+            <div class="cd-event"><span class="cd-date">Oct 5</span><span class="dot notify"></span>AIAS+ 2026 — poster notification</div>
+            <div class="cd-event"><span class="cd-date">Oct 6–9</span><span class="dot conf"></span>COLM 2026 — San Francisco</div>
+            <div class="cd-event"><span class="cd-date">Oct 11</span><span class="dot notify"></span>EACL 2027 — commitment deadline</div>
+            <div class="cd-event"><span class="cd-date">Oct 12</span><span class="dot deadline"></span>NAACL 2027 — ARR submission deadline</div>
+            <div class="cd-event"><span class="cd-date">Oct 24–29</span><span class="dot conf"></span>EMNLP 2026 — Budapest</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">November 2026</div>
+            <div class="cd-event"><span class="cd-date">Nov 2</span><span class="dot notify"></span>WSDM 2027 — main track notification</div>
+            <div class="cd-event"><span class="cd-date">Nov 5–7</span><span class="dot conf"></span>AIAS+ 2026 — San Francisco</div>
+            <div class="cd-event"><span class="cd-date">Nov 7–11</span><span class="dot conf"></span>CIKM 2026 — Rome</div>
+            <div class="cd-event"><span class="cd-date">Nov 12</span><span class="dot notify"></span>EACL 2027 — notification</div>
+            <div class="cd-event"><span class="cd-date">Nov 14</span><span class="dot notify"></span>KDD 2027 — notification</div>
+            <div class="cd-event"><span class="cd-date">Nov 17</span><span class="dot deadline"></span>WSDM 2027 — short paper deadline</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">December 2026</div>
+            <div class="cd-event"><span class="cd-date">Dec 6–12</span><span class="dot conf"></span>NeurIPS 2026 — Sydney (+ Atlanta/Paris satellites)</div>
+            <div class="cd-event"><span class="cd-date">Dec 18</span><span class="dot notify"></span>WSDM 2027 — short track notification</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">February 2027</div>
+            <div class="cd-event"><span class="cd-date">Feb 15–19</span><span class="dot conf"></span>WSDM 2027 — Hong Kong</div>
+            <div class="cd-event"><span class="cd-date">Feb 16–23</span><span class="dot conf"></span>AAAI-27 — Montréal</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">March 2027</div>
+            <div class="cd-event"><span class="cd-date">Mar 9–14</span><span class="dot conf"></span>EACL 2027 — Athens</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">June 2027</div>
+            <div class="cd-event"><span class="cd-date">Jun 1–5</span><span class="dot conf"></span>NAACL 2027 — San Francisco</div>
+        </div>
+
+        <div class="cd-month">
+            <div class="cd-month-label">August 2027</div>
+            <div class="cd-event"><span class="cd-date">Aug (TBC)</span><span class="dot conf"></span>KDD 2027 — San Jose</div>
+            <div class="cd-event"><span class="cd-date">Aug 17–22</span><span class="dot conf"></span>ACL 2027 — Japan</div>
+        </div>
+
+    </div>
+    <p class="plan-footnote">ICLR 2027, ICML 2027, WWW 2027, SIGIR 2027, IJCAI 2027, and MLSys 2027 aren't on the timeline yet — none have official dates posted as of July 12, 2026. See their entries below for the most recent reference cycle.</p>
+
+    <h2 class="section-h">Resubmission Planner</h2>
+    <div class="plan-callout">If a paper gets rejected, this is what's realistically still open to submit to next. "Still-open targets" only includes venues whose submission deadline falls after the notification date in that row — so as more time passes, the target list shrinks.<br><br><strong>Already notified — open now (as of Jul 12, 2026):</strong> ICLR 2026 (Jan 25), WWW 2026 (Jan 13), MLSys 2026 (Jan 25–26), SIGIR 2026 (~Apr 2), ICML 2026 (Apr 30), IJCAI-ECAI 2026 (Apr 29), RecSys 2026 main tracks (Jul 9), COLM 2026 (Jul 8) &rarr; <strong>all of these can still target:</strong> AIAS+ 2026 (Jul 15), RecSys 2026 Demo/R&amp;P Notes (Jul 15), KDD 2027 (Jul 19/26), AAAI-27 (Jul 21/28), EACL 2027 ARR (Aug 3), WSDM 2027 main (Aug 17/24), NAACL 2027 ARR (Oct 12), WSDM 2027 short (Nov 17).</div>
+    <table class="plan-table">
+        <tr><th>If rejected from</th><th>Notified</th><th>Still-open targets at that point</th></tr>
+        <tr><td>CIKM 2026</td><td>Aug 7, 2026</td><td>WSDM 2027 main (Aug 17/24) · NAACL 2027 ARR (Oct 12) · WSDM 2027 short (Nov 17)</td></tr>
+        <tr><td>EMNLP 2026</td><td>Aug 20, 2026</td><td>WSDM 2027 main (Aug 24, cutting it close) · NAACL 2027 ARR (Oct 12) · WSDM 2027 short (Nov 17)</td></tr>
+        <tr><td>NeurIPS 2026</td><td>Sep 24, 2026</td><td>NAACL 2027 ARR (Oct 12) · WSDM 2027 short (Nov 17)</td></tr>
+        <tr><td>AAAI-27 (Phase-1 reject signal)</td><td>Sep 24, 2026</td><td>NAACL 2027 ARR (Oct 12) · WSDM 2027 short (Nov 17)</td></tr>
+        <tr><td>WSDM 2027 main track</td><td>Nov 2, 2026</td><td>WSDM 2027 short (Nov 17, sibling track only)</td></tr>
+        <tr><td>EACL 2027</td><td>Nov 12, 2026</td><td>WSDM 2027 short (Nov 17, narrow window)</td></tr>
+        <tr><td>KDD 2027</td><td>Nov 14, 2026</td><td>WSDM 2027 short (Nov 17, narrow window)</td></tr>
+        <tr><td>AAAI-27 (final)</td><td>Nov 30, 2026</td><td>Nothing currently posted — check back; ICLR 2027 / ICML 2027 / WWW 2027 / SIGIR 2027 / ACL 2027 / NAACL 2027 full tracks should all have live CFPs by then</td></tr>
+    </table>
+    <p class="plan-footnote">Note: "still-open" is deadline-only — it doesn't account for topical fit (e.g. a pure NLP paper won't fit KDD's tracks). Cross-check the Tracks list on each entry below before committing.</p>
+
+    <h2 class="section-h">Tier 1</h2>
+    <div class="conf-grid">
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://aaai.org/conference/aaai/aaai-27/" target="_blank" rel="noopener">AAAI-27</a></div>
+            <div class="conf-loc">Montréal, Canada · Feb 16–23, 2027</div>
+            <div class="conf-row"><span class="label">Abstract:</span> Jul 21, 2026 &nbsp; <span class="label">Full paper:</span> Jul 28, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Phase-1 reject-only Sep 24, 2026; final Nov 30, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Open — abstract due in ~9 days<span class="status-pill status-open">Open</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Main Technical Track · <a href="https://aaai.org/conference/aaai/aaai-27/aisi-call/" target="_blank" rel="noopener">AI for Social Impact</a> · AI Alignment (new) · <a href="https://aaai.org/conference/aaai/aaai-27/iaai-27-call/" target="_blank" rel="noopener">IAAI-27</a> · <a href="https://aaai.org/conference/aaai/aaai-27/eaai-27-call/" target="_blank" rel="noopener">EAAI-27</a> · Doctoral Consortium · Senior Member Presentation Track</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://kdd2027.kdd.org/" target="_blank" rel="noopener">KDD 2027</a></div>
+            <div class="conf-loc">San Jose, USA · August 2027 (exact dates TBC)</div>
+            <div class="conf-row"><span class="label">Abstract:</span> Jul 19, 2026 (Cycle 1) &nbsp; <span class="label">Full paper:</span> Jul 26, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Nov 14, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Open — abstract due in ~7 days<span class="status-pill status-open">Open</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> <a href="https://kdd2027.kdd.org/research-track-call-for-papers/" target="_blank" rel="noopener">Research</a> · <a href="https://kdd2027.kdd.org/applied-data-science-ads-track-call-for-papers/" target="_blank" rel="noopener">Applied Data Science</a> · <a href="https://kdd2027.kdd.org/datasets-and-benchmarks-track-call-for-papers/" target="_blank" rel="noopener">Datasets &amp; Benchmarks</a> · <a href="https://kdd2027.kdd.org/ai4sciences-track-call-for-papers/" target="_blank" rel="noopener">AI for Sciences</a></div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://neurips.cc/" target="_blank" rel="noopener">NeurIPS 2026</a></div>
+            <div class="conf-loc">Sydney, Australia (+ Atlanta/Paris satellites) · Dec 6–12, 2026</div>
+            <div class="conf-row"><span class="label">Abstract:</span> May 4, 2026 (passed) &nbsp; <span class="label">Full paper:</span> May 6, 2026 (passed)</div>
+            <div class="conf-row"><span class="label">Notification:</span> Sep 24, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Closed to new submissions — decisions land Sep 24<span class="status-pill status-pending">In review</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Main / Position Papers / Datasets &amp; Benchmarks (shared timeline) · Competitions (closed) · Workshops · Educational Resources · Tutorials · Reproducibility (MLRC 2026) · Creative AI · Journal-to-Conference Track</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://www.ijcai.org/future_conferences" target="_blank" rel="noopener">IJCAI 2027</a></div>
+            <div class="conf-loc">Host city TBD — only chairs named</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">For reference, <a href="https://2026.ijcai.org/important-dates/" target="_blank" rel="noopener">IJCAI-ECAI 2026</a> (Bremen, Aug 15–21, 2026 — closed): abstract Jan 12, full paper Jan 19, Phase-1 notice Mar 4, final notification Apr 29, 2026.</div>
+            <div class="conf-row"><span class="label">Tracks (2026 ref):</span> Main · Human-Centered AI · AI for Social Good · AI4Tech · AI and Health · AI and Robotics · Survey Track · Journal Track · Sister Conferences · Doctoral Consortium · Demonstrations · Competitions · Workshops · Tutorials · Early Career Spotlights</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://iclr.cc/Conferences/FutureMeetings" target="_blank" rel="noopener">ICLR 2027</a></div>
+            <div class="conf-loc">West Coast North America — city TBD</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted — only the region is confirmed<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">For reference, <a href="https://iclr.cc/Conferences/2026/CallForPapers" target="_blank" rel="noopener">ICLR 2026</a>: Apr 23–25, 2026; abstract Sep 19, 2025; full paper Sep 24, 2025; notification Jan 25, 2026.</div>
+            <div class="conf-row"><span class="label">Tracks:</span> Single main track (datasets &amp; benchmarks as a topic, not a separate track); separate calls for Workshops, Blog Posts, Socials</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://icml.cc/Conferences/FutureMeetings" target="_blank" rel="noopener">ICML 2027</a></div>
+            <div class="conf-loc">Location/dates TBA — announcement expected August 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">For reference, <a href="https://icml.cc/Conferences/2026/CallForPapers" target="_blank" rel="noopener">ICML 2026</a>: Seoul, Jul 6–11, 2026; abstract Jan 23, 2026; full paper Jan 28, 2026; notification Apr 30, 2026.</div>
+            <div class="conf-row"><span class="label">Tracks:</span> Main track; separate Calls for Position Papers, Tutorials, Workshops, Expo Presentations, Socials/Mentoring</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://thewebconf.org/" target="_blank" rel="noopener">WWW / TheWebConf 2027</a></div>
+            <div class="conf-loc">Dublin, Ireland — date TBD</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted — host city &amp; chairs set, no CFP yet<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">For reference, <a href="https://www2026.thewebconf.org/important-dates.html" target="_blank" rel="noopener">WWW 2026</a> (Dubai): abstract Sep 30, 2025; full paper Oct 7, 2025; notification Jan 13, 2026.</div>
+            <div class="conf-row"><span class="label">Tracks:</span> Research &amp; Industry · Short Papers · Demo Papers · PhD Symposium · Workshops · Tutorials · Competitions · Web4Good</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://sigir.org/" target="_blank" rel="noopener">SIGIR 2027</a></div>
+            <div class="conf-loc">Location unconfirmed — unofficial reports point to the SF/San Jose area</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted (sigir2027.org registered but not live)<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">For reference, SIGIR 2026 (Melbourne): Jul 20–24, 2026; abstract Jan 15, 2026; full paper Jan 22, 2026; notification ~Apr 2, 2026 (secondary-sourced).</div>
+            <div class="conf-row"><span class="label">Tracks (2026 ref):</span> Full Papers · Short Papers · Industry Track · Demonstrations · Low Resource Environments (new in 2026)</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://2027.aclweb.org/" target="_blank" rel="noopener">ACL 2027</a></div>
+            <div class="conf-loc">Japan · Aug 17–22, 2027 (tutorials Aug 17; main Aug 18–20; workshops Aug 21–22)</div>
+            <div class="conf-row"><span class="label">ARR commitment / notification:</span> TBA — not yet listed on <a href="https://aclrollingreview.org/dates" target="_blank" rel="noopener">ARR's Dates &amp; Venues page</a></div>
+            <div class="conf-row"><span class="label">Status:</span> Pre-CFP — site live with dates/location only<span class="status-pill status-tba">Pre-CFP</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Not yet published</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://2026.emnlp.org/" target="_blank" rel="noopener">EMNLP 2026</a></div>
+            <div class="conf-loc">Budapest, Hungary · Oct 24–29, 2026</div>
+            <div class="conf-row"><span class="label">Key deadlines:</span> Author response/discussion Jul 7–13, 2026 · ARR commitment Aug 2, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Aug 20, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> In progress — author response closes Jul 13<span class="status-pill status-pending">In progress</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Main (Long/Short via ARR) + Theme Track "New Missions for NLP Research" · <a href="https://2026.emnlp.org/calls/industry_track/" target="_blank" rel="noopener">Industry Track</a> (closed) · <a href="https://2026.emnlp.org/calls/demos/" target="_blank" rel="noopener">System Demonstration</a> (closed) · <a href="https://2026.emnlp.org/calls/tutorials/" target="_blank" rel="noopener">Tutorials</a> · 27 accepted Workshops</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://colmweb.org/" target="_blank" rel="noopener">COLM 2026</a></div>
+            <div class="conf-loc">San Francisco, USA · Main Oct 6–8, 2026; workshops Oct 9</div>
+            <div class="conf-row"><span class="label">Abstract:</span> Mar 26, 2026 (passed) &nbsp; <span class="label">Full paper:</span> Mar 31, 2026 (passed)</div>
+            <div class="conf-row"><span class="label">Notification:</span> Jul 8, 2026 — already issued</div>
+            <div class="conf-row"><span class="label">Status:</span> Closed — now a source of rejects for your cascade, not a target<span class="status-pill status-closed">Closed</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Main track only (single-blind → double-blind, oral + poster) · <a href="https://colmweb.org/cfw.html" target="_blank" rel="noopener">Workshops</a></div>
+        </div>
+
+    </div>
+
+    <h2 class="section-h">Tier 2</h2>
+    <div class="conf-grid">
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://cikm2026.diag.uniroma1.it/" target="_blank" rel="noopener">CIKM 2026</a></div>
+            <div class="conf-loc">Rome, Italy · Nov 7–11, 2026 (main Nov 9–11; satellites Nov 7–8)</div>
+            <div class="conf-row"><span class="label">Full/Applied:</span> abstract May 16, full paper May 23, 2026 &nbsp; <span class="label">Short/Resource/Demo:</span> abstract May 30, full paper Jun 6, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Aug 7, 2026 (camera-ready Aug 20)</div>
+            <div class="conf-row"><span class="label">Status:</span> Closed — all paper deadlines passed<span class="status-pill status-closed">Closed</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> <a href="https://cikm2026.diag.uniroma1.it/full-research-papers/" target="_blank" rel="noopener">Full Research</a> · <a href="https://cikm2026.diag.uniroma1.it/applied-research-papers/" target="_blank" rel="noopener">Applied Research</a> · <a href="https://cikm2026.diag.uniroma1.it/short-research-papers/" target="_blank" rel="noopener">Short Research</a> · <a href="https://cikm2026.diag.uniroma1.it/resource-papers/" target="_blank" rel="noopener">Resource</a> · <a href="https://cikm2026.diag.uniroma1.it/demonstration-papers/" target="_blank" rel="noopener">Demonstration</a> · Tutorials · Workshops · AnalytiCup · PhD Symposium · Industry Day</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://recsys.acm.org/recsys26/call/" target="_blank" rel="noopener">RecSys 2026</a></div>
+            <div class="conf-loc">Minneapolis, USA · Sep 28–Oct 2, 2026 (main sessions Sep 29–Oct 1)</div>
+            <div class="conf-row"><span class="label">Long/Short/PPF:</span> abstract Apr 14, full paper Apr 21, 2026 &nbsp; <span class="label">Repro/Resource:</span> May 5 &nbsp; <span class="label">Industry:</span> May 21 &nbsp; <span class="label">Demo &amp; R&amp;P Notes:</span> Jul 15, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Jul 9, 2026 (main tracks, issued) · Aug 10, 2026 (Demo/R&amp;P Notes)</div>
+            <div class="conf-row"><span class="label">Status:</span> Mostly closed — Demo &amp; R&amp;P Notes still open, closing Jul 15<span class="status-pill status-open">Open (Demo/R&amp;P)</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Long · Short · Past/Present/Future · Reproducibility &amp; Replicability · Resource · Industry · R&amp;P Notes · Doctoral Symposium · Workshops · Tutorials · Demos</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://wsdm-conference.org/2027/" target="_blank" rel="noopener">WSDM 2027</a></div>
+            <div class="conf-loc">Hong Kong · Feb 15–19, 2027</div>
+            <div class="conf-row"><span class="label">Main:</span> abstract Aug 17, full paper Aug 24, 2026 &nbsp; <span class="label">Short:</span> Nov 17, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Main Nov 2, 2026 · Short Dec 18, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Open — abstract deadline ~5 weeks out<span class="status-pill status-open">Open</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> <a href="https://wsdm-conference.org/2027/cffp.html" target="_blank" rel="noopener">Main/Full Paper</a> · <a href="https://wsdm-conference.org/2027/cfsp.html" target="_blank" rel="noopener">Short Paper</a> · Findings (new, poster-only) · WSDM Cup</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://mlsys.org/" target="_blank" rel="noopener">MLSys 2027</a></div>
+            <div class="conf-loc">Dates/location TBA</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet officially posted<span class="status-pill status-tba">TBA</span></div>
+            <div class="conf-row">Unconfirmed rumor (not on official site): conference ~Jun 21–24, 2027, deadline ~Oct 31, 2026. For reference, MLSys 2026 (Bellevue, WA, concluded May 2026): submission deadline Oct 30, 2025; notification Jan 25–26, 2026.</div>
+            <div class="conf-row"><span class="label">Tracks (2026 ref):</span> Research · Industry (new 2026) · Artifact Evaluation · Young Professional Symposium · Competition Track · Travel Grants</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://www.aiasplus.org/call-for-papers" target="_blank" rel="noopener">AIAS+ 2026</a></div>
+            <div class="conf-loc">San Francisco, USA — Chen Institute Symposium for AI Advancing Science and Society · Nov 5–7, 2026</div>
+            <div class="conf-row"><span class="label">Paper deadline:</span> <strong>Jul 15, 2026 — 3 days out</strong> &nbsp; <span class="label">Student poster deadline:</span> Sep 18, 2026</div>
+            <div class="conf-row"><span class="label">Notification:</span> Papers Aug 29, 2026 (camera-ready Sep 7) · Posters Oct 5, 2026</div>
+            <div class="conf-row"><span class="label">Status:</span> Open — deadline imminent<span class="status-pill status-open">Open</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> <a href="https://www.aiasplus.org/call-for-papers" target="_blank" rel="noopener">Call for Papers</a> · <a href="https://www.aiasplus.org/call-for-student-posters" target="_blank" rel="noopener">Student Posters</a> · Reviewers · Exhibitors</div>
+            <div class="conf-row" style="font-style: italic; opacity: 0.85;">Science-focused symposium (AI for scientific discovery), not a core ML/NLP/IR venue — best fit for papers with a strong "AI for science" angle.</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://2027.naacl.org/" target="_blank" rel="noopener">NAACL 2027</a></div>
+            <div class="conf-loc">San Francisco, USA · Jun 1–5, 2027</div>
+            <div class="conf-row"><span class="label">ARR submission:</span> Oct 12, 2026 (matches ARR October 2026 cycle)</div>
+            <div class="conf-row"><span class="label">Notification:</span> Not yet posted</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet open — site just launched (Jul 6, 2026)<span class="status-pill status-tba">Pre-CFP</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Not yet published</div>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-name"><a href="https://2027.eacl.org/" target="_blank" rel="noopener">EACL 2027</a></div>
+            <div class="conf-loc">Athens, Greece · Mar 9–14, 2027</div>
+            <div class="conf-row"><span class="label">Key deadlines:</span> ARR submission Aug 3, 2026 · reviewer registration Aug 5 · author response Sep 14–19 · commitment Oct 11</div>
+            <div class="conf-row"><span class="label">Notification:</span> Nov 12, 2026 (camera-ready Nov 26)</div>
+            <div class="conf-row"><span class="label">Status:</span> Not yet open — ARR submission ~3 weeks out<span class="status-pill status-pending">Upcoming</span></div>
+            <div class="conf-row"><span class="label">Tracks:</span> Long &amp; Short Papers (via ARR) · <a href="https://2027.eacl.org/calls/industry/" target="_blank" rel="noopener">Industry Track</a> · Special Theme: "The Human in Language"</div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Wendy Ran Wei</p>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter/X</a>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+---
+permalink: /blogs/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs — Wendy Ran Wei</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF0F3;
+            --text: #1A1A2E;
+            --text-soft: #5A5A6E;
+            --accent: #E8614D;
+            --accent-dark: #D4522A;
+            --accent-pink: #EC4899;
+            --accent-gold: #F59E0B;
+            --gradient: linear-gradient(135deg, #EC4899, #F59E0B);
+            --gradient-soft: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.12));
+            --card: #FFFFFF;
+            --border: #F5C6D0;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', system-ui, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            background-image: radial-gradient(ellipse at 20% 0%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                              radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.06) 0%, transparent 50%);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 1.05rem;
+            -webkit-font-smoothing: antialiased;
+        }
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(255, 240, 243, 0.88);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1120px; margin: 0 auto; padding: 0 2rem; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo {
+            font-family: var(--serif); font-size: 1.25rem;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            text-decoration: none; letter-spacing: -0.02em;
+        }
+        nav .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+        nav .nav-links a { text-decoration: none; color: var(--text-soft); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em; }
+        nav .nav-links a:hover, nav .nav-links a.active { color: var(--accent); }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; }
+        main { max-width: 900px; margin: 0 auto; padding: 130px 2rem 60px; }
+        .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; margin-bottom: 0.6rem; }
+        h1.page-title { font-family: var(--serif); font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .intro { color: var(--text-soft); max-width: 700px; margin-bottom: 2.5rem; }
+        a { color: var(--accent); }
+        a:hover { color: var(--accent-dark); }
+
+        .cat-grid { display: grid; gap: 1.25rem; }
+        .cat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; transition: box-shadow 0.25s, border-color 0.25s; }
+        .cat-card:hover { border-color: var(--accent-pink); box-shadow: 0 8px 28px rgba(236,72,153,0.1); }
+        .cat-name { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.4rem; }
+        .cat-name a { text-decoration: none; }
+        .cat-desc { color: var(--text-soft); font-size: 0.95rem; margin-bottom: 0.9rem; }
+        .cat-posts { list-style: none; }
+        .cat-posts li { padding: 0.6rem 0; border-top: 1px solid var(--border); font-size: 0.92rem; }
+        .cat-posts li:first-child { border-top: none; }
+        .cat-posts a { text-decoration: none; font-weight: 500; }
+        .cat-posts a:hover { text-decoration: underline; }
+        .post-meta { color: var(--text-soft); font-size: 0.82rem; margin-top: 0.15rem; }
+        .coming-soon { text-align: center; font-size: 0.9rem; color: var(--text-soft); opacity: 0.7; margin-top: 1.5rem; }
+
+        footer { max-width: 1120px; margin: 3rem auto 0; padding: 3rem 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        footer p { font-size: 0.95rem; color: var(--text-soft); }
+        footer .footer-links { display: flex; gap: 1.5rem; }
+        footer .footer-links a { color: var(--text-soft); text-decoration: none; font-size: 0.95rem; }
+        footer .footer-links a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            main { padding: 110px 1.25rem 40px; }
+            h1.page-title { font-size: 1.9rem; }
+            nav .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+            nav .nav-links.open { display: flex; }
+            .hamburger { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">Wendy Ran Wei</a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/#publications">Publications</a></li>
+            <li><a href="/#education">Education</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#patents">Patents</a></li>
+            <li><a href="/#opensource">Open Source</a></li>
+            <li><a href="/#hobbies">Hobbies</a></li>
+            <li><a href="/conference-tracker/">Conference Tracker</a></li>
+            <li><a href="/blogs/" class="active">Blogs</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-eyebrow">Writing</div>
+    <h1 class="page-title">Blogs</h1>
+    <p class="intro">A hub for the different things I write about. Pick a category below.</p>
+
+    <div class="cat-grid">
+
+        <div class="cat-card">
+            <div class="cat-name"><a href="/conference-tracker/">Conference Tracker</a></div>
+            <div class="cat-desc">Deadlines, dates, and tracks for major AI/ML/NLP/IR conferences I'm watching for paper submissions.</div>
+        </div>
+
+        <div class="cat-card">
+            <div class="cat-name">Tech Notes</div>
+            <div class="cat-desc">Write-ups from talks, workshops, and industry events.</div>
+            <ul class="cat-posts">
+                <li>
+                    <a href="https://wendyranwei.medium.com/prs-2026-what-the-industry-learned-about-personalization-recommendation-search-in-the-llm-era-f0293c262c28" target="_blank" rel="noopener">PRS 2026: What the Industry Learned About Personalization, Recommendation &amp; Search in the LLM Era</a>
+                    <div class="post-meta">Medium · Jun 2026 — notes from the 10th annual Netflix PRS workshop, with talks from DoorDash, LinkedIn, Pinterest, Google DeepMind, Stanford, Zillow, and Netflix.</div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <p class="coming-soon">More categories coming soon.</p>
+</main>
+
+<footer>
+    <p>&copy; 2026 Wendy Ran Wei</p>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter/X</a>
+    </div>
+</footer>
+
+<script>
+    // placeholder for future interactivity
+</script>
+
+</body>
+</html>
