@@ -5,11 +5,11 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
+      <li><a href="{{ "/about/" | prepend: site.baseurl }}"{% if page.url == '/about/' %} class="active"{% endif %}>About Me</a></li>
       <li><a href="{{ "/#publications" | prepend: site.baseurl }}">Publications</a></li>
       <li><a href="{{ "/#education" | prepend: site.baseurl }}">Education</a></li>
       <li><a href="{{ "/#experience" | prepend: site.baseurl }}">Experience</a></li>
-      <li><a href="{{ "/#patents" | prepend: site.baseurl }}">Patents</a></li>
-      <li><a href="{{ "/#opensource" | prepend: site.baseurl }}">Open Source</a></li>
+      <li><a href="{{ "/#patents" | prepend: site.baseurl }}">Patents &amp; Open Source</a></li>
       <li><a href="{{ "/#hobbies" | prepend: site.baseurl }}">Hobbies</a></li>
       <li><a href="{{ "/blogs/" | prepend: site.baseurl }}"{% if page.url == '/blogs/' %} class="active"{% endif %}>Blogs</a></li>
     </ul>
