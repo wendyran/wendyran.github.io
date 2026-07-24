@@ -1,11 +1,10 @@
 # Site settings
-title: Versatile Spirit 
-subtitle: Ran Wei's Blog 
-email: versatile.spirit.info@gmail.com
-description: Welcome to my website! If you have any questions or comments, send me an email (versatile.spirit.info@gmail.com).
+title: Wendy Ran Wei
+subtitle: ML Engineer & Book Author
+description: Wendy Ran Wei is an ML Engineer specializing in search, recommendation, and personalization systems, and the author of Advanced Retrieval-Augmented Generation.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://wendyran.github.io" # the base hostname & protocol for your site
-twitter_username: wendyranstat
+url: "https://wendyran.github.io" # the base hostname & protocol for your site
+twitter_username: wendyranwei
 github_username:  wendyran
 
 # Build settings
