@@ -720,6 +720,51 @@
             padding: 0.35rem 0.9rem;
         }
 
+        /* Writings & Playground: larger, boxless sections (distinct from the tag cards below) */
+        .link-section {
+            margin: 0 0 2.25rem;
+        }
+
+        .link-section-title {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-bottom: 1.1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .link-item:not(:first-child) {
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .link-item .link-title {
+            font-weight: 600;
+            font-size: 1.02rem;
+            color: var(--accent-dark);
+            text-decoration: none;
+        }
+
+        .link-item .link-title:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .link-item .link-desc {
+            font-size: 0.88rem;
+            color: var(--text-soft);
+            margin-top: 0.25rem;
+            line-height: 1.55;
+        }
+
         /* ── OPEN SOURCE ── */
         .oss-grid {
             display: grid;
@@ -978,11 +1023,9 @@
         <ul class="nav-links">
             <li><a href="/about/">About Me</a></li>
             <li><a href="#publications">Publications</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education &amp; Experience</a></li>
             <li><a href="#patents">Patents &amp; Open Source</a></li>
-            <li><a href="#hobbies">Hobbies</a></li>
-            <li><a href="/blogs/">Blogs</a></li>
+            <li><a href="#hobbies">Hobbies &amp; Side Projects</a></li>
         </ul>
     </div>
 </nav>
@@ -1023,8 +1066,8 @@
 <!-- PUBLICATIONS -->
 <div class="section-divider"><hr></div>
 <section id="publications" class="fade-in">
-    <div class="section-label">Books</div>
-    <h2 class="section-title">Publications</h2>
+    <div class="section-label">Publications</div>
+    <h2 class="section-title">Books</h2>
     <div class="cards-grid">
         <a class="card card-featured" href="https://www.amazon.com/Advanced-Retrieval-Augmented-Generation-Bridging-Knowledge/dp/1394374682" target="_blank" rel="noopener">
             <div class="card-cover">
@@ -1054,8 +1097,9 @@
 <!-- EDUCATION -->
 <div class="section-divider"><hr></div>
 <section id="education" class="fade-in">
-    <div class="section-label">Background</div>
-    <h2 class="section-title">Education</h2>
+    <div class="section-label">Background &amp; Career</div>
+    <h2 class="section-title">Education &amp; Experience</h2>
+    <h3 style="font-family: var(--serif); font-size: 1.3rem; margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 400;">🎓 Education</h3>
     <div class="edu-grid">
         <div class="edu-item">
             <h3>The Ohio State University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— US</span></h3>
@@ -1065,22 +1109,18 @@
             <p style="margin-top: 0.35rem; font-size: 0.975rem; color: var(--text-soft); line-height: 1.6;"><strong style="color: var(--text);">Award:</strong> <a href="https://artsandsciences.osu.edu/news/statistics-graduate-students-win-national-data-analytics/modeling-competition" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Winner, 2013 Capital One National Data Analytics/Modeling Competition</a></p>
         </div>
         <div class="edu-item">
-            <h3>Zhejiang University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— China</span></h3>
-            <div class="degree">B.S., Mathematics &amp; Statistics</div>
-        </div>
-        <div class="edu-item">
             <h3>Uppsala University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— Sweden</span></h3>
             <div class="degree">Statistics (Exchange)</div>
         </div>
+        <div class="edu-item">
+            <h3>Zhejiang University <span style="font-weight: 400; color: var(--text-soft); font-size: 0.85em;">— China</span></h3>
+            <div class="degree">B.S., Mathematics &amp; Statistics</div>
+        </div>
     </div>
-</section>
 
-<!-- EXPERIENCE -->
-<div class="section-divider"><hr></div>
-<section id="experience" class="fade-in">
-    <div class="section-label">Career</div>
-    <h2 class="section-title">Experience</h2>
+    <div style="border-top: 1px solid var(--border); opacity: 0.6; margin-top: 2.5rem;"></div>
 
+    <h3 style="font-family: var(--serif); font-size: 1.3rem; margin: 2.5rem 0 1.1rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 400;">👩‍💻 Experience</h3>
     <div class="experience-layout">
         <!-- Radar Chart (left) -->
         <div class="experience-radar-col">
@@ -1210,12 +1250,43 @@
     </div>
 </section>
 
-<!-- HOBBIES -->
+<!-- HOBBIES & SIDE PROJECTS -->
 <div class="section-divider"><hr></div>
 <section id="hobbies" class="fade-in">
     <div class="section-label">Beyond Work</div>
-    <h2 class="section-title">Hobbies</h2>
-    <div class="hobbies-grid">
+    <h2 class="section-title">Hobbies &amp; Side Projects</h2>
+
+    <div class="link-section">
+        <div class="link-section-title">📝 Writings</div>
+        <div class="link-list">
+            <div class="link-item">
+                <a class="link-title" href="https://wendyranwei.medium.com/prs-2026-what-the-industry-learned-about-personalization-recommendation-search-in-the-llm-era-f0293c262c28" target="_blank" rel="noopener">PRS 2026 Recap (Medium)</a>
+                <div class="link-desc">Notes from the 10th annual Netflix PRS workshop, with talks from DoorDash, LinkedIn, Pinterest, Google DeepMind, Stanford, Zillow, and Netflix on personalization, recommendation, and search in the LLM era.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="link-section">
+        <div class="link-section-title">🎮 Playground</div>
+        <div class="link-list">
+            <div class="link-item">
+                <a class="link-title" href="/conference-tracker/">📅 Conference Tracker</a>
+                <div class="link-desc">Deadlines, dates, and tracks for major AI/ML/NLP/IR conferences I'm watching for paper submissions.</div>
+            </div>
+            <div class="link-item">
+                <a class="link-title" href="/iching/">☯️ Yi Jing Oracle</a>
+                <div class="link-desc">An interactive 易經 (I Ching) hexagram-casting tool — ask a question, cast a hexagram, and read its judgment and changing lines.</div>
+            </div>
+            <div class="link-item">
+                <a class="link-title" href="/french/">🇫🇷 French Learning</a>
+                <div class="link-desc">A vocabulary trainer with flashcards and quizzes, beginner through intermediate.</div>
+            </div>
+        </div>
+    </div>
+
+    <a class="blogs-view-all" href="/blogs/" style="margin-bottom: 2rem; display: inline-flex;">View all writings &amp; projects &rarr;</a>
+
+    <div class="hobbies-grid" style="margin-top: 0.5rem;">
         <div class="hobby-group">
             <div class="hobby-group-icon">🏔️</div>
             <h3>Sports</h3>
@@ -1265,29 +1336,6 @@
             </div>
         </div>
     </div>
-</section>
-
-<!-- BLOGS -->
-<div class="section-divider"><hr></div>
-<section id="blogs" class="fade-in">
-    <div class="section-label">Writing</div>
-    <h2 class="section-title">Blogs</h2>
-    <div class="blogs-grid">
-        <div class="blog-cat-card">
-            <h3>Tech Notes</h3>
-            <p>Write-ups from talks, workshops, and industry events — like notes from the Netflix PRS workshop on personalization, recommendation, and search in the LLM era.</p>
-        </div>
-        <div class="blog-cat-card">
-            <h3>Playground</h3>
-            <p>Small tools and side projects I've built.</p>
-            <ul class="sub-links">
-                <li><a href="/conference-tracker/">Conference Tracker</a> — deadlines, dates, and tracks for major AI/ML/NLP/IR conferences.</li>
-                <li><a href="/iching/">Yi Jing Oracle</a> — an interactive 易經 (I Ching) hexagram-casting tool.</li>
-                <li><a href="/french/">French Learning</a> — flashcards and quizzes for beginner-to-intermediate French vocabulary.</li>
-            </ul>
-        </div>
-    </div>
-    <a class="blogs-view-all" href="/blogs/">View all blogs &rarr;</a>
 </section>
 
 <!-- FOOTER -->
