@@ -1,0 +1,510 @@
+---
+permalink: /french/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French Learning — Wendy Ran Wei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #FFF0F3;
+        --text: #1A1A2E;
+        --text-soft: #5A5A6E;
+        --accent: #E8614D;
+        --accent-dark: #D4522A;
+        --accent-pink: #EC4899;
+        --accent-gold: #F59E0B;
+        --gradient: linear-gradient(135deg, #EC4899, #F59E0B);
+        --gradient-soft: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.12));
+        --card: #FFFFFF;
+        --border: #F5C6D0;
+        --serif: 'Instrument Serif', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
+        --good: #16A34A;
+        --bad: #DC2626;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        font-family: var(--sans);
+        background: var(--bg);
+        background-image: radial-gradient(ellipse at 20% 0%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                          radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.06) 0%, transparent 50%);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 1.05rem;
+        -webkit-font-smoothing: antialiased;
+    }
+    nav {
+        position: fixed; top: 0; width: 100%; z-index: 100;
+        background: rgba(255, 240, 243, 0.88);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+    }
+    nav .nav-inner {
+        max-width: 1120px; margin: 0 auto; padding: 0 2rem; height: 60px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo {
+        font-family: var(--serif); font-size: 1.25rem;
+        background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        text-decoration: none; letter-spacing: -0.02em;
+    }
+    nav .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    nav .nav-links a { text-decoration: none; color: var(--text-soft); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em; }
+    nav .nav-links a:hover, nav .nav-links a.active { color: var(--accent); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; }
+    main { max-width: 900px; margin: 0 auto; padding: 130px 2rem 60px; }
+    .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; margin-bottom: 0.6rem; }
+    h1.page-title { font-family: var(--serif); font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .intro { color: var(--text-soft); max-width: 700px; margin-bottom: 2rem; }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-dark); }
+
+    /* mode tabs */
+    .mode-tabs { display: flex; gap: 0.6rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+    .mode-tab {
+        font-family: var(--sans); font-size: 0.9rem; font-weight: 600; padding: 0.55rem 1.1rem;
+        border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--text-soft);
+        cursor: pointer; transition: all 0.2s;
+    }
+    .mode-tab.active { background: var(--gradient); color: #fff; border-color: transparent; }
+    .mode-tab:hover:not(.active) { border-color: var(--accent-pink); color: var(--accent); }
+
+    .mode-panel { display: none; }
+    .mode-panel.active { display: block; }
+
+    /* category selector */
+    .cat-select-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .cat-select-row label { font-size: 0.85rem; color: var(--text-soft); font-weight: 600; }
+    select {
+        font-family: var(--sans); font-size: 0.92rem; padding: 0.5rem 0.9rem; border-radius: 10px;
+        border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer;
+    }
+
+    /* flashcard */
+    .flashcard-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+    .flashcard {
+        width: 100%; max-width: 480px; height: 280px; perspective: 1200px; cursor: pointer;
+    }
+    .flashcard-inner {
+        position: relative; width: 100%; height: 100%; transition: transform 0.5s;
+        transform-style: preserve-3d;
+    }
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-face {
+        position: absolute; width: 100%; height: 100%; border-radius: 20px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+        backface-visibility: hidden; border: 1px solid var(--border); background: var(--card);
+        box-shadow: 0 8px 30px rgba(236,72,153,0.1); padding: 1.5rem; text-align: center;
+    }
+    .flashcard-face.back { transform: rotateY(180deg); background: var(--gradient-soft); }
+    .card-tag { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-soft); font-weight: 600; }
+    .card-word { font-family: var(--serif); font-size: 2.2rem; }
+    .card-hint { font-size: 0.85rem; color: var(--text-soft); }
+    .flashcard-controls { display: flex; gap: 0.75rem; align-items: center; }
+    button.ctrl {
+        font-family: var(--sans); font-weight: 600; font-size: 0.9rem; padding: 0.6rem 1.2rem;
+        border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text);
+        cursor: pointer; transition: all 0.2s;
+    }
+    button.ctrl:hover { border-color: var(--accent-pink); color: var(--accent); }
+    button.ctrl.primary { background: var(--gradient); color: #fff; border-color: transparent; }
+    .progress-note { font-size: 0.85rem; color: var(--text-soft); }
+
+    /* quiz */
+    .quiz-card {
+        border: 1px solid var(--border); background: var(--card); border-radius: 16px; padding: 2rem;
+        max-width: 560px; margin: 0 auto;
+    }
+    .quiz-progress { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 0.75rem; font-weight: 600; }
+    .quiz-question { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 1.5rem; }
+    .quiz-options { display: grid; gap: 0.7rem; margin-bottom: 1.25rem; }
+    .quiz-option {
+        text-align: left; font-family: var(--sans); font-size: 0.98rem; padding: 0.8rem 1.1rem;
+        border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text);
+        cursor: pointer; transition: all 0.15s;
+    }
+    .quiz-option:hover { border-color: var(--accent-pink); }
+    .quiz-option.correct { border-color: var(--good); background: rgba(22,163,74,0.1); }
+    .quiz-option.incorrect { border-color: var(--bad); background: rgba(220,38,38,0.1); }
+    .quiz-option:disabled { cursor: default; }
+    .quiz-footer { display: flex; justify-content: space-between; align-items: center; }
+    .quiz-score { font-size: 0.9rem; color: var(--text-soft); font-weight: 600; }
+    .quiz-done { text-align: center; }
+    .quiz-done .quiz-score-big { font-family: var(--serif); font-size: 2.8rem; margin: 0.5rem 0 1rem; }
+
+    footer { max-width: 1120px; margin: 3rem auto 0; padding: 3rem 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    footer p { font-size: 0.95rem; color: var(--text-soft); }
+    footer .footer-links { display: flex; gap: 1.5rem; }
+    footer .footer-links a { color: var(--text-soft); text-decoration: none; font-size: 0.95rem; }
+    footer .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+        main { padding: 110px 1.25rem 40px; }
+        h1.page-title { font-size: 1.9rem; }
+        nav .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+        nav .nav-links.open { display: flex; }
+        .hamburger { display: block; }
+        .flashcard { height: 240px; }
+        .card-word { font-size: 1.7rem; }
+        .quiz-card { padding: 1.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">Wendy Ran Wei</a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/about/">About Me</a></li>
+            <li><a href="/#publications">Publications</a></li>
+            <li><a href="/#education">Education</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#patents">Patents &amp; Open Source</a></li>
+            <li><a href="/#hobbies">Hobbies</a></li>
+            <li><a href="/blogs/" class="active">Blogs</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-eyebrow">Playground</div>
+    <h1 class="page-title">French Learning</h1>
+    <p class="intro">A little vocabulary trainer — flip through flashcards or quiz yourself, beginner through intermediate. Pick a topic and go.</p>
+
+    <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="flashcards">Flashcards</button>
+        <button class="mode-tab" data-mode="quiz">Quiz</button>
+    </div>
+
+    <!-- FLASHCARDS -->
+    <section class="mode-panel active" id="panel-flashcards">
+        <div class="cat-select-row">
+            <label for="fc-category">Topic</label>
+            <select id="fc-category"></select>
+        </div>
+        <div class="flashcard-wrap">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-face front">
+                        <div class="card-tag" id="fc-tag-front">FRENCH</div>
+                        <div class="card-word" id="fc-word-front"></div>
+                        <div class="card-hint">Click to reveal</div>
+                    </div>
+                    <div class="flashcard-face back">
+                        <div class="card-tag">ENGLISH</div>
+                        <div class="card-word" id="fc-word-back"></div>
+                        <div class="card-hint" id="fc-note-back"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard-controls">
+                <button class="ctrl" id="fc-prev">&larr; Prev</button>
+                <button class="ctrl primary" id="fc-shuffle">Shuffle</button>
+                <button class="ctrl" id="fc-next">Next &rarr;</button>
+            </div>
+            <div class="progress-note" id="fc-progress"></div>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="mode-panel" id="panel-quiz">
+        <div class="cat-select-row">
+            <label for="quiz-category">Topic</label>
+            <select id="quiz-category"></select>
+            <button class="ctrl primary" id="quiz-restart">Restart Quiz</button>
+        </div>
+        <div class="quiz-card" id="quiz-card"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Wendy Ran Wei</p>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter/X</a>
+    </div>
+</footer>
+
+<script>
+// ---------- Vocabulary data (beginner -> intermediate) ----------
+const VOCAB = {
+    "Greetings & Basics": [
+        ["Bonjour", "Hello / Good day"],
+        ["Bonsoir", "Good evening"],
+        ["Salut", "Hi / Bye (informal)"],
+        ["Au revoir", "Goodbye"],
+        ["S'il vous plaît", "Please (formal)"],
+        ["Merci", "Thank you"],
+        ["De rien", "You're welcome"],
+        ["Excusez-moi", "Excuse me (formal)"],
+        ["Oui", "Yes"],
+        ["Non", "No"],
+        ["Comment ça va ?", "How's it going?"],
+        ["Je m'appelle...", "My name is..."]
+    ],
+    "Numbers": [
+        ["Un", "One"],
+        ["Deux", "Two"],
+        ["Trois", "Three"],
+        ["Quatre", "Four"],
+        ["Cinq", "Five"],
+        ["Dix", "Ten"],
+        ["Vingt", "Twenty"],
+        ["Cinquante", "Fifty"],
+        ["Cent", "One hundred"],
+        ["Mille", "One thousand"]
+    ],
+    "Common Phrases": [
+        ["Je ne comprends pas", "I don't understand"],
+        ["Pouvez-vous répéter ?", "Can you repeat that?"],
+        ["Parlez-vous anglais ?", "Do you speak English?"],
+        ["Je ne sais pas", "I don't know"],
+        ["Ça coûte combien ?", "How much does it cost?"],
+        ["Où sont les toilettes ?", "Where is the bathroom?"],
+        ["À bientôt", "See you soon"],
+        ["Bon appétit", "Enjoy your meal"],
+        ["Bonne chance", "Good luck"],
+        ["Félicitations", "Congratulations"]
+    ],
+    "Food & Dining": [
+        ["Le pain", "Bread"],
+        ["Le fromage", "Cheese"],
+        ["L'eau", "Water"],
+        ["Le vin", "Wine"],
+        ["Le petit-déjeuner", "Breakfast"],
+        ["Le déjeuner", "Lunch"],
+        ["Le dîner", "Dinner"],
+        ["L'addition", "The bill / check"],
+        ["Une table pour deux", "A table for two"],
+        ["C'est délicieux", "It's delicious"]
+    ],
+    "Travel & Directions": [
+        ["La gare", "The train station"],
+        ["L'aéroport", "The airport"],
+        ["À gauche", "To the left"],
+        ["À droite", "To the right"],
+        ["Tout droit", "Straight ahead"],
+        ["Un billet", "A ticket"],
+        ["L'hôtel", "The hotel"],
+        ["La sortie", "The exit"],
+        ["Je suis perdu(e)", "I am lost"],
+        ["Combien de temps ?", "How long (does it take)?"]
+    ],
+    "Time & Dates": [
+        ["Aujourd'hui", "Today"],
+        ["Demain", "Tomorrow"],
+        ["Hier", "Yesterday"],
+        ["La semaine", "The week"],
+        ["Le mois", "The month"],
+        ["Lundi", "Monday"],
+        ["Vendredi", "Friday"],
+        ["Quelle heure est-il ?", "What time is it?"],
+        ["Maintenant", "Now"],
+        ["Plus tard", "Later"]
+    ],
+    "Common Verbs": [
+        ["Être", "To be"],
+        ["Avoir", "To have"],
+        ["Aller", "To go"],
+        ["Faire", "To do / make"],
+        ["Vouloir", "To want"],
+        ["Pouvoir", "To be able to / can"],
+        ["Savoir", "To know (facts)"],
+        ["Manger", "To eat"],
+        ["Boire", "To drink"],
+        ["Parler", "To speak"]
+    ],
+    "Adjectives & Descriptions": [
+        ["Grand / Grande", "Big / Tall"],
+        ["Petit / Petite", "Small"],
+        ["Beau / Belle", "Beautiful"],
+        ["Content(e)", "Happy"],
+        ["Fatigué(e)", "Tired"],
+        ["Difficile", "Difficult"],
+        ["Facile", "Easy"],
+        ["Cher / Chère", "Expensive / Dear"],
+        ["Nouveau / Nouvelle", "New"],
+        ["Intéressant(e)", "Interesting"]
+    ]
+};
+
+const categories = Object.keys(VOCAB);
+
+// ---------- Flashcards ----------
+const fcCategorySel = document.getElementById('fc-category');
+categories.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    fcCategorySel.appendChild(opt);
+});
+
+let fcDeck = [];
+let fcIndex = 0;
+
+function loadFcDeck() {
+    fcDeck = VOCAB[fcCategorySel.value].slice();
+    fcIndex = 0;
+    renderFlashcard();
+}
+
+function renderFlashcard() {
+    const card = document.getElementById('flashcard');
+    card.classList.remove('flipped');
+    const [fr, en] = fcDeck[fcIndex];
+    document.getElementById('fc-word-front').textContent = fr;
+    document.getElementById('fc-word-back').textContent = en.split(' (')[0];
+    const note = en.includes('(') ? '(' + en.split('(')[1] : '';
+    document.getElementById('fc-note-back').textContent = note;
+    document.getElementById('fc-progress').textContent = `Card ${fcIndex + 1} of ${fcDeck.length}`;
+}
+
+document.getElementById('flashcard').addEventListener('click', () => {
+    document.getElementById('flashcard').classList.toggle('flipped');
+});
+document.getElementById('fc-next').addEventListener('click', () => {
+    fcIndex = (fcIndex + 1) % fcDeck.length;
+    renderFlashcard();
+});
+document.getElementById('fc-prev').addEventListener('click', () => {
+    fcIndex = (fcIndex - 1 + fcDeck.length) % fcDeck.length;
+    renderFlashcard();
+});
+document.getElementById('fc-shuffle').addEventListener('click', () => {
+    for (let i = fcDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+    }
+    fcIndex = 0;
+    renderFlashcard();
+});
+fcCategorySel.addEventListener('change', loadFcDeck);
+loadFcDeck();
+
+// ---------- Quiz ----------
+const quizCategorySel = document.getElementById('quiz-category');
+const allOption = document.createElement('option');
+allOption.value = 'All Topics'; allOption.textContent = 'All Topics';
+quizCategorySel.appendChild(allOption);
+categories.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    quizCategorySel.appendChild(opt);
+});
+
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
+const QUIZ_LENGTH = 10;
+
+function buildPool(catValue) {
+    let pool = [];
+    if (catValue === 'All Topics') {
+        categories.forEach(c => VOCAB[c].forEach(pair => pool.push(pair)));
+    } else {
+        pool = VOCAB[catValue].slice();
+    }
+    return pool;
+}
+
+function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function startQuiz() {
+    const pool = shuffleArr(buildPool(quizCategorySel.value));
+    const length = Math.min(QUIZ_LENGTH, pool.length);
+    quizQuestions = pool.slice(0, length).map(([fr, en]) => {
+        const distractorPool = pool.filter(p => p[0] !== fr);
+        const distractors = shuffleArr(distractorPool).slice(0, 3).map(p => p[1].split(' (')[0]);
+        const correct = en.split(' (')[0];
+        const options = shuffleArr([correct, ...distractors]);
+        return { fr, correct, options };
+    });
+    quizIndex = 0;
+    quizScore = 0;
+    renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+    const container = document.getElementById('quiz-card');
+    if (quizIndex >= quizQuestions.length) {
+        container.innerHTML = `
+            <div class="quiz-done">
+                <div class="card-tag">QUIZ COMPLETE</div>
+                <div class="quiz-score-big">${quizScore} / ${quizQuestions.length}</div>
+                <button class="ctrl primary" id="quiz-again">Try Again</button>
+            </div>`;
+        document.getElementById('quiz-again').addEventListener('click', startQuiz);
+        return;
+    }
+    const q = quizQuestions[quizIndex];
+    container.innerHTML = `
+        <div class="quiz-progress">Question ${quizIndex + 1} of ${quizQuestions.length}</div>
+        <div class="quiz-question">${q.fr}</div>
+        <div class="quiz-options">
+            ${q.options.map(o => `<button class="quiz-option" data-answer="${o.replace(/"/g, '&quot;')}">${o}</button>`).join('')}
+        </div>
+        <div class="quiz-footer">
+            <span class="quiz-score">Score: ${quizScore}</span>
+            <button class="ctrl" id="quiz-next" style="display:none;">Next &rarr;</button>
+        </div>`;
+
+    container.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const chosen = btn.getAttribute('data-answer');
+            container.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+            if (chosen === q.correct) {
+                btn.classList.add('correct');
+                quizScore++;
+            } else {
+                btn.classList.add('incorrect');
+                container.querySelectorAll('.quiz-option').forEach(b => {
+                    if (b.getAttribute('data-answer') === q.correct) b.classList.add('correct');
+                });
+            }
+            container.querySelector('.quiz-score').textContent = `Score: ${quizScore}`;
+            const nextBtn = container.querySelector('#quiz-next');
+            nextBtn.style.display = 'inline-block';
+            nextBtn.addEventListener('click', () => {
+                quizIndex++;
+                renderQuizQuestion();
+            });
+        });
+    });
+}
+
+quizCategorySel.addEventListener('change', startQuiz);
+document.getElementById('quiz-restart').addEventListener('click', startQuiz);
+startQuiz();
+
+// ---------- Mode tabs ----------
+document.querySelectorAll('.mode-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.mode).classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>
