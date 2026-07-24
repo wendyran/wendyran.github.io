@@ -214,6 +214,8 @@ footer.site-footer {
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
 }
 footer.site-footer p { font-size: 0.95rem; color: var(--text-soft); }
+footer.site-footer p a { color: var(--text-soft); text-decoration: none; }
+footer.site-footer p a:hover { color: var(--accent); text-decoration: none; }
 footer.site-footer .footer-links { display: flex; gap: 1.5rem; }
 footer.site-footer .footer-links a { color: var(--text-soft); text-decoration: none; font-size: 0.95rem; }
 footer.site-footer .footer-links a:hover { color: var(--accent); }
