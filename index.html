@@ -794,6 +794,24 @@
             line-height: 1.6;
         }
 
+        .blog-cat-card .sub-links {
+            list-style: none;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .blog-cat-card .sub-links li {
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-bottom: 0.45rem;
+            line-height: 1.5;
+        }
+
+        .blog-cat-card .sub-links a {
+            font-weight: 500;
+        }
+
         .blogs-view-all {
             display: inline-flex;
             align-items: center;
@@ -1253,13 +1271,17 @@
     <div class="section-label">Writing</div>
     <h2 class="section-title">Blogs</h2>
     <div class="blogs-grid">
-        <a class="blog-cat-card" href="/conference-tracker/">
-            <h3>Conference Tracker</h3>
-            <p>Deadlines, dates, and tracks for major AI/ML/NLP/IR conferences I'm watching for paper submissions — plus a resubmission planner for when a paper gets rejected.</p>
-        </a>
         <div class="blog-cat-card">
             <h3>Tech Notes</h3>
             <p>Write-ups from talks, workshops, and industry events — like notes from the Netflix PRS workshop on personalization, recommendation, and search in the LLM era.</p>
+        </div>
+        <div class="blog-cat-card">
+            <h3>Playground</h3>
+            <p>Small tools and side projects I've built.</p>
+            <ul class="sub-links">
+                <li><a href="/conference-tracker/">Conference Tracker</a> — deadlines, dates, and tracks for major AI/ML/NLP/IR conferences.</li>
+                <li><a href="/iching/">Yi Jing Oracle</a> — an interactive 易經 (I Ching) hexagram-casting tool.</li>
+            </ul>
         </div>
     </div>
     <a class="blogs-view-all" href="/blogs/">View all blogs &rarr;</a>
