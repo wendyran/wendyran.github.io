@@ -122,6 +122,91 @@ main.page-content {
 }
 .page-content table th { background: var(--gradient-soft); font-weight: 600; }
 
+/* ── HOBBIES (embedded on about page) ── */
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+.hobby-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+}
+.hobby-group:hover {
+    border-color: var(--accent-pink);
+    box-shadow: 0 6px 24px rgba(236, 72, 153, 0.08);
+}
+.hobby-group-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.hobby-group h3 {
+    font-family: var(--sans) !important;
+    font-size: 1rem !important;
+    font-weight: 600;
+    margin: 0 0 0.85rem !important;
+    color: var(--text);
+}
+.hobby-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.hobby-tags .skill-tag {
+    font-size: 0.82rem;
+    padding: 0.32rem 0.8rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+}
+.hobby-tags .skill-tag:hover {
+    border-color: var(--accent-pink);
+    background: var(--gradient-soft);
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* Writings & Playground: larger, boxless sections (distinct from the tag cards below) */
+.link-section {
+    margin: 0 0 2.25rem;
+}
+.link-section-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.01em;
+}
+.link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.link-item:not(:first-child) {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+.link-item .link-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--accent-dark);
+    text-decoration: none;
+}
+.link-item .link-title:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+.link-item .link-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    margin-top: 0.25rem;
+    line-height: 1.55;
+}
+
 /* ── FOOTER (shared) ── */
 footer.site-footer {
     max-width: 1120px; margin: 3rem auto 0; padding: 3rem 2rem;
