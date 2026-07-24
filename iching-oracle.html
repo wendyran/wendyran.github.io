@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>易經 · I Ching Oracle</title>
+<style>
+  :root{
+    --paper:#f3ead9;
+    --paper-dark:#e8dcc3;
+    --ink:#2b2420;
+    --ink-soft:#5a4f43;
+    --seal:#8c2f2f;
+    --seal-dark:#6e2222;
+    --gold:#a9812f;
+    --line-gap: 10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(ellipse at top, var(--paper) 0%, var(--paper-dark) 100%);
+    color:var(--ink);
+    font-family: "Songti SC","Noto Serif SC","Georgia", "Times New Roman", serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding: 32px 16px 60px;
+  }
+  .app{
+    max-width: 640px;
+    width:100%;
+  }
+  header{
+    text-align:center;
+    margin-bottom: 28px;
+  }
+  header .glyph{
+    font-size: 40px;
+    color: var(--seal);
+    display:block;
+    margin-bottom: 6px;
+  }
+  header h1{
+    font-size: 30px;
+    margin: 0 0 4px;
+    letter-spacing: 2px;
+  }
+  header p{
+    margin:0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .card{
+    background: rgba(255,252,245,0.6);
+    border: 1px solid rgba(43,36,32,0.15);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  label{
+    display:block;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  textarea{
+    width:100%;
+    min-height: 70px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid rgba(43,36,32,0.25);
+    border-radius: 8px;
+    background: #fffdf8;
+    color: var(--ink);
+  }
+  textarea:focus{ outline: 2px solid var(--gold); }
+  .btn-row{
+    display:flex;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  button{
+    font-family: inherit;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: var(--seal);
+    color: #fdf6ea;
+    letter-spacing: 1px;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  button:hover:not(:disabled){ background: var(--seal-dark); transform: translateY(-1px); }
+  button:disabled{ opacity: 0.45; cursor: not-allowed; }
+  button.secondary{
+    background: transparent;
+    color: var(--seal);
+    border: 1px solid var(--seal);
+  }
+  button.secondary:hover:not(:disabled){ background: rgba(140,47,47,0.08); }
+
+  #castingPanel, #resultPanel{ display:none; }
+  .question-echo{
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .hexbuild{
+    display:flex;
+    flex-direction: column-reverse;
+    align-items:center;
+    gap: 10px;
+    padding: 10px 0 4px;
+  }
+  .line-row{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    opacity:0;
+    transform: translateY(6px);
+    animation: fadeIn 0.35s ease forwards;
+  }
+  @keyframes fadeIn{ to{ opacity:1; transform:none; } }
+  .coins{
+    display:flex;
+    gap:6px;
+    width: 96px;
+    justify-content:flex-end;
+  }
+  .coin{
+    width: 26px; height:26px;
+    border-radius:50%;
+    background: var(--gold);
+    color:#fffdf8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:bold;
+    opacity:0;
+    transform: scale(0.4);
+    animation: coinPop 0.3s ease forwards;
+  }
+  @keyframes coinPop{ to{ opacity:1; transform:scale(1); } }
+  .line-bar{
+    position:relative;
+    width:150px;
+    height:16px;
+  }
+  .line-bar .bar{
+    position:absolute; top:0; bottom:0;
+    background: var(--ink);
+    border-radius:3px;
+  }
+  .line-bar.yang .bar{ left:0; right:0; }
+  .line-bar.yin .b1{ left:0; width:44%; }
+  .line-bar.yin .b2{ right:0; width:44%; }
+  .line-bar.moving{ outline: 2px dashed var(--seal); outline-offset:4px; border-radius:5px; }
+  .line-meta{
+    font-size:12px; color:var(--ink-soft);
+    width: 90px;
+  }
+  .line-meta .sum{ font-weight:bold; color:var(--seal); }
+
+  .hex-card{
+    text-align:center;
+  }
+  .hex-card .glyph{
+    font-size: 54px;
+    color: var(--seal);
+    display:block;
+    margin-bottom: 6px;
+    line-height:1;
+  }
+  .hex-card h2{
+    margin: 4px 0 2px;
+    font-size: 24px;
+  }
+  .hex-card .pinyin{
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 2px;
+  }
+  .hex-card .en-title{
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .hex-card .num-badge{
+    display:inline-block;
+    font-size:12px;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 2px 10px;
+    margin-bottom: 10px;
+  }
+  .section-label{
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 18px 0 6px;
+    text-align:left;
+  }
+  .judgment{
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink);
+    text-align:left;
+    border-left: 3px solid var(--seal);
+    padding-left: 12px;
+    margin: 0 0 10px;
+  }
+  .reading{
+    text-align:left;
+    line-height:1.6;
+    font-size:15px;
+    margin:0;
+  }
+  .changing-lines{
+    text-align:left;
+    margin-top: 6px;
+  }
+  .changing-lines .item{
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height:1.5;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold);
+  }
+  .changing-lines .item b{ color: var(--seal); }
+  .arrow-divider{
+    text-align:center;
+    color: var(--gold);
+    font-size: 22px;
+    margin: 10px 0;
+  }
+  footer{
+    text-align:center;
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 30px;
+    line-height:1.6;
+  }
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <span class="glyph">☯</span>
+    <h1>易經 &nbsp;·&nbsp; I Ching Oracle</h1>
+    <p>問而後知　CAST THE HEXAGRAM TO REFLECT ON YOUR QUESTION</p>
+  </header>
+
+  <div class="card" id="questionPanel">
+    <label for="questionInput">你的问题 &nbsp;/&nbsp; Your question</label>
+    <textarea id="questionInput" placeholder="e.g. Should I take this new role right now?"></textarea>
+    <div class="btn-row">
+      <button id="castBtn">投掷六爻 &nbsp;Cast the Hexagram</button>
+    </div>
+  </div>
+
+  <div class="card" id="castingPanel">
+    <div class="question-echo" id="castingQuestionEcho"></div>
+    <div class="hexbuild" id="hexbuild"></div>
+  </div>
+
+  <div class="card hex-card" id="resultPanel"></div>
+
+  <div class="btn-row" id="againRow" style="display:none; justify-content:center;">
+    <button class="secondary" id="againBtn">再问一次 &nbsp;Ask Again</button>
+  </div>
+
+  <footer>
+    方法:每爻投掷三枚硬币(每枚为 2 或 3),自下而上共成六爻——此为易经六十四卦传统的铜钱占法。<br>
+    仅供参考与反思,不能替代专业或个人的判断与建议。<br><br>
+    <span style="opacity:0.8;">Method: three coin-tosses (each 2 or 3) per line, six lines cast from bottom to top —
+    the classical yarrow/coin approach to the 64 hexagrams of the 易經.<br>
+    For reflection, not a substitute for professional or personal advice.</span>
+  </footer>
+</div>
+
+<script>
+/* ---------- Trigram bit patterns (bottom → top), 1 = yang, 0 = yin ---------- */
+const TRIGRAM_BITS = {
+  qian: [1,1,1], // ☰ heaven
+  kun:  [0,0,0], // ☷ earth
+  zhen: [1,0,0], // ☳ thunder
+  kan:  [0,1,0], // ☵ water
+  gen:  [0,0,1], // ☶ mountain
+  xun:  [0,1,1], // ☴ wind
+  li:   [1,0,1], // ☲ fire
+  dui:  [1,1,0], // ☱ lake
+};
+const TRIGRAM_INFO = {
+  qian:{ symbol:'☰', han:'乾', el:'Heaven' },
+  kun: { symbol:'☷', han:'坤', el:'Earth' },
+  zhen:{ symbol:'☳', han:'震', el:'Thunder' },
+  kan: { symbol:'☵', han:'坎', el:'Water' },
+  gen: { symbol:'☶', han:'艮', el:'Mountain' },
+  xun: { symbol:'☴', han:'巽', el:'Wind' },
+  li:  { symbol:'☲', han:'離', el:'Fire' },
+  dui: { symbol:'☱', han:'兌', el:'Lake' },
+};
+
+/* ---------- The 64 hexagrams, King Wen order ---------- */
+const HEXAGRAMS = [
+{num:1,han:'乾',pinyin:'Qián',en:'The Creative (Heaven)',lower:'qian',upper:'qian',
+ judgment:'Great and originating; smooth-flowing success through firm, upright action.',
+ judgment_zh:'大吉大利,刚健正直,行动通达。',
+ reading:'Pure creative energy and momentum, like heaven’s tireless motion. It favors initiative, leadership, and starting something significant with confidence and integrity. Avoid arrogance: even the strongest force can overreach if it ignores others.',
+ reading_zh:'纯粹的创造力与动能,如天道运行不息。此时宜主动进取、勇于领导、开创新局,行事持守正道则可安心前行。但切忌骄傲自满——再强的力量若不顾及他人,也会走向反面。'},
+{num:2,han:'坤',pinyin:'Kūn',en:'The Receptive (Earth)',lower:'kun',upper:'kun',
+ judgment:'Great success through yielding, devoted receptivity.',
+ judgment_zh:'至为顺遂,以柔顺、包容之德致大吉。',
+ reading:'Success comes through patience, support, and quiet accumulation rather than force. Follow good guidance, nurture what has been started, and let things mature in their own time.',
+ reading_zh:'成功来自耐心、支持与静默的积累,而非强求。此时宜追随良善的引导,悉心滋养已经开始的事,让事情按自己的节奏成熟。'},
+{num:3,han:'屯',pinyin:'Zhūn',en:'Sprouting (Difficulty at the Beginning)',lower:'zhen',upper:'kan',
+ judgment:'Initial hardship, but perseverance and gathering allies bring eventual success.',
+ judgment_zh:'起初艰难,但坚持并寻求助力终能渡过。',
+ reading:'Like a seedling pushing through hard ground, a new venture faces real obstacles at the start. Progress is possible but slow — don’t force a breakthrough; build alliances and lay groundwork patiently.',
+ reading_zh:'如幼苗破土而出,新事物在起步阶段会遇到真实的阻碍。进展缓慢却并非无望——不要急于强行突破,应耐心结盟、稳扎根基。'},
+{num:4,han:'蒙',pinyin:'Méng',en:'Enveloping (Youthful Folly)',lower:'kan',upper:'gen',
+ judgment:'Confusion clears when approached with sincere humility and teachability.',
+ judgment_zh:'以谦逊、可教之心面对,迷惑终将澄清。',
+ reading:'Inexperience or unclear thinking is clouding the situation. Success comes from seeking guidance honestly and staying open to correction, not from acting confidently on incomplete understanding.',
+ reading_zh:'经验不足或思路不清正困扰着当前局面。诚心求教、保持开放接受纠正,才能带来成功;切勿在理解尚不完整时便自信行事。'},
+{num:5,han:'需',pinyin:'Xū',en:'Attending (Waiting)',lower:'qian',upper:'kan',
+ judgment:'Waiting with quiet confidence near danger brings success in time.',
+ judgment_zh:'静待时机,临险而不躁进,终能亨通。',
+ reading:'The right conditions for action aren’t in place yet. Prepare your resources and stay calm rather than rushing across the difficulty ahead — patience now prevents a costly misstep.',
+ reading_zh:'行动的时机尚未成熟。此时应积蓄资源、保持镇定,而非急于穿越眼前的困难——耐心等待可避免付出高昂代价的失误。'},
+{num:6,han:'訟',pinyin:'Sòng',en:'Conflict (Lawsuit)',lower:'kan',upper:'qian',
+ judgment:'Caution: pressing a conflict all the way through brings misfortune.',
+ judgment_zh:'争讼若一味争到底,恐招致不利。',
+ reading:'Real contention or dispute is present. Seek mediation, compromise, or a dignified withdrawal rather than escalating — winning by force here creates lasting resentment.',
+ reading_zh:'眼前确实存在真实的争执或纷争。宜寻求调解、妥协,或体面地退让,而非升级对抗——靠强力"赢"下来的,只会留下长久的怨怼。'},
+{num:7,han:'師',pinyin:'Shī',en:'Leading (The Army)',lower:'kan',upper:'kun',
+ judgment:'Disciplined, principled leadership brings success in a difficult mobilization.',
+ judgment_zh:'严明、正直的统率,方能在艰难的动员中取得成功。',
+ reading:'This calls for organized, disciplined effort, like leading troops. Success depends on having a capable, fair leader and clear structure — impulsive or self-interested action fails.',
+ reading_zh:'当前局面需要有组织、有纪律的努力,如统领军队一般。成功取决于是否有能力公正的领导者与清晰的架构——冲动或出于私利的行动难以成事。'},
+{num:8,han:'比',pinyin:'Bǐ',en:'Grouping (Holding Together)',lower:'kun',upper:'kan',
+ judgment:'Unity around a trustworthy center brings good fortune.',
+ judgment_zh:'围绕可信赖的核心团结一致,得吉祥。',
+ reading:'Strength comes from genuine alliance and mutual support. Commit early and sincerely to the group or cause — those who join late or half-heartedly gain less from it.',
+ reading_zh:'力量来自真诚的结盟与相互支持。宜及早、真心地投入这个团体或事业——晚加入或半心半意的人,收获也会相应减少。'},
+{num:9,han:'小畜',pinyin:'Xiǎo Xù',en:'Small Accumulating (Small Taming)',lower:'qian',upper:'xun',
+ judgment:'Gentle, gradual restraint — like a small cloud not yet ready to rain.',
+ judgment_zh:'温和渐进的克制,如小云尚未积成雨。',
+ reading:'Progress is being held back, but only gently and temporarily. Build strength through small, patient steps rather than forcing things; direct confrontation won’t work yet, but quiet influence will.',
+ reading_zh:'前进正被轻轻地、暂时地牵制着。此时应通过小而耐心的步骤积蓄力量,而非硬碰硬——正面对抗尚不能成事,但潜移默化的影响会起作用。'},
+{num:10,han:'履',pinyin:'Lǚ',en:'Treading (Conduct)',lower:'dui',upper:'qian',
+ judgment:'Careful, respectful conduct near danger avoids harm.',
+ judgment_zh:'在危险边缘谨慎、得体而行,可免于损害。',
+ reading:'You’re treading a delicate path close to real risk. Proceed cautiously and with correct, respectful manner — those who act appropriately pass through unharmed.',
+ reading_zh:'你正走在一条贴近真实风险的微妙道路上。应谨慎行事、举止得当——凡行为恰当者,都能安然通过。'},
+{num:11,han:'泰',pinyin:'Tài',en:'Pervading (Peace)',lower:'qian',upper:'kun',
+ judgment:'Heaven and earth in harmony — a time of flourishing and open exchange.',
+ judgment_zh:'天地交泰,万事亨通,交流畅达。',
+ reading:'Conditions are excellent for cooperation, growth, and new projects; energy flows freely between people. Enjoy this favorable period, but remember prosperity moves in cycles — stay grounded.',
+ reading_zh:'当前条件极为有利于合作、成长与开创新局,人与人之间的能量流动顺畅。享受这段顺遂的时期,但也要记得盛极必有转折——保持脚踏实地。'},
+{num:12,han:'否',pinyin:'Pǐ',en:'Obstruction (Standstill)',lower:'kun',upper:'qian',
+ judgment:'Communication has broken down; forcing progress now fails.',
+ judgment_zh:'沟通已经中断,此时强行推进只会失败。',
+ reading:'Superior and subordinate forces are misaligned and out of touch. This isn’t the moment to push forward — conserve your integrity, withdraw from futile effort, and wait for the block to lift.',
+ reading_zh:'上下之间的力量已经错位、彼此隔阂。这不是强行前进的时刻——应保全自身的原则,不做无谓的努力,静待阻塞消解。'},
+{num:13,han:'同人',pinyin:'Tóng Rén',en:'Concording People (Fellowship)',lower:'li',upper:'qian',
+ judgment:'Success through broad, genuine fellowship, not a narrow clique.',
+ judgment_zh:'唯有广泛而真诚的同心协力,方能成事,而非拉帮结派。',
+ reading:'Shared purpose across differences leads to real success. Build alliances openly and on principle rather than favoritism — fellowship built on genuine common ground endures.',
+ reading_zh:'跨越分歧、拥有共同目标才能带来真正的成功。应以原则而非偏私来建立联盟——建立在真实共同基础上的情谊才能长久。'},
+{num:14,han:'大有',pinyin:'Dà Yǒu',en:'Great Possessing',lower:'qian',upper:'li',
+ judgment:'Great abundance under wise, modest leadership brings supreme success.',
+ judgment_zh:'拥有丰盛资源,若能以谦德善加运用,则大为吉利。',
+ reading:'Significant resources, recognition, or opportunity are available to you now. Use this abundance responsibly and share its benefit — power or wealth held selfishly here will sour it.',
+ reading_zh:'此刻你拥有可观的资源、认可或机会。应负责任地运用这份丰盛,并与他人分享其益处——若把权力或财富据为私用,反而会使其变质。'},
+{num:15,han:'謙',pinyin:'Qiān',en:'Humbling (Modesty)',lower:'gen',upper:'kun',
+ judgment:'Modesty carried through to the end brings lasting good fortune.',
+ judgment_zh:'谦逊贯彻始终,能带来长久的吉祥。',
+ reading:'Humility, not self-promotion, is what carries this situation to success. Underplaying your part while doing solid work earns lasting respect and smooths every stage ahead.',
+ reading_zh:'谦逊而非自我彰显,才是使当前局面走向成功的关键。默默做好实事、不张扬自己的功劳,能赢得长久的尊重,也让接下来的每一步都更顺畅。'},
+{num:16,han:'豫',pinyin:'Yù',en:'Providing-For (Enthusiasm)',lower:'kun',upper:'zhen',
+ judgment:'Joyful, well-timed movement inspires others to follow.',
+ judgment_zh:'欢愉而合乎时机的行动,能感召他人相随。',
+ reading:'Enthusiasm and good timing can set things in motion and rally people behind you, like music moving a crowd. Good moment to launch plans, but stay attuned to genuine timing, not just excitement.',
+ reading_zh:'热情与恰当的时机能推动事情向前,并将他人凝聚到你身边,如音乐使众人起舞。此时适合启动计划,但要留意的是真正的时机,而非一时的兴奋。'},
+{num:17,han:'隨',pinyin:'Suí',en:'Following',lower:'zhen',upper:'dui',
+ judgment:'Willingness to follow good influence at the right moment brings success.',
+ judgment_zh:'在恰当的时刻顺应良善的引导而行,能带来成功。',
+ reading:'Adapting to align with the right person, trend, or opportunity serves you better than insisting on your own path right now. Follow with sincerity, not blind conformity.',
+ reading_zh:'此刻,调整自己以顺应正确的人、趋势或机会,比坚持己见更有益。追随应出于真诚,而非盲目的顺从。'},
+{num:18,han:'蠱',pinyin:'Gǔ',en:'Correcting (Work on the Decayed)',lower:'xun',upper:'gen',
+ judgment:'Facing and repairing long-neglected decay brings success before it worsens.',
+ judgment_zh:'直面并修补长期被忽视的败坏,能在其恶化之前带来成功。',
+ reading:'Something has quietly gone wrong through neglect and needs deliberate correction — a relationship, a process, an old habit. Address it directly now rather than letting it fester further.',
+ reading_zh:'因疏忽而悄然出错的事——一段关系、一个流程、一个旧习惯——如今需要被认真修正。应现在就正面处理,而不是任其继续腐坏。'},
+{num:19,han:'臨',pinyin:'Lín',en:'Nearing (Approach)',lower:'dui',upper:'kun',
+ judgment:'A favorable approach or advance, provided integrity keeps pace with growing influence.',
+ judgment_zh:'局势向好、影响渐增,但仍须以德行相配,方能持续吉利。',
+ reading:'Your influence or position is growing. Continued success depends on staying conscientious as you gain ground — complacency or overconfidence will undercut the advance.',
+ reading_zh:'你的影响力或地位正在增长。能否持续成功,取决于在扩展的同时是否保持谨慎——自满或过度自信会削弱这份进展。'},
+{num:20,han:'觀',pinyin:'Guān',en:'Viewing (Contemplation)',lower:'kun',upper:'xun',
+ judgment:'A time to observe carefully rather than act.',
+ judgment_zh:'此时宜静观其变,而非急于行动。',
+ reading:'Step back and watch closely — both the situation and how others perceive you. Insight gained through quiet observation now will guide the right action later; acting hastily wastes the lesson.',
+ reading_zh:'退后一步,仔细观察局势,也观察他人如何看待你。此刻通过静观获得的洞见,将指引日后正确的行动;仓促行事只会浪费这个学习的机会。'},
+{num:21,han:'噬嗑',pinyin:'Shì Kè',en:'Gnawing Bite (Biting Through)',lower:'zhen',upper:'li',
+ judgment:'Firm, decisive action clears an obstacle that’s been stuck in the way.',
+ judgment_zh:'坚决果断的行动,能清除横在眼前的障碍。',
+ reading:'Something obstructive — a problem, a dishonesty, a stuck negotiation — needs to be confronted directly, like biting through something tough. Decisive, fair action is justified and effective now.',
+ reading_zh:'某个阻碍性的东西——一个问题、一次不诚实、一场卡住的谈判——需要被直接面对,如同咬穿坚硬的东西一般。此刻,果断而公正的行动是正当且有效的。'},
+{num:22,han:'賁',pinyin:'Bì',en:'Adorning (Grace)',lower:'li',upper:'gen',
+ judgment:'Good for refining appearances and presentation, but not for major decisions.',
+ judgment_zh:'有利于修饰外在与呈现方式,但不宜据此做重大决定。',
+ reading:'How something looks or is presented matters right now, and refining it helps. Just don’t mistake style for substance — small matters go well, but base big decisions on more than appearances.',
+ reading_zh:'眼下事物的呈现方式与外观确实重要,加以修饰会有帮助。但切勿把形式误当作实质——小事因此顺利,但重大决定仍需超越表面的考量。'},
+{num:23,han:'剝',pinyin:'Bō',en:'Stripping (Splitting Apart)',lower:'kun',upper:'gen',
+ judgment:'Erosion from within; not a time for forceful action.',
+ judgment_zh:'内部正在被侵蚀剥落,此时不宜强力而为。',
+ reading:'Support or stability is being stripped away, like fruit falling as a tree is stripped bare. Protect what truly matters, avoid confrontation, and wait out the decline rather than fighting it directly.',
+ reading_zh:'支持与稳定正在被一点点剥离,如同树木被剥尽后果实跌落。此刻应护住真正重要的东西,避免正面冲突,静待衰退过去,而非与之硬拼。'},
+{num:24,han:'復',pinyin:'Fù',en:'Returning',lower:'zhen',upper:'kun',
+ judgment:'A turning point — after decline, renewal begins naturally.',
+ judgment_zh:'转折点已至——衰退之后,复兴自然开始。',
+ reading:'Movement is returning after a low point, like light returning after the solstice. A good moment to resume good habits, mend a relationship, or restart — change unfolds naturally now, without forcing it.',
+ reading_zh:'经历低谷之后,势头正在回归,如同冬至之后阳光渐渐回返。此刻适合重拾好习惯、修复关系或重新开始——变化会自然发生,无需勉强推动。'},
+{num:25,han:'无妄',pinyin:'Wú Wàng',en:'Without Embroiling (Innocence)',lower:'zhen',upper:'qian',
+ judgment:'Acting from sincere, natural motive brings good fortune; scheming does not.',
+ judgment_zh:'出于真诚、自然的动机而行动,能带来吉祥;心存算计则不能。',
+ reading:'Success depends on staying true to genuine intention rather than manipulating the situation for personal gain. Forced or self-interested action now tends to backfire.',
+ reading_zh:'成功取决于是否忠于真实的意图,而非为私利而算计局势。此刻带有目的性的算计或勉强的行动,往往会适得其反。'},
+{num:26,han:'大畜',pinyin:'Dà Xù',en:'Great Accumulating (Great Taming)',lower:'qian',upper:'gen',
+ judgment:'Great strength deliberately restrained and built up now pays off later.',
+ judgment_zh:'巨大的力量被有意克制并积蓄起来,日后必有厚报。',
+ reading:'Significant potential is being held back and consolidated, like heaven’s energy contained by a mountain. Patient discipline and accumulation of resources or skill now leads to bigger results ahead.',
+ reading_zh:'相当可观的潜力正被抑制并加以整合,如同天之力被高山所容纳。此刻耐心的自律与资源、能力的积累,会在日后带来更大的成果。'},
+{num:27,han:'頤',pinyin:'Yí',en:'Swallowing (Nourishment)',lower:'zhen',upper:'gen',
+ judgment:'Pay careful attention to what nourishes you and how you nourish others.',
+ judgment_zh:'要仔细留意什么滋养着你,以及你如何滋养他人。',
+ reading:'This concerns what you take in and give out — food, words, influence, care. Watch your own habits and how you provide for those who depend on you; both excess and neglect cause trouble.',
+ reading_zh:'这关乎你所摄取与付出的东西——食物、言语、影响力、关怀。留意自己的习惯,也留意你如何照顾依赖你的人;过度或忽视都会带来麻烦。'},
+{num:28,han:'大過',pinyin:'Dà Guò',en:'Great Exceeding (Preponderance of the Great)',lower:'xun',upper:'dui',
+ judgment:'An extraordinary situation carrying unusual weight; proceed with care.',
+ judgment_zh:'局势异乎寻常地沉重,需谨慎应对。',
+ reading:'Circumstances are carrying more strain than normal, like a beam sagging under too much load. Extraordinary measures may genuinely be needed, but move carefully and shore up the weak points.',
+ reading_zh:'当前处境承受着超乎寻常的压力,如同横梁被过重的负荷压弯。或许确实需要采取非常规的措施,但要谨慎行事,并加固薄弱之处。'},
+{num:29,han:'坎',pinyin:'Kǎn',en:'The Abysmal (Water)',lower:'kan',upper:'kan',
+ judgment:'Repeated danger; sincerity and steady movement carry you through.',
+ judgment_zh:'险阻接连而来,唯有诚心与稳步前行才能渡过。',
+ reading:'Difficulty follows difficulty, like water through gorge after gorge. Move through it the way water does — steadily, adapting to each obstacle, trusting your own sincerity rather than panicking.',
+ reading_zh:'困难接续而来,如同水流经一重又一重的深谷。应像水一样穿行其中——稳步前进、随势而变,信任自己内心的诚意,而非惊慌失措。'},
+{num:30,han:'離',pinyin:'Lí',en:'The Clinging (Fire)',lower:'li',upper:'li',
+ judgment:'Brightness and clarity, but fire needs something to cling to.',
+ judgment_zh:'光明而清晰,但如火焰仍需依附于所燃之物。',
+ reading:'This is a time of clarity, visibility, or intensity — but like fire, it depends on fuel and support to keep burning well. Maintain what sustains your clarity, and don’t let brilliance turn into burnout.',
+ reading_zh:'此刻是一个清晰、显眼或强烈的时期——但正如火焰,它依赖燃料与支撑才能持续燃烧。要维系支撑你清明的东西,别让光彩变成燃尽后的虚耗。'},
+{num:31,han:'咸',pinyin:'Xián',en:'Conjoining (Influence)',lower:'gen',upper:'dui',
+ judgment:'Mutual, sincere attraction between people brings success.',
+ judgment_zh:'人与人之间真诚的相互感应,能带来成功。',
+ reading:'This marks the start of genuine mutual influence or attraction — a relationship, partnership, or alliance forming. Sincerity, not manipulation, is what makes the connection succeed.',
+ reading_zh:'这标志着一段真正的相互影响或吸引正在开始——一段关系、一次合作或联盟正在形成。真诚而非算计,才是让这份连接成功的关键。'},
+{num:32,han:'恆',pinyin:'Héng',en:'Persevering (Duration)',lower:'xun',upper:'zhen',
+ judgment:'Steady, consistent commitment over time brings success.',
+ judgment_zh:'长久稳定的坚持,能带来成功。',
+ reading:'Lasting success here comes from constancy — staying the course in a relationship, role, or project rather than chasing novelty. Renewal happens within a stable structure, not by abandoning it.',
+ reading_zh:'此处长久的成功来自恒心——在一段关系、一个角色或一项计划中坚持下去,而非追逐新鲜感。更新应发生在稳定的结构之内,而不是靠推倒重来。'},
+{num:33,han:'遯',pinyin:'Dùn',en:'Retiring (Retreat)',lower:'gen',upper:'qian',
+ judgment:'A timely, dignified withdrawal is wiser than a losing fight.',
+ judgment_zh:'及时而体面地退让,胜于打一场注定失利的仗。',
+ reading:'Unfavorable forces are gaining ground in this situation. Rather than resisting head-on, a measured retreat preserves your position and strength for a better moment.',
+ reading_zh:'当前局势中不利的力量正在增强。与其正面硬撑,不如有节制地退让,以保存实力,等待更好的时机。'},
+{num:34,han:'大壯',pinyin:'Dà Zhuàng',en:'Great Invigorating (Power of the Great)',lower:'qian',upper:'zhen',
+ judgment:'Great strength and momentum, but it must be used correctly.',
+ judgment_zh:'力量强大、势头正盛,但必须正确运用。',
+ reading:'You have real power or momentum behind you right now. Use it with restraint and correct purpose — strength applied recklessly here invites a hard fall.',
+ reading_zh:'此刻你确实拥有真实的力量或势头。应有所克制、用于正当的目的——力量若被滥用,只会招致更重的跌落。'},
+{num:35,han:'晉',pinyin:'Jìn',en:'Prospering (Progress)',lower:'kun',upper:'li',
+ judgment:'Steady advancement and rising recognition, especially through honest merit.',
+ judgment_zh:'稳步前进、声誉渐起,尤其是凭借真实的功绩。',
+ reading:'Things are moving forward and your position or visibility is rising, like the sun over the earth. Good time to advance openly through genuine merit rather than shortcuts.',
+ reading_zh:'事情正在向前推进,你的地位或影响力也在提升,如同太阳升起于大地之上。此刻适合凭借真正的功绩公开前进,而非走捷径。'},
+{num:36,han:'明夷',pinyin:'Míng Yí',en:'Darkening of the Light',lower:'li',upper:'kun',
+ judgment:'Protect your integrity quietly under adverse conditions.',
+ judgment_zh:'身处逆境之中,当安静地守护自己的正直。',
+ reading:'Your clarity or good intentions must be shielded rather than displayed under oppressive or difficult circumstances. Persevere quietly and avoid direct confrontation with what’s suppressing you until conditions improve.',
+ reading_zh:'在压抑或艰难的环境下,你的清明或善意需要被守护,而非公开展露。应默默坚持,避免与压制你的力量正面冲突,直至局势好转。'},
+{num:37,han:'家人',pinyin:'Jiā Rén',en:'Dwelling People (The Family)',lower:'li',upper:'xun',
+ judgment:'Clear roles and mutual care within a close group bring lasting harmony.',
+ judgment_zh:'明确的角色分工与相互关怀,能带来长久的和睦。',
+ reading:'Order and warmth within your closest circle — family, household, or core team — is the foundation for everything else right now. Tend to those relationships before looking outward.',
+ reading_zh:'此刻,你最亲近的圈子——家庭、家人或核心团队——内部的秩序与温情,是一切的根基。在向外张望之前,先照顾好这些关系。'},
+{num:38,han:'睽',pinyin:'Kuí',en:'Polarising (Opposition)',lower:'dui',upper:'li',
+ judgment:'Small matters succeed despite friction; focus on common ground.',
+ judgment_zh:'小事仍可顺利,应着眼于寻求共同之处。',
+ reading:'There’s misunderstanding or estrangement between people involved, though it isn’t irreparable. Small, careful steps toward common ground work better than confronting the whole gap at once.',
+ reading_zh:'相关的人之间存在误解或疏离,但并非无法弥合。此刻,不要试图一次解决所有分歧——朝共同点迈出小而谨慎的步子,比正面处理整个裂痕更有效。'},
+{num:39,han:'蹇',pinyin:'Jiǎn',en:'Limping (Obstruction)',lower:'gen',upper:'kan',
+ judgment:'Progress is halting; pause and seek wise support rather than pushing on.',
+ judgment_zh:'前进步履艰难,应暂停并寻求智者的帮助,而非硬闯。',
+ reading:'You’re moving through genuinely rough terrain, like limping on a difficult path. Forcing forward movement now wastes effort — pause, seek capable allies or advice, and let the path clear.',
+ reading_zh:'你正走在一段真正崎岖的路上,如同举步维艰。此刻强行前进只是徒耗精力——应暂停下来,寻求有能力的伙伴或建议,待道路清晰后再继续。'},
+{num:40,han:'解',pinyin:'Jiě',en:'Taking-Apart (Deliverance)',lower:'kan',upper:'zhen',
+ judgment:'Tension breaks and relief arrives — a good time to let go and move on.',
+ judgment_zh:'紧张终于解开,时机适合放下、向前迈进。',
+ reading:'Like thunder clearing the air after rain, pressure or conflict is releasing. Use this moment to resolve lingering issues and release old burdens cleanly rather than reopening them.',
+ reading_zh:'如同雷雨过后天空放晴,压力或冲突正在消解。宜借此时机彻底化解遗留的问题、放下旧日的负担,而非重新翻起。'},
+{num:41,han:'損',pinyin:'Sǔn',en:'Diminishing (Decrease)',lower:'dui',upper:'gen',
+ judgment:'A necessary reduction now serves a greater good later.',
+ judgment_zh:'此刻必要的舍弃,终将成就更大的好处。',
+ reading:'Giving something up — resources, indulgence, or a demand — is called for, and it will benefit what matters most in the long run. Simplify deliberately rather than clinging to everything.',
+ reading_zh:'舍弃某些东西——资源、享乐或某种要求——是当下所需的,长远来看会有益于真正重要的事。应有意识地简化,而非事事都舍不得放手。'},
+{num:42,han:'益',pinyin:'Yì',en:'Augmenting (Increase)',lower:'zhen',upper:'xun',
+ judgment:'A favorable time of growth, especially through generosity from above.',
+ judgment_zh:'此时正利于增益成长,尤其是上位者慷慨施与下位者之时。',
+ reading:'Conditions favor real growth and benefit, particularly when those with more give generously to those with less. Good time for investment, generosity, and bold constructive action.',
+ reading_zh:'当前条件有利于真正的成长与益处,尤其是当拥有更多的人愿意慷慨分享给拥有较少的人时。此刻适合投资、给予,以及大胆而具建设性的行动。'},
+{num:43,han:'夬',pinyin:'Guài',en:'Displacement (Breakthrough)',lower:'qian',upper:'dui',
+ judgment:'Decisive removal of what’s corrupt succeeds if done openly and fairly.',
+ judgment_zh:'果断清除腐败之物能成功,但须公开、正当地进行。',
+ reading:'Something harmful or outdated needs to be firmly removed — but the action must be transparent and principled, not underhanded. Open, resolute action clears the way for real progress.',
+ reading_zh:'某些有害或过时的东西需要被坚决清除——但这一行动必须透明、有原则,而非暗中操作。公开、果断的行动能为真正的进步开路。'},
+{num:44,han:'姤',pinyin:'Gòu',en:'Coupling (Coming to Meet)',lower:'xun',upper:'qian',
+ judgment:'An unplanned encounter enters the picture; be discerning about it.',
+ judgment_zh:'一场未曾预料的相遇进入局中,应审慎以待。',
+ reading:'Something or someone unexpected is entering your situation — not necessarily bad, but requiring careful judgment about how much influence to allow. Stay clear-headed about new alliances or temptations.',
+ reading_zh:'有意外的人或事正进入你的处境——未必是坏事,但需要谨慎判断该给予多少影响力。对新的结盟或诱惑保持清醒的头脑。'},
+{num:45,han:'萃',pinyin:'Cuì',en:'Clustering (Gathering Together)',lower:'kun',upper:'dui',
+ judgment:'People and resources gather around a sincere, unifying purpose.',
+ judgment_zh:'人与资源正围绕真诚而统一的目标聚集起来。',
+ reading:'This favors consolidating a group, team, or effort around a shared goal. It works only if there’s a genuine, trustworthy center holding it together — a hollow rallying point won’t last.',
+ reading_zh:'此刻有利于把一个团体、团队或行动力量凝聚在共同目标之下。但这只在有一个真实、可信的核心支撑时才能成功——空洞的号召无法长久维系人心。'},
+{num:46,han:'升',pinyin:'Shēng',en:'Ascending (Pushing Upward)',lower:'xun',upper:'kun',
+ judgment:'Gradual, organic growth upward brings real advancement.',
+ judgment_zh:'渐进而自然的向上生长,能带来真正的进步。',
+ reading:'Progress here is steady and organic, like a tree pushing up through the earth. Consistent effort combined with the right guidance or support leads to genuine advancement — no need to force it.',
+ reading_zh:'此处的进展是稳步且自然的,如同树木破土向上生长。持续的努力配合正确的引导或支持,会带来真正的进步——不必强求速成。'},
+{num:47,han:'困',pinyin:'Kùn',en:'Confining (Oppression)',lower:'kan',upper:'dui',
+ judgment:'A period of exhaustion or constraint; endurance succeeds where words fail.',
+ judgment_zh:'一段疲惫、受限的时期;唯有坚持能渡过,言语无用。',
+ reading:'You’re stuck or worn down despite good intentions — resources, energy, or options feel confined. Maintain inner composure and integrity through the hardship; persistence, not clever argument, gets you through.',
+ reading_zh:'尽管心存善意,你却感到困顿或疲惫——资源、精力或选择都似乎受限。此刻应在艰难中保持内心的镇定与正直;真正带你渡过难关的是坚持,而非巧言辩解。'},
+{num:48,han:'井',pinyin:'Jǐng',en:'Welling (The Well)',lower:'xun',upper:'kan',
+ judgment:'A steady, well-maintained resource nourishes many.',
+ judgment_zh:'一处稳定、维护良好的资源,能滋养众人。',
+ reading:'You (or your situation) are like a well — a reliable source others depend on. Keep that source clean, accessible, and maintained; neglecting it wastes its real value to everyone who relies on it.',
+ reading_zh:'你(或你所处的境况)就像一口井——他人所依赖的可靠源泉。要保持这份源泉的清洁与畅通;若疏于维护,便会浪费它对所有依赖者的真正价值。'},
+{num:49,han:'革',pinyin:'Gé',en:'Skinning (Revolution)',lower:'li',upper:'dui',
+ judgment:'Fundamental, well-timed change succeeds when its legitimacy is clear.',
+ judgment_zh:'根本而合乎时宜的变革,只要其正当性明确,便能成功。',
+ reading:'A real, necessary transformation is underway, like a change of season or era. Reform succeeds when it’s timed well and clearly justified to those affected, not rushed or imposed.',
+ reading_zh:'一场真实且必要的转变正在发生,如同季节或时代的更替。变革若时机得当、并向相关的人清楚说明其正当性,便能成功——切忌仓促或强加于人。'},
+{num:50,han:'鼎',pinyin:'Dǐng',en:'Holding (The Cauldron)',lower:'xun',upper:'li',
+ judgment:'Establishing stability and nourishing others through your role brings success.',
+ judgment_zh:'借助自身角色建立稳定、滋养他人,能带来成功。',
+ reading:'Like a ritual cauldron transforming raw ingredients into something valuable, this is a time to build stability, culture, or support structures that nourish those around you.',
+ reading_zh:'如同祭祀的鼎将原料转化为珍贵之物,此刻适合建立稳定的结构、文化或支持体系,以滋养身边的人。'},
+{num:51,han:'震',pinyin:'Zhèn',en:'Shake (The Arousing, Thunder)',lower:'zhen',upper:'zhen',
+ judgment:'A sudden shock doesn’t cause lasting harm if you keep your composure.',
+ judgment_zh:'突如其来的震动,只要保持镇定,便不会造成真正的伤害。',
+ reading:'Something startling or disruptive has occurred or is coming. Don’t panic — the jolt, while unsettling, won’t fundamentally damage things if you stay steady and keep functioning through it.',
+ reading_zh:'某件令人震惊或扰动的事已经发生,或正在到来。不要惊慌——这一震动尽管令人不安,只要你保持稳定、继续正常运转,就不会从根本上造成损害。'},
+{num:52,han:'艮',pinyin:'Gèn',en:'Bound (Keeping Still, Mountain)',lower:'gen',upper:'gen',
+ judgment:'Stopping at the right point and cultivating stillness brings success.',
+ judgment_zh:'在恰当之处止步,并培养内心的静定,能带来成功。',
+ reading:'This calls for deliberate stillness — stopping restless action or desire at the appropriate point rather than continuing to chase or push. Calm, contained focus serves you better than more motion.',
+ reading_zh:'此刻需要有意识的静止——在恰当的地方停止躁动的行动或欲望,而非继续追逐或推进。平静而专注的定力,比更多的行动更能助你。'},
+{num:53,han:'漸',pinyin:'Jiàn',en:'Infiltrating (Gradual Progress)',lower:'gen',upper:'xun',
+ judgment:'Slow, correct, step-by-step development leads to lasting success.',
+ judgment_zh:'缓慢、正当、循序渐进的发展,能带来长久的成功。',
+ reading:'Like a bird’s courtship flight advancing in careful stages, this favors patient, proper development — in a relationship, career, or plan. Rushing undermines what steady progression would otherwise secure.',
+ reading_zh:'如同鸟儿求偶般分阶段稳步推进,此局面利于耐心、正当的发展——无论是感情、事业还是计划。急躁只会破坏本可稳步获得的成果。'},
+{num:54,han:'歸妹',pinyin:'Guī Mèi',en:'Converting the Maiden (The Marrying Maiden)',lower:'dui',upper:'zhen',
+ judgment:'Caution: acting beyond your actual position brings trouble.',
+ judgment_zh:'若行事超出自己的实际位置,恐招致麻烦。',
+ reading:'You may be in a secondary, unequal, or informal position relative to what you want. Acting appropriately within your real standing — not forcing terms that aren’t yours to set — avoids unnecessary trouble.',
+ reading_zh:'相对于你所期望的,你可能处于一种次要、不对等或非正式的位置。在自己真实的位置内恰当行事——而不是强行为自己设定本不属于自己的条件——才能避免不必要的麻烦。'},
+{num:55,han:'豐',pinyin:'Fēng',en:'Abounding (Abundance)',lower:'li',upper:'zhen',
+ judgment:'A peak of fullness and achievement — use it, but know it won’t last forever.',
+ judgment_zh:'丰盛与成就正值高峰——善加运用,但要知道盛景终会过去。',
+ reading:'You’re at or near a high point of success, brightness, or fullness, like the sun at its peak. Enjoy and use it wisely now, without arrogance, since every peak eventually turns.',
+ reading_zh:'你正处在或接近成功、光彩或丰盈的高点,如同太阳当空。此刻应善加运用这份丰盛,不要骄傲自满,因为任何高峰终将转折。'},
+{num:56,han:'旅',pinyin:'Lǚ',en:'Sojourning (The Wanderer)',lower:'gen',upper:'li',
+ judgment:'Modesty and adaptability serve you well while away from your usual footing.',
+ judgment_zh:'身处陌生之地,谦逊与灵活应变能助你顺利前行。',
+ reading:'You’re in unfamiliar territory or a temporary situation — a new place, role, or circumstance. Stay adaptable, considerate of hosts or new colleagues, and don’t overstay or overreach as a guest.',
+ reading_zh:'你正处于陌生的境地或临时的处境——新的地方、角色或环境。应保持灵活、体谅接待你的人或新同事,不要作为过客而滞留太久或索求过多。'},
+{num:57,han:'巽',pinyin:'Xùn',en:'Ground (The Gentle, Wind)',lower:'xun',upper:'xun',
+ judgment:'Gentle, repeated, penetrating effort succeeds where force would fail.',
+ judgment_zh:'温和、反复、渗透式的努力,能在强力无法奏效之处成功。',
+ reading:'Like wind gradually shaping what it touches, steady and humble persistence — not force — is what moves this situation forward. Clear, gentle, repeated communication works better than a single big push.',
+ reading_zh:'如同风逐渐塑造它所触及的一切,稳健而谦和的坚持——而非强力——才能推动这个局面前进。清晰、温和、反复的沟通,胜过一次性的猛力推动。'},
+{num:58,han:'兌',pinyin:'Duì',en:'Open (The Joyous, Lake)',lower:'dui',upper:'dui',
+ judgment:'Genuine joy shared with others brings success.',
+ judgment_zh:'与他人真诚共享的欢愉,能带来成功。',
+ reading:'This favors open, pleasant exchange and shared enjoyment with others. Real success comes from sincere connection and joy — using pleasure to manipulate or flatter others will not hold up.',
+ reading_zh:'此刻有利于与他人开放、愉悦的交流与共享的喜悦。真正的成功来自真诚的连接与欢愉——用愉悦去操纵或讨好他人则难以持久。'},
+{num:59,han:'渙',pinyin:'Huàn',en:'Dispersing (Dissolution)',lower:'kan',upper:'xun',
+ judgment:'Stuck situations dissolve, like fog clearing or ice melting.',
+ judgment_zh:'僵局正在消散,如雾气渐散、冰雪渐融。',
+ reading:'Rigid blockages or divisions are breaking up. This is a good time to reconnect people or release stagnant tension — just guide the dispersal thoughtfully so things don’t scatter too far apart.',
+ reading_zh:'僵化的阻隔或分裂正在瓦解。此刻适合重新连接人与人之间的关系、释放停滞的紧张——但要用心引导这场消散,以免事情散得太开、难以收拢。'},
+{num:60,han:'節',pinyin:'Jié',en:'Articulating (Limitation)',lower:'dui',upper:'kan',
+ judgment:'Reasonable limits bring success; excessive restriction brings hardship.',
+ judgment_zh:'合理的节制能带来成功;过度的约束则带来困苦。',
+ reading:'Healthy boundaries — in spending, commitments, behavior — support this situation well. The key word is moderation: too little discipline causes problems, but so does making the limits too harsh.',
+ reading_zh:'健康的界限——在花费、承诺、行为上——对当前局面有益。关键词是"适度":纪律太少会带来问题,但限制太严苛同样如此。'},
+{num:61,han:'中孚',pinyin:'Zhōng Fú',en:'Center Returning (Inner Truth)',lower:'dui',upper:'xun',
+ judgment:'Deep sincerity resonates and moves others, even from a distance.',
+ judgment_zh:'深切的诚意能引起共鸣,感召他人,即便相隔遥远。',
+ reading:'Genuine, heartfelt trust and sincerity are what carry real influence here, like a mother bird’s call answered by her chick across a distance. Insincere words or gestures won’t have the same effect — mean what you say.',
+ reading_zh:'真诚、发自内心的信任,是此刻真正具有影响力的关键,如同母鸟的呼唤,即便隔着距离,幼鸟也能应声而应。虚情假意的言语或姿态起不到同样的效果——言出由衷,才有力量。'},
+{num:62,han:'小過',pinyin:'Xiǎo Guò',en:'Small Exceeding (Small Preponderance)',lower:'gen',upper:'zhen',
+ judgment:'Careful attention to small matters succeeds; grand gestures do not.',
+ judgment_zh:'谨慎处理小事能成功;大张旗鼓的举动则不宜。',
+ reading:'This isn’t the moment for bold, sweeping action. Modest, careful, detail-focused steps succeed where overreaching attempts fail — stay close to the ground for now.',
+ reading_zh:'此刻不是采取宏大、果断行动的时机。谨慎、细致、着眼小事的步骤会成功,而过度冒进的尝试则会失败——此刻宜脚踏实地,不宜好高骛远。'},
+{num:63,han:'既濟',pinyin:'Jì Jì',en:'Already Fording (After Completion)',lower:'li',upper:'kan',
+ judgment:'Success has been achieved, but vigilance is now essential.',
+ judgment_zh:'大功已成,但此刻正是需要保持警觉之时。',
+ reading:'Things have reached a point of order and completion — but this is exactly where carelessness creeps in. Stay attentive and don’t relax fully; what’s been achieved can still unravel if neglected.',
+ reading_zh:'事情已经达到有序、完成的阶段——但正是在这里,松懈最容易悄然滋生。应保持警醒,不要完全放松警惕;已取得的成果若被忽视,仍可能功亏一篑。'},
+{num:64,han:'未濟',pinyin:'Wèi Jì',en:'Not Yet Fording (Before Completion)',lower:'kan',upper:'li',
+ judgment:'Almost there, but not yet — care through the final steps still matters.',
+ judgment_zh:'接近完成,但尚未完成——最后的步骤仍需谨慎以对。',
+ reading:'Like a fox crossing a river and getting its tail wet just before reaching the far bank, the outcome is close but not yet secured. Continue carefully; the ending is still open and depends on how you finish.',
+ reading_zh:'如同狐狸渡河,快到岸边时尾巴却被打湿,结果已近在眼前,却尚未真正落定。应谨慎地走完最后一程;结局仍未确定,取决于你如何收尾。'},
+];
+
+/* ---------- Build a lookup table: 6-bit code (bottom→top) -> hexagram ---------- */
+const CODE_MAP = {};
+HEXAGRAMS.forEach(h => {
+  const code = TRIGRAM_BITS[h.lower].concat(TRIGRAM_BITS[h.upper]).join('');
+  h.code = code;
+  CODE_MAP[code] = h;
+});
+function hexGlyph(num){ return String.fromCodePoint(0x4DC0 + (num - 1)); }
+function findHexagram(bitsArr){ return CODE_MAP[bitsArr.join('')]; }
+
+/* ---------- Line position commentary (classical six-position theory) ---------- */
+const POSITION_INFO = [
+  null, // 1-indexed
+  {title:'Beginning', title_zh:'初始', note:'Just starting, hidden from view — quiet groundwork matters more than visible action.', note_zh:'刚刚开始,尚未显现于外——此时默默打好基础,比急于行动更重要。'},
+  {title:'Inner Ground', title_zh:'立身之地', note:'A settled position within your own sphere — a good place to build something solid and centered.', note_zh:'处于自己熟悉范围内的稳固位置——正适合扎实、稳健地打基础。'},
+  {title:'Transition', title_zh:'转折之际', note:'A precarious turning point between two phases — expect friction; test your footing before committing fully.', note_zh:'上下卦交接的微妙关头——难免摩擦,行动前先站稳脚步。'},
+  {title:'Threshold', title_zh:'临门之境', note:'Entering a larger arena, close to real influence — adaptability matters more than raw ambition here.', note_zh:'正跨入更大的格局,靠近真正的影响力——此时灵活应变比一味进取更重要。'},
+  {title:'Leading Position', title_zh:'当位之尊', note:'The most influential, central place in the situation — a time for clear, responsible leadership.', note_zh:'局势中最具影响力、最居中的位置——正是发挥清晰、负责任领导力的时候。'},
+  {title:'Culmination', title_zh:'极处', note:'The far edge of the situation — either fulfillment or overreach. Know when enough is enough.', note_zh:'局势的边缘——或是圆满,或是过度。要懂得适可而止。'},
+];
+
+/* ---------- Divination logic ---------- */
+function tossCoin(){ return Math.random() < 0.5 ? 2 : 3; }
+function castLineValues(){
+  const coins = [tossCoin(), tossCoin(), tossCoin()];
+  const sum = coins[0] + coins[1] + coins[2];
+  return { coins, sum };
+}
+function lineTypeFromSum(sum){
+  // 6 = old yin (moving, yin->yang) | 7 = young yang (stable) | 8 = young yin (stable) | 9 = old yang (moving, yang->yin)
+  if (sum === 6) return { primaryBit: 0, moving: true };
+  if (sum === 7) return { primaryBit: 1, moving: false };
+  if (sum === 8) return { primaryBit: 0, moving: false };
+  return { primaryBit: 1, moving: true }; // sum === 9
+}
+
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+/* ---------- DOM refs ---------- */
+const questionInput = document.getElementById('questionInput');
+const castBtn = document.getElementById('castBtn');
+const questionPanel = document.getElementById('questionPanel');
+const castingPanel = document.getElementById('castingPanel');
+const castingQuestionEcho = document.getElementById('castingQuestionEcho');
+const hexbuild = document.getElementById('hexbuild');
+const resultPanel = document.getElementById('resultPanel');
+const againRow = document.getElementById('againRow');
+const againBtn = document.getElementById('againBtn');
+
+function renderLineRow(sum, primaryBit, moving){
+  const row = document.createElement('div');
+  row.className = 'line-row';
+
+  const coinsWrap = document.createElement('div');
+  coinsWrap.className = 'coins';
+
+  const bar = document.createElement('div');
+  bar.className = 'line-bar ' + (primaryBit ? 'yang' : 'yin') + (moving ? ' moving' : '');
+  if (primaryBit) {
+    const b = document.createElement('div');
+    b.className = 'bar';
+    bar.appendChild(b);
+  } else {
+    const b1 = document.createElement('div');
+    b1.className = 'bar b1';
+    const b2 = document.createElement('div');
+    b2.className = 'bar b2';
+    bar.appendChild(b1);
+    bar.appendChild(b2);
+  }
+
+  const meta = document.createElement('div');
+  meta.className = 'line-meta';
+  meta.innerHTML = '<span class="sum">' + sum + '</span>' + (moving ? ' · 变 changing' : '');
+
+  row.appendChild(coinsWrap);
+  row.appendChild(bar);
+  row.appendChild(meta);
+  return { row, coinsWrap };
+}
+
+async function animateCoins(coinsWrap, coins){
+  for (const c of coins) {
+    const chip = document.createElement('div');
+    chip.className = 'coin';
+    chip.textContent = c;
+    coinsWrap.appendChild(chip);
+    await sleep(140);
+  }
+}
+
+function trigramLabel(key){
+  const t = TRIGRAM_INFO[key];
+  return t.symbol + ' ' + t.han + ' (' + t.el + ')';
+}
+
+function renderHexCard(container, h, kicker){
+  const wrap = document.createElement('div');
+  if (kicker) {
+    const k = document.createElement('div');
+    k.className = 'section-label';
+    k.style.textAlign = 'center';
+    k.textContent = kicker;
+    wrap.appendChild(k);
+  }
+  const num = document.createElement('div');
+  num.className = 'num-badge';
+  num.textContent = 'No. ' + h.num;
+  wrap.appendChild(num);
+
+  const glyph = document.createElement('span');
+  glyph.className = 'glyph';
+  glyph.textContent = hexGlyph(h.num);
+  wrap.appendChild(glyph);
+
+  const h2 = document.createElement('h2');
+  h2.textContent = h.han;
+  wrap.appendChild(h2);
+
+  const py = document.createElement('div');
+  py.className = 'pinyin';
+  py.textContent = h.pinyin;
+  wrap.appendChild(py);
+
+  const en = document.createElement('div');
+  en.className = 'en-title';
+  en.textContent = h.en + '  ·  ' + trigramLabel(h.upper) + ' over ' + trigramLabel(h.lower);
+  wrap.appendChild(en);
+
+  const jLabel = document.createElement('div');
+  jLabel.className = 'section-label';
+  jLabel.textContent = '卦辭 Judgment';
+  wrap.appendChild(jLabel);
+
+  const jZh = document.createElement('p');
+  jZh.className = 'judgment';
+  jZh.textContent = h.judgment_zh;
+  wrap.appendChild(jZh);
+
+  const j = document.createElement('p');
+  j.className = 'judgment';
+  j.style.fontSize = '14px';
+  j.style.color = 'var(--ink-soft)';
+  j.textContent = h.judgment;
+  wrap.appendChild(j);
+
+  const rLabel = document.createElement('div');
+  rLabel.className = 'section-label';
+  rLabel.textContent = '解讀 Interpretation';
+  wrap.appendChild(rLabel);
+
+  const rZh = document.createElement('p');
+  rZh.className = 'reading';
+  rZh.textContent = h.reading_zh;
+  wrap.appendChild(rZh);
+
+  const r = document.createElement('p');
+  r.className = 'reading';
+  r.style.fontSize = '14px';
+  r.style.color = 'var(--ink-soft)';
+  r.style.marginTop = '8px';
+  r.textContent = h.reading;
+  wrap.appendChild(r);
+
+  container.appendChild(wrap);
+}
+
+async function runCast(){
+  const question = questionInput.value.trim();
+  castBtn.disabled = true;
+  questionPanel.style.display = 'none';
+  castingPanel.style.display = 'block';
+  resultPanel.style.display = 'none';
+  againRow.style.display = 'none';
+  hexbuild.innerHTML = '';
+  castingQuestionEcho.textContent = question ? ('关于你的问题 / For your question: “' + question + '”') : '正在为你起卦…… Casting your hexagram…';
+
+  const primaryBits = [];
+  const movingFlags = [];
+
+  for (let i = 0; i < 6; i++) {
+    const { coins, sum } = castLineValues();
+    const { primaryBit, moving } = lineTypeFromSum(sum);
+    primaryBits.push(primaryBit);
+    movingFlags.push(moving);
+
+    const { row, coinsWrap } = renderLineRow(sum, primaryBit, moving);
+    hexbuild.appendChild(row);
+    await animateCoins(coinsWrap, coins);
+    await sleep(280);
+  }
+
+  const primaryHex = findHexagram(primaryBits);
+  const hasMoving = movingFlags.some(Boolean);
+  let resultingHex = null;
+  if (hasMoving) {
+    const resultingBits = primaryBits.map((bit, i) => movingFlags[i] ? (1 - bit) : bit);
+    resultingHex = findHexagram(resultingBits);
+  }
+
+  await sleep(300);
+  renderResult(question, primaryHex, movingFlags, resultingHex);
+}
+
+function renderResult(question, primaryHex, movingFlags, resultingHex){
+  resultPanel.innerHTML = '';
+  resultPanel.style.display = 'block';
+  againRow.style.display = 'flex';
+
+  if (question) {
+    const q = document.createElement('div');
+    q.className = 'question-echo';
+    q.style.textAlign = 'center';
+    q.textContent = '“' + question + '”';
+    resultPanel.appendChild(q);
+  }
+
+  renderHexCard(resultPanel, primaryHex, '本卦 Primary Hexagram');
+
+  const hasMoving = movingFlags.some(Boolean);
+  if (hasMoving) {
+    const cl = document.createElement('div');
+    cl.className = 'changing-lines';
+
+    const label = document.createElement('div');
+    label.className = 'section-label';
+    label.textContent = '變爻 Changing Lines';
+    cl.appendChild(label);
+
+    movingFlags.forEach((moving, idx) => {
+      if (!moving) return;
+      const pos = idx + 1;
+      const primaryBitAtPos = primaryHex.code[idx];
+      const direction = primaryBitAtPos === '1' ? 'yang → yin (strength easing back)' : 'yin → yang (new strength emerging)';
+      const direction_zh = primaryBitAtPos === '1' ? '阳变阴(刚强渐趋柔和)' : '阴变阳(新的力量正在萌发)';
+      const info = POSITION_INFO[pos];
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML =
+        '<b>第' + pos + '爻(' + info.title_zh + ')</b> — ' + direction_zh + '。' + info.note_zh +
+        '<br><span style="color:var(--ink-soft);font-size:13px;">Line ' + pos + ' (' + info.title + ') — ' + direction + '. ' + info.note + '</span>';
+      cl.appendChild(item);
+    });
+
+    resultPanel.appendChild(cl);
+
+    const arrow = document.createElement('div');
+    arrow.className = 'arrow-divider';
+    arrow.textContent = '↓ 之卦 becomes ↓';
+    resultPanel.appendChild(arrow);
+
+    renderHexCard(resultPanel, resultingHex, '之卦 Resulting Hexagram');
+  }
+}
+
+castBtn.addEventListener('click', runCast);
+againBtn.addEventListener('click', () => {
+  questionPanel.style.display = 'block';
+  castingPanel.style.display = 'none';
+  resultPanel.style.display = 'none';
+  againRow.style.display = 'none';
+  castBtn.disabled = false;
+  questionInput.value = '';
+  questionInput.focus();
+});
+</script>
+</body>
+</html>
