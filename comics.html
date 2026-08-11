@@ -1,0 +1,135 @@
+---
+permalink: /comics/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comics — Wendy Ran Wei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #FFF0F3;
+        --text: #1A1A2E;
+        --text-soft: #5A5A6E;
+        --accent: #E8614D;
+        --accent-dark: #D4522A;
+        --accent-pink: #EC4899;
+        --accent-gold: #F59E0B;
+        --gradient: linear-gradient(135deg, #EC4899, #F59E0B);
+        --gradient-soft: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(245,158,11,0.12));
+        --card: #FFFFFF;
+        --border: #F5C6D0;
+        --serif: 'Instrument Serif', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        font-family: var(--sans);
+        background: var(--bg);
+        background-image: radial-gradient(ellipse at 20% 0%, rgba(236,72,153,0.06) 0%, transparent 50%),
+                          radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.06) 0%, transparent 50%);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 1.05rem;
+        -webkit-font-smoothing: antialiased;
+    }
+    nav {
+        position: fixed; top: 0; width: 100%; z-index: 100;
+        background: rgba(255, 240, 243, 0.88);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+    }
+    nav .nav-inner {
+        max-width: 1120px; margin: 0 auto; padding: 0 2rem; height: 60px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo {
+        font-family: var(--serif); font-size: 1.25rem;
+        background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        text-decoration: none; letter-spacing: -0.02em;
+    }
+    nav .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    nav .nav-links a { text-decoration: none; color: var(--text-soft); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em; }
+    nav .nav-links a:hover, nav .nav-links a.active { color: var(--accent); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; }
+    main { max-width: 1000px; margin: 0 auto; padding: 130px 2rem 60px; }
+    .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; margin-bottom: 0.6rem; }
+    h1.page-title { font-family: var(--serif); font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .intro { color: var(--text-soft); max-width: 700px; margin-bottom: 2.5rem; }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-dark); }
+
+    .comic-grid { display: grid; gap: 2rem; }
+    .comic-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+        padding: 1.25rem; box-shadow: 0 8px 30px rgba(236,72,153,0.08);
+    }
+    .comic-card img { width: 100%; border-radius: 10px; display: block; }
+    .comic-caption { margin-top: 1rem; font-size: 0.9rem; color: var(--text-soft); text-align: center; }
+    .coming-soon { text-align: center; font-size: 0.9rem; color: var(--text-soft); opacity: 0.7; margin-top: 2rem; }
+
+    footer { max-width: 1120px; margin: 3rem auto 0; padding: 3rem 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    footer p { font-size: 0.95rem; color: var(--text-soft); }
+    footer .footer-links { display: flex; gap: 1.5rem; }
+    footer .footer-links a { color: var(--text-soft); text-decoration: none; font-size: 0.95rem; }
+    footer .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+        main { padding: 110px 1.25rem 40px; }
+        h1.page-title { font-size: 1.9rem; }
+        nav .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+        nav .nav-links.open { display: flex; }
+        .hamburger { display: block; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">Wendy Ran Wei</a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/about/">About Me</a></li>
+            <li><a href="/#publications">Books</a></li>
+            <li><a href="/#education">Education &amp; Experience</a></li>
+            <li><a href="/#patents">Patents &amp; Open Source</a></li>
+            <li><a href="/#hobbies">Hobbies &amp; Side Projects</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-eyebrow">Playground</div>
+    <h1 class="page-title">Comics</h1>
+    <p class="intro">A little illustrated corner of the site — comics about life as an ML engineer, author, cat mom, and plant lover.</p>
+
+    <div class="comic-grid">
+        <div class="comic-card">
+            <img src="/about-story.jpg" alt="A visual story of Wendy's life — AI engineer, author, cat mom, plant lover, and adventurer" />
+            <div class="comic-caption">A day-in-the-life look at building AI at Airbnb, writing books, and everything in between.</div>
+        </div>
+    </div>
+
+    <p class="coming-soon">More comics coming soon.</p>
+</main>
+
+<footer>
+    <p>&copy; 2026 <a href="/" style="color: var(--text-soft); text-decoration: none;">Wendy Ran Wei</a></p>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/wendyranwei" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/wendyran" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/wendyranwei" target="_blank" rel="noopener">Twitter/X</a>
+    </div>
+</footer>
+
+</body>
+</html>
