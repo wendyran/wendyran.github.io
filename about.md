@@ -14,6 +14,8 @@ Alongside the day job, I write. I'm the author of *[Advanced Retrieval-Augmented
 
 If any of that overlaps with what you're working on, I'd love to hear from you — find me on [LinkedIn](https://www.linkedin.com/in/wendyranwei), [GitHub](https://github.com/wendyran), or [Twitter/X](https://twitter.com/wendyranwei).
 
+![A visual story of Wendy's life — AI engineer, author, cat mom, plant lover, and adventurer](/about-story.jpg)
+
 ## Blogs
 
 I keep a small corner of the site for writing and side projects — tech notes from talks and workshops I attend, plus tools I've built for fun, like a conference-deadline tracker, an I Ching hexagram-casting app, and a French vocabulary trainer.
