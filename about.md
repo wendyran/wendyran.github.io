@@ -3,6 +3,7 @@ layout: page
 title: About Me
 permalink: /about/
 ---
+![A visual story of Wendy's life — AI engineer, author, cat mom, plant lover, and adventurer](/about-story.jpg)
 
 My name is Wendy (Ran) Wei. I'm an ML Engineer specializing in search, recommendation, and personalization systems — currently building ranking, relevance, and GenAI-powered search at Airbnb.
 
@@ -14,7 +15,6 @@ Alongside the day job, I write. I'm the author of *[Advanced Retrieval-Augmented
 
 If any of that overlaps with what you're working on, I'd love to hear from you — find me on [LinkedIn](https://www.linkedin.com/in/wendyranwei), [GitHub](https://github.com/wendyran), or [Twitter/X](https://twitter.com/wendyranwei).
 
-![A visual story of Wendy's life — AI engineer, author, cat mom, plant lover, and adventurer](/about-story.jpg)
 
 ## Blogs
 
